@@ -12,7 +12,7 @@ COMMENT=	Setup pfSense pkg(8) repositories
 
 LICENSE=	APACHE20
 
-RUN_DEPENDS=	${LOCALBASE}/sbin/pfSense-upgrade:sysutils/i9x-upgrade
+RUN_DEPENDS=	${LOCALBASE}/sbin/pfSense-upgrade:sysutils/pfSense-upgrade
 
 NO_MTREE=	yes
 
