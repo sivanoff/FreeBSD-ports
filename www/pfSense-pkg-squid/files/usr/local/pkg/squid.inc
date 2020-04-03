@@ -75,12 +75,28 @@ function sq_text_area_decode($text) {
 }
 
 /* Get interface IP and netmask for Squid interfaces */
-function squid_get_real_interface_address($iface) {
+function squid_get_real_interface_address($iface, $proto = 'inet') {
 	if (!function_exists("get_interface_ip")) {
 		require_once("interfaces.inc");
 	}
 
-	return array(get_interface_ip($iface), gen_subnet_mask(get_interface_subnet($iface)));
+	$inf = array();
+	switch ($proto) {
+		case 'inet':
+			$inf[] = array(get_interface_ip($iface), gen_subnet_mask(get_interface_subnet($iface)));
+			break;
+		case 'inet6':
+			$inf[] = array(get_interface_ipv6($iface), get_interface_subnetv6($iface));
+			break;
+		case 'any':
+			$inf[] = array(get_interface_ip($iface), gen_subnet_mask(get_interface_subnet($iface)));
+			$inf[] = array(get_interface_ipv6($iface), get_interface_subnetv6($iface));
+			break;
+		default:
+			break;
+	}
+
+	return $inf;
 }
 
 /* Check whether ACL is valid */
@@ -788,6 +804,9 @@ function squid_validate_general($post, &$input_errors) {
 	unset($port, $webgui_port);
 
 	if ($post['transparent_proxy'] == 'on') {
+		if ($post['listenproto'] == 'inet6') {
+			$input_errors[] = "Transparent Proxy does not support IPv6.";
+		}
 		if (empty($post['transparent_active_interface'])) {
 			$input_errors[] = "You must select at least one interface under 'Transparent Proxy Interface(s)' when 'Transparent HTTP Proxy' is enabled.";
 		} else {
@@ -1231,12 +1250,20 @@ function squid_resync_general() {
 		$proxy_ifaces = array();
 	}
 
+	if (empty($settings['listenproto'])) {
+		$listenproto = 'inet';
+	} else {
+		$listenproto = $settings['listenproto'];
+	}
+
 	if ($settings['transparent_proxy'] == "on") {
 		$transparent_ifaces = explode(",", $settings['transparent_active_interface']);
 		foreach ($transparent_ifaces as $t_iface) {
-			$t_iface_ip = squid_get_real_interface_address($t_iface);
-			if ($t_iface_ip[0]) {
-				$real_ifaces[] = $t_iface_ip;
+			$t_ifaces_ips = squid_get_real_interface_address($t_iface, $listenproto);
+			foreach ($t_ifaces_ips as $t_iface_ip) {
+				if ($t_iface_ip[0]) {
+					$real_ifaces[] = $t_iface_ip;
+				}
 			}
 		}
 	} else {
@@ -1246,9 +1273,11 @@ function squid_resync_general() {
 	if ($settings['ssl_proxy'] == "on") {
 		$ssl_ifaces = explode(",", $settings['ssl_active_interface']);
 		foreach ($ssl_ifaces as $s_iface) {
-			$s_iface_ip = squid_get_real_interface_address($s_iface);
-			if ($s_iface_ip[0]) {
-				$real_ifaces[] = $s_iface_ip;
+			$s_ifaces_ips = squid_get_real_interface_address($s_iface, $listenproto);
+			foreach ($s_ifaces_ips as $s_iface_ip) {
+				if ($s_iface_ip[0]) {
+					$real_ifaces[] = $s_iface_ip;
+				}
 			}
 		}
 	} else {
@@ -1257,23 +1286,31 @@ function squid_resync_general() {
 
 	// check all proxy interfaces selected
 	foreach ($proxy_ifaces as $iface) {
-		$iface_ip = squid_get_real_interface_address($iface);
-		if ($iface_ip[0]) {
-			// do not add loopback twice when transparent proxy is enabled
-			if ($iface_ip[0] == "127.0.0.1" && $settings['transparent_proxy'] == "on") {
-				continue;
-			} else {
-				$real_ifaces[] = $iface_ip;
-				if (in_array($iface, $ssl_ifaces)) {
-					$conf .= "http_port {$iface_ip[0]}:{$port} {$ssl_interception}\n";
+		$ifaces_ips = squid_get_real_interface_address($iface, $listenproto);
+		foreach ($ifaces_ips as $iface_ip) {
+			if ($iface_ip[0]) {
+				// do not add loopback twice when transparent proxy is enabled
+				if ((($iface_ip[0] == "127.0.0.1") || ($iface_ip[0] == "::1")) && 
+				    $settings['transparent_proxy'] == "on") {
+					continue;
 				} else {
-					$conf .= "http_port {$iface_ip[0]}:{$port}\n";
+					$real_ifaces[] = $iface_ip;
+					if (is_ipaddrv4($iface_ip[0])) {
+						$listenip = "{$iface_ip[0]}";
+					} else {
+						$listenip = "[{$iface_ip[0]}]";
+					}
+					if (in_array($iface, $ssl_ifaces)) {
+						$conf .= "http_port {$listenip}:{$port} {$ssl_interception}\n";
+					} else {
+						$conf .= "http_port {$listenip}:{$port}\n";
+					}
 				}
 			}
 		}
 	}
 
-	if (($settings['transparent_proxy'] == 'on')) {
+	if (($settings['transparent_proxy'] == 'on') && ($listenproto != 'inet6')) {
 		if ($settings['ssl_proxy'] == "on" && count($ssl_ifaces) > 0) {
 			$conf .= "http_port 127.0.0.1:{$port} intercept {$ssl_interception}\n";
 			$conf .= "https_port 127.0.0.1:{$ssl_port} intercept {$ssl_interception}\n";
@@ -1643,6 +1680,10 @@ EOD;
 		if (!empty($contents)) {
 			file_put_contents(SQUID_ACLDIR . "/$option.acl", $contents);
 			$conf .= "acl $option $directive \"" . SQUID_ACLDIR . "/$option.acl\"\n";
+			if (($squidsettings['sslproxy_mitm_mode'] == "splicewhitelist") &&
+		            ($option == 'whitelist')) {
+				$conf .= "acl sslwhitelist ssl::server_name_regex -i \"" . SQUID_ACLDIR . "/$option.acl\"\n";
+			}
 			$valid_acls[] = $option;
 		} elseif (file_exists(SQUID_ACLDIR . "/$option.acl")) {
 			unlink(SQUID_ACLDIR . "/$option.acl");
@@ -1906,7 +1947,7 @@ function squid_resync_auth() {
 				// 'Splice Whitelist, Bump Otherwise' SSL/MIMT configuration (Default)
 				$conf .= "ssl_bump peek step1\n";
 				if (!empty($settingsnac['whitelist'])) {
-					$conf .= "ssl_bump splice whitelist\n";
+					$conf .= "ssl_bump splice sslwhitelist\n";
 				}
 				$conf .= "ssl_bump bump all\n";
 			}
@@ -1950,10 +1991,11 @@ function squid_resync_auth() {
 				} else if ($settings['ldap_urltype'] == 'starttls') {
 					$usetls = '-Z';
 				} 
-				$password = (isset($settings['ldap_pass']) ? "-w {$settings['ldap_pass']}" : '');
+				$password = (isset($settings['ldap_pass']) ? "-w " . escapeshellarg($settings['ldap_pass']) : '');
+				$noreferrals = ($settings['ldap_noreferrals'] == 'on' ? "-R" : '');
 				$conf .= "auth_param basic program " . SQUID_LOCALBASE
 					. "/libexec/squid/basic_ldap_auth -v {$settings['ldap_version']} -b " . escapeshellarg($settings['ldap_basedomain'])
-					. " -D " . escapeshellarg($settings['ldap_user']) . " " . escapeshellarg($password)
+					. " " . $noreferrals . " -D " . escapeshellarg($settings['ldap_user']) . " " . $password
 					. " -f " . escapeshellarg($settings['ldap_filter']) . " -u " . escapeshellarg($settings['ldap_userattribute'])
 					. " -P " . escapeshellarg($settings['auth_server'] . $port) . "\n";
 				break;
@@ -1991,7 +2033,7 @@ EOD;
 				// 'Splice Whitelist, Bump Otherwise' SSL/MIMT configuration (Default)
 				$conf .= "ssl_bump peek step1\n";
 				if (!empty($settingsnac['whitelist'])) {
-					$conf .= "ssl_bump splice whitelist\n";
+					$conf .= "ssl_bump splice sslwhitelist\n";
 				}
 				$conf .= "ssl_bump bump all\n";
 			}

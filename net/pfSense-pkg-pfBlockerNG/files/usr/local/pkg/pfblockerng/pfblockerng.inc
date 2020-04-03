@@ -1870,7 +1870,7 @@ function pfb_download($list_url, $file_dwn, $pflex=FALSE, $header, $format, $log
 		unset($retval);
 
 		// Decompress file if required
-		if ($file_type == 'application/x-gzip') {
+		if ($file_type == 'application/x-gzip' || $file_type == 'application/gzip') {
 			if ($logtype == 3) {
 				// Extras - MaxMind downloads
 				@rename("{$file_dwn}.raw", strstr("{$file_dwn}.raw", '.raw', TRUE));
@@ -3956,7 +3956,7 @@ function sync_package_pfblockerng($cron='') {
 		if (isset($config['installedpackages']['pfblockerng' . strtolower(str_replace(' ', '', $continent))]['config'])) {
 			$continent_config = $config['installedpackages']['pfblockerng' . strtolower(str_replace(' ', '', $continent))]['config'][0];
 			$cc_name = 'pfblockerng' . strtolower(str_replace(' ', '', $continent));
-			if ($continent_config['action'] != 'Disabled' && $pfb['enable'] == 'on') {
+			if (isset($continent_config['action']) && $continent_config['action'] != 'Disabled' && $pfb['enable'] == 'on') {
 
 				// Maxmind License Key verification and user notification
 				if ($maxmind_run_once && !$maxmind_verify) {
