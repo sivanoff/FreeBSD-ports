@@ -1,6 +1,6 @@
 # $FreeBSD$
 
-PORTNAME=	pfSense-pkg-pimd
+PORTNAME=	i9x-pkg-pimd
 PORTVERSION=	0.0.2
 CATEGORIES=	net
 MASTER_SITES=	# empty
