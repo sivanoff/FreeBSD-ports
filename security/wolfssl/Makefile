@@ -1,11 +1,11 @@
 # $FreeBSD$
 
 PORTNAME=	wolfssl
-PORTVERSION=	4.3.0
+PORTVERSION=	4.2.0
 CATEGORIES=	security devel
 MASTER_SITES=	https://www.wolfssl.com/
 
-MAINTAINER=	fox@FreeBSD.org
+MAINTAINER=	ports@FreeBSD.org
 COMMENT=	Embedded SSL C-Library
 
 LICENSE=	GPLv2+
@@ -19,25 +19,14 @@ USE_LDCONFIG=	yes
 
 GNU_CONFIGURE=	yes
 CONFIGURE_ARGS=	--disable-dependency-tracking \
-		--enable-dh \
-		--enable-dsa \
-		--enable-dtls \
-		--enable-ecc \
-		--enable-ipv6 \
-		--enable-keygen \
-		--enable-opensslextra \
-		--enable-ripemd \
-		--enable-sha512 \
-		--enable-shared \
-		--enable-sni \
-		--enable-ssh \
-		--enable-static \
-		--enable-tls13 \
-		--enable-tls13-draft18 \
-		--enable-tls13-draft22 \
-		--enable-tls13-draft23 \
-		--enable-tls13-draft26 \
-		--enable-tls13-draft28
+		--enable-shared --enable-static \
+		--enable-dtls --enable-opensslextra --enable-ipv6 \
+		--enable-dsa --enable-dh --enable-ecc --enable-sni \
+		--enable-ripemd --enable-sha512 --enable-opensslcoexist\
+		--enable-tls13 --enable-tls13-draft18\
+		--enable-tls13-draft22 --enable-tls13-draft23\
+		--enable-tls13-draft26 --enable-tls13-draft28\
+		--enable-ssh --enable-keygen
 TEST_TARGET=	check
 PORTDOCS=	*
 OPTIONS_DEFINE=	DOCS

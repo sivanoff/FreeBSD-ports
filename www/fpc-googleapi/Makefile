@@ -1,6 +1,6 @@
 # $FreeBSD$
 
-PORTREVISION=	6
+PORTREVISION=	5
 CATEGORIES=	www lang
 PKGNAMESUFFIX=	-googleapi
 

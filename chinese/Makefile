@@ -12,6 +12,7 @@
     SUBDIR += auto-cn-l10n
     SUBDIR += auto-tw-l10n
     SUBDIR += autoconvert
+    SUBDIR += bg5pdf
     SUBDIR += big5width
     SUBDIR += bitchx
     SUBDIR += brise
@@ -45,6 +46,7 @@
     SUBDIR += gcin
     SUBDIR += gcin-gtk3
     SUBDIR += gcin-qt5
+    SUBDIR += gimp-help-zh_CN
     SUBDIR += gydict
     SUBDIR += hc
     SUBDIR += ibus-array

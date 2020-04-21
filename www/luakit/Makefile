@@ -6,7 +6,7 @@ PORTVERSION=	2.1
 PORTEPOCH=	1
 CATEGORIES=	www
 
-MAINTAINER=	mbeis@xs4all.nl
+MAINTAINER=	ports@FreeBSD.org
 COMMENT=	Fast, small, webkit2 based browser framework extensible with Lua
 
 LICENSE=	GPLv3

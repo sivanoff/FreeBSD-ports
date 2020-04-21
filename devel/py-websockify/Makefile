@@ -2,21 +2,19 @@
 # $FreeBSD$
 
 PORTNAME=	websockify
-PORTVERSION=	0.9.0
+PORTVERSION=	0.8.0
 CATEGORIES=	devel python
 MASTER_SITES=	CHEESESHOP
 PKGNAMEPREFIX=	${PYTHON_PKGNAMEPREFIX}
 
-MAINTAINER=	sunpoet@FreeBSD.org
-COMMENT=	WebSockets support for any application/server
+MAINTAINER=	ports@FreeBSD.org
+COMMENT=	WebSocket to TCP proxy/bridge
 
 LICENSE=	LGPL3
 
-RUN_DEPENDS=	${PYNUMPY}
+NO_ARCH=	yes
 
 USES=		python
-USE_PYTHON=	autoplist concurrent distutils
-
-NO_ARCH=	yes
+USE_PYTHON=	autoplist distutils
 
 .include <bsd.port.mk>

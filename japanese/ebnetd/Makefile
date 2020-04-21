@@ -3,7 +3,7 @@
 
 PORTNAME=	ebnetd
 PORTVERSION=	1.0
-PORTREVISION=	12
+PORTREVISION=	11
 CATEGORIES=	japanese
 MASTER_SITES=	ftp://ftp.sra.co.jp/pub/misc/eb/
 
@@ -14,8 +14,6 @@ LICENSE=	GPLv2+
 LICENSE_FILE=	${WRKSRC}/COPYING
 
 LIB_DEPENDS=	libeb.so:japanese/eb
-
-USES=		iconv:patch
 
 GNU_CONFIGURE=	yes
 CONFIGURE_ARGS=	--localstatedir=${RUNDIR} --with-logdir=${LOGDIR}
@@ -39,8 +37,6 @@ PLIST_SUB=	EBNETD_RUNDIR=${RUNDIR}/${PORTNAME} \
 INFO=		ebnetd ebnetd-ja
 
 post-patch:
-	${MV} ${WRKSRC}/doc-ja/ebnetd-ja.texi ${WRKSRC}/doc-ja/ebnetd-ja.texi.orig
-	${ICONV_CMD} -f EUC-JP -t UTF-8 ${WRKSRC}/doc-ja/ebnetd-ja.texi.orig > ${WRKSRC}/doc-ja/ebnetd-ja.texi
 	${REINPLACE_CMD} -e "s/%%EBNETD_USER%%/${EBNETD_USER}/" \
 		-e "s/%%EBNETD_GROUP%%/${EBNETD_GROUP}/" \
 		${WRKSRC}/ebnetd.conf.sample.in

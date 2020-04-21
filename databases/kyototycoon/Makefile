@@ -3,7 +3,7 @@
 
 PORTNAME=	kyototycoon
 PORTVERSION=	0.9.56
-PORTREVISION=	6
+PORTREVISION=	5
 CATEGORIES=	databases
 MASTER_SITES=	https://fallabs.com/${PORTNAME}/pkg/ \
 		LOCAL/sunpoet

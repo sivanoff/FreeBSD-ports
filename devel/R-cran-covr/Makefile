@@ -6,7 +6,7 @@ PORTREVISION=	2
 CATEGORIES=	devel
 DISTNAME=	${PORTNAME}_${DISTVERSION}
 
-MAINTAINER=	ports@FreeBSD.org
+MAINTAINER=	dbn@FreeBSD.org
 COMMENT=	Test Coverage for Packages
 
 LICENSE=	GPLv3

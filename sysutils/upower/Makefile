@@ -2,7 +2,8 @@
 # $FreeBSD$
 
 PORTNAME=	upower
-PORTVERSION=	0.99.11
+PORTVERSION=	0.99.7
+PORTREVISION=	2
 CATEGORIES=	sysutils
 MASTER_SITES=	http://upower.freedesktop.org/releases/
 
@@ -17,7 +18,7 @@ LIB_DEPENDS=	libpolkit-gobject-1.so:sysutils/polkit \
 
 USES=		compiler:c11 gettext gmake gnome libtool localbase \
 		pathfix pkgconfig tar:xz
-USE_GNOME=	glib20 introspection:build
+USE_GNOME=	intlhack glib20 introspection:build
 GNU_CONFIGURE=	yes
 USE_LDCONFIG=	yes
 CONFIGURE_ARGS=	--disable-gtk-doc \

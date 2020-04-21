@@ -1,6 +1,6 @@
---- ipc/ipc_channel_common.cc.orig	2020-02-03 21:52:47 UTC
+--- ipc/ipc_channel_common.cc.orig	2019-06-04 18:55:25 UTC
 +++ ipc/ipc_channel_common.cc
-@@ -10,7 +10,7 @@
+@@ -9,7 +9,7 @@
  
  namespace IPC {
  
@@ -9,7 +9,7 @@
  
  namespace {
  int g_global_pid = 0;
-@@ -26,7 +26,7 @@ int Channel::GetGlobalPid() {
+@@ -25,7 +25,7 @@ int Channel::GetGlobalPid() {
    return g_global_pid;
  }
  

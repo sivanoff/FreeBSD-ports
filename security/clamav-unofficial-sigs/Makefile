@@ -2,10 +2,10 @@
 # $FreeBSD$
 
 PORTNAME=	clamav-unofficial-sigs
-PORTVERSION=	7.0.1
+PORTVERSION=	6.1.1
 CATEGORIES=	security
 
-MAINTAINER=	freebsd@mnd.sc
+MAINTAINER=	ports@FreeBSD.org
 COMMENT=	Update script for third-party ClamAV databases
 
 LICENSE=	BSD3CLAUSE

@@ -4,7 +4,7 @@ PORTNAME=	xlennart
 PORTVERSION=	1.1.1
 CATEGORIES=	games
 
-MAINTAINER=	ports@FreeBSD.org
+MAINTAINER=	neel@neelc.org
 COMMENT=	XBill Modification
 
 LICENSE=	GPLv2

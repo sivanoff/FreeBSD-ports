@@ -1,7 +1,8 @@
 # $FreeBSD$
 
 PORTNAME=	gcompris-qt
-DISTVERSION=	0.97
+DISTVERSION=	0.96
+PORTREVISION=	1
 CATEGORIES=	games kde
 MASTER_SITES=	http://gcompris.net/download/qt/src/
 

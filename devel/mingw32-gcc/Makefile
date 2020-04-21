@@ -9,7 +9,7 @@ CATEGORIES=	devel
 MASTER_SITES=	GCC
 PKGNAMEPREFIX=	mingw32-
 
-MAINTAINER=	ports@FreeBSD.org
+MAINTAINER=	cyberbotx@cyberbotx.com
 COMMENT=	FSF gcc-4 for Windows cross-development
 
 LICENSE=	GPLv3 GPLv3RLE

@@ -14,7 +14,7 @@ LICENSE_FILE=	${WRKSRC}/COPYING
 BUILD_DEPENDS=	lv2>0:audio/lv2 \
 		${LOCALBASE}/include/gtkmm-2.4/gtkmm.h:x11-toolkits/gtkmm24
 
-USES=		pkgconfig python:2.7,build waf
+USES=		waf pkgconfig
 USE_GITHUB=	yes
 GH_TAGNAME=	7c0ffdf
 

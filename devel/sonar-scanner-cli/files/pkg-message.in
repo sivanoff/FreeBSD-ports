@@ -1,12 +1,12 @@
 [
-{
-  message: <<EOT
-The SonarQube scanner component is now installed as
-    %%PREFIX%%/bin/sonar-scanner
+{ type: install
+  message: <<EOM
+  Before start the SonarQube Scanner (default settings):
+  - create a new SONAR_RUNNER_HOME environment variable set to
+    "/usr/local/sonar-scanner-cli"
 
-Before the first start (but not if you update), you have to configure which
-SonarQube server to use in
-    %%PREFIX%%/%%APP_DIR%%/conf/sonar-scanner.properties
-EOT
+  More information:
+  http://docs.sonarqube.org/display/SCAN/Analyzing+with+SonarQube+Scanner
+EOM
 }
 ]

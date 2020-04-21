@@ -9,7 +9,7 @@ MASTER_SITES=	http://www.notmart.org/files/ \
 		http://pinguin.stttelkom.ac.id/gentoo/distfiles/
 DISTNAME=	Crystalcursors
 
-MAINTAINER=	ports@FreeBSD.org
+MAINTAINER=	dbn@FreeBSD.org
 COMMENT=	KDE Crystal style X cursor theme
 
 LICENSE=	LGPL21

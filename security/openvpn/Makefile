@@ -3,9 +3,7 @@
 
 PORTNAME=		openvpn
 DISTVERSION=		2.4.8
-# FIXME XXX check if 2.4.9 still needs ASYNC_PUSH_LIBS, see
-# https://bugs.freebsd.org/bugzilla/show_bug.cgi?id=244286#c6 and #c7
-PORTREVISION?=		3
+PORTREVISION?=		0
 CATEGORIES=		security net net-vpn
 MASTER_SITES=		https://swupdate.openvpn.org/community/releases/ \
 			https://build.openvpn.net/downloads/releases/
@@ -31,27 +29,22 @@ CONFIGURE_ENV+=		ac_cv_prog_CMAKE= CMAKE=
 # let OpenVPN's configure script pick up the requisite libraries,
 # but do not break the plugin build if an older version is installed
 CPPFLAGS+=		-I${WRKSRC}/include -I${LOCALBASE}/include
-LDFLAGS+=		-L${LOCALBASE}/lib -Wl,--as-needed
+LDFLAGS+=		-L${LOCALBASE}/lib
 
 # set PLUGIN_LIBDIR so that unqualified plugin paths are found:
 CPPFLAGS+=		-DPLUGIN_LIBDIR=\\\"${PREFIX}/lib/openvpn/plugins\\\"
 
 OPTIONS_DEFINE=		PKCS11 EASYRSA DOCS EXAMPLES X509ALTUSERNAME \
-			TEST LZ4 LZO SMALL TUNNELBLICK ASYNC_PUSH
-OPTIONS_DEFAULT=	EASYRSA OPENSSL TEST LZ4 LZO
+			TEST LZ4 SMALL TUNNELBLICK
+OPTIONS_DEFAULT=	EASYRSA OPENSSL TEST LZ4
 OPTIONS_SINGLE=		SSL
 OPTIONS_SINGLE_SSL=	OPENSSL MBEDTLS
-ASYNC_PUSH_DESC=	Enable async-push support
-PKCS11_DESC=		Use security/pkcs11-helper (OpenSSL only)
+PKCS11_DESC=		Use security/pkcs11-helper
 EASYRSA_DESC=		Install security/easy-rsa RSA helper package
 MBEDTLS_DESC=		SSL/TLS via mbedTLS (lacks TLS v1.3)
 TUNNELBLICK_DESC=	Tunnelblick XOR scramble patch (READ HELP!)
 X509ALTUSERNAME_DESC=	Enable --x509-username-field (OpenSSL only)
 SMALL_DESC=		Build a smaller executable with fewer features
-
-ASYNC_PUSH_CONFIGURE_ENABLE=	async-push
-ASYNC_PUSH_LIB_DEPENDS=	libinotify.so:devel/libinotify
-ASYNC_PUSH_LIBS=	-linotify
 
 EASYRSA_RUN_DEPENDS=	easy-rsa>=0:security/easy-rsa
 
@@ -63,22 +56,19 @@ PKCS11_PREVENTS_MSG=	OpenVPN cannot use pkcs11-helper with mbedTLS. Disable PKCS
 TUNNELBLICK_EXTRA_PATCHES=	${FILESDIR}/extra-tunnelblick-openvpn_xorpatch
 
 X509ALTUSERNAME_CONFIGURE_ENABLE=	x509-alt-username
+
 X509ALTUSERNAME_PREVENTS=	MBEDTLS
 X509ALTUSERNAME_PREVENTS_MSG=	OpenVPN ${DISTVERSION} cannot use --x509-username-field with mbedTLS. Disable X509ALTUSERNAME, or use OpenSSL instead
 
 OPENSSL_USES=		ssl
 OPENSSL_CONFIGURE_ON=	--with-crypto-library=openssl
 
+LZ4_CONFIGURE_OFF=	--disable-lz4
+
+SMALL_CONFIGURE_ON=	--enable-small
+
 MBEDTLS_LIB_DEPENDS=	libmbedtls.so:security/mbedtls
 MBEDTLS_CONFIGURE_ON=	--with-crypto-library=mbedtls
-
-LZO_CONFIGURE_ENABLE=	lzo
-LZO_LIB_DEPENDS+=	liblzo2.so:archivers/lzo2
-
-LZ4_CONFIGURE_ENABLE=	lz4
-LZ4_LIB_DEPENDS+=	liblz4.so:archivers/liblz4
-
-SMALL_CONFIGURE_ENABLE=	small
 
 USE_RC_SUBR=		openvpn
 
@@ -88,24 +78,15 @@ SUB_FILES=		pkg-message openvpn-client
 CFLAGS+=		-DLOG_OPENVPN=${LOG_OPENVPN}
 .endif
 
+LIB_DEPENDS+=		liblzo2.so:archivers/lzo2
+
+LZ4_LIB_DEPENDS+=	liblz4.so:archivers/liblz4
+
 PORTDOCS=		*
 PORTEXAMPLES=		*
 
 TEST_ALL_TARGET=	check
 TEST_TEST_TARGET_OFF=	check
-
-.include <bsd.port.options.mk>
-
-.if ${PORT_OPTIONS:MMBEDTLS}
-_tlslibs=libmbedtls libmbedx509 libmbedcrypto
-.else
-# OpenSSL
-_tlslibs=libssl libcrypto
-.endif
-
-.if ! ${PORT_OPTIONS:MLZ4} && ! ${PORT_OPTIONS:MLZO}
-CONFIGURE_ARGS+=	--enable-comp-stub
-.endif
 
 pre-configure:
 .ifdef (LOG_OPENVPN)
@@ -123,6 +104,15 @@ post-configure:
 	${REINPLACE_CMD} '/^CFLAGS =/s/$$/ -fPIC/' \
 	    ${WRKSRC}/src/plugins/auth-pam/Makefile \
 	    ${WRKSRC}/src/plugins/down-root/Makefile
+
+.include <bsd.port.options.mk>
+
+.if ${PORT_OPTIONS:MMBEDTLS}
+_tlslibs=libmbedtls libmbedx509 libmbedcrypto
+.else
+# OpenSSL
+_tlslibs=libssl libcrypto
+.endif
 
 # sanity check that we don't inherit incompatible SSL libs through,
 # for instance, pkcs11-helper:

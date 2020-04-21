@@ -1,4 +1,5 @@
 bin/cgx
+%%PORTDOCS%%%%DOCSDIR%%/cgx/WARNINGS
 %%PORTDOCS%%%%DOCSDIR%%/cgx/cgx.css
 %%PORTDOCS%%%%DOCSDIR%%/cgx/cgx.html
 %%PORTDOCS%%%%DOCSDIR%%/cgx/images.aux
@@ -229,8 +230,6 @@ bin/cgx
 %%PORTDOCS%%%%DOCSDIR%%/cgx/node26.html
 %%PORTDOCS%%%%DOCSDIR%%/cgx/node260.html
 %%PORTDOCS%%%%DOCSDIR%%/cgx/node261.html
-%%PORTDOCS%%%%DOCSDIR%%/cgx/node262.html
-%%PORTDOCS%%%%DOCSDIR%%/cgx/node263.html
 %%PORTDOCS%%%%DOCSDIR%%/cgx/node27.html
 %%PORTDOCS%%%%DOCSDIR%%/cgx/node28.html
 %%PORTDOCS%%%%DOCSDIR%%/cgx/node29.html

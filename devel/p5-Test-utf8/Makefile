@@ -2,7 +2,8 @@
 # $FreeBSD$
 
 PORTNAME=	Test-utf8
-PORTVERSION=	1.02
+PORTVERSION=	1.01
+PORTREVISION=	1
 CATEGORIES=	devel perl5
 MASTER_SITES=	CPAN
 PKGNAMEPREFIX=	p5-
@@ -13,9 +14,7 @@ COMMENT=	Handy UTF-8 tests
 LICENSE=	ART10 GPLv1+
 LICENSE_COMB=	dual
 
-USES=		perl5
 USE_PERL5=	configure
-
-NO_ARCH=	yes
+USES=		perl5
 
 .include <bsd.port.mk>

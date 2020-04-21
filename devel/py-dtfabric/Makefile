@@ -2,10 +2,11 @@
 # $FreeBSD$
 
 PORTNAME=	dtfabric
-PORTVERSION=	20200119
+PORTVERSION=	20190120
+PORTREVISION=	1
 CATEGORIES=	devel python
-MASTER_SITES=	CHEESESHOP
-#		https://github.com/libyal/dtfabric/releases/download/${PORTVERSION}/
+MASTER_SITES=	CHEESESHOP \
+		https://github.com/libyal/dtfabric/releases/download/${PORTVERSION}/
 PKGNAMEPREFIX=	${PYTHON_PKGNAMEPREFIX}
 
 MAINTAINER=	antoine@FreeBSD.org
@@ -18,7 +19,7 @@ RUN_DEPENDS=	${PYTHON_PKGNAMEPREFIX}yaml>=0:devel/py-yaml@${PY_FLAVOR}
 TEST_DEPENDS=	${PYTHON_PKGNAMEPREFIX}mock>=0:devel/py-mock@${PY_FLAVOR}
 
 NO_ARCH=	yes
-USES=		python:3.5+
+USES=		python
 USE_PYTHON=	distutils autoplist concurrent
 
 post-patch:

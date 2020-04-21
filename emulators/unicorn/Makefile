@@ -1,7 +1,8 @@
 # $FreeBSD$
 
 PORTNAME=	unicorn
-DISTVERSION=	1.0.2-rc2
+PORTVERSION=	1.0.1
+PORTREVISION=	2
 CATEGORIES=	emulators
 
 MAINTAINER=	antoine@FreeBSD.org
@@ -20,10 +21,10 @@ BROKEN_mips64=		fails to compile: 'ICACHE' undeclared (first use in this functio
 USE_GITHUB=	yes
 GH_ACCOUNT=	unicorn-engine
 
-USES=		compiler:c11 gmake python:build
+USES=		compiler:c11 gmake python:2.7,build
 USE_LDCONFIG=	yes
-BINARY_ALIAS=	python=${PYTHON_CMD}
 MAKE_ENV=	INSTALL_LIB="${INSTALL_LIB}" \
+		UNICORN_QEMU_FLAGS=--python=${PYTHON_CMD} \
 		SMP_MFLAGS=-j${MAKE_JOBS_NUMBER} \
 		V=1
 TEST_TARGET=	test

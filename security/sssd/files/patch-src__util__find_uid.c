@@ -1,6 +1,8 @@
---- src/util/find_uid.c.orig	2014-09-17 13:01:37 UTC
+diff --git src/util/find_uid.c src/util/find_uid.c
+index 4c8f73a..40f3690 100644
+--- src/util/find_uid.c
 +++ src/util/find_uid.c
-@@ -67,7 +67,7 @@ static errno_t get_uid_from_pid(const pid_t pid, uid_t
+@@ -67,7 +67,7 @@ static errno_t get_uid_from_pid(const pid_t pid, uid_t *uid)
      uint32_t num=0;
      errno_t error;
  
@@ -9,7 +11,7 @@
      if (ret < 0) {
          DEBUG(SSSDBG_CRIT_FAILURE, "snprintf failed");
          return EINVAL;
-@@ -207,12 +207,12 @@ static errno_t get_active_uid_linux(hash_table_t *tabl
+@@ -207,12 +207,12 @@ static errno_t get_active_uid_linux(hash_table_t *table, uid_t search_uid)
      struct dirent *dirent;
      int ret, err;
      pid_t pid = -1;

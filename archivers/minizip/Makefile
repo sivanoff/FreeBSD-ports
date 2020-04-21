@@ -1,4 +1,4 @@
-# Created by: lbartoletti <lbartoletti@FreeBSD.org>
+# Created by: lbartoletti <coder@tuxfamily.org>
 # $FreeBSD$
 
 PORTNAME=	minizip
@@ -7,7 +7,7 @@ CATEGORIES=	archivers
 MASTER_SITES=	SF/libpng/zlib/${PORTVERSION}
 DISTNAME=	zlib-${PORTVERSION}
 
-MAINTAINER=	lbartoletti@FreeBSD.org
+MAINTAINER=	lbartoletti@tuxfamily.org
 COMMENT=	Zip library and programs from Zlib distribution
 
 LICENSE=	ZLIB

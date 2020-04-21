@@ -2,7 +2,7 @@
 # $FreeBSD$
 
 PORTNAME=	Catalyst-Devel
-PORTVERSION=	1.40
+PORTVERSION=	1.39
 CATEGORIES=	www perl5
 MASTER_SITES=	CPAN
 PKGNAMEPREFIX=	p5-
@@ -35,7 +35,5 @@ TEST_DEPENDS=	p5-IPC-Run3>=0:devel/p5-IPC-Run3 \
 
 USES=		perl5
 USE_PERL5=	configure
-
-NO_ARCH=	yes
 
 .include <bsd.port.mk>

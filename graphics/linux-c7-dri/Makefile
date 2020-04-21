@@ -3,8 +3,7 @@
 
 PORTNAME=	dri
 PORTVERSION=	18.3.4
-DISTVERSIONSUFFIX=	-6.el7_7
-PORTREVISION=	1
+DISTVERSIONSUFFIX=	-5.el7
 CATEGORIES=	graphics linux
 
 MAINTAINER=	emulation@FreeBSD.org
@@ -26,8 +25,11 @@ LIB_DISTNAMES=	freeglut-3.0.0-8.el7 \
 		mesa-libgbm-${DISTVERSIONFULL} \
 		mesa-libglapi-${DISTVERSIONFULL} \
 		mesa-libxatracker-${DISTVERSIONFULL} \
-		mesa-vdpau-drivers-${DISTVERSIONFULL} \
-		mesa-vulkan-drivers-${DISTVERSIONFULL}
+		mesa-vdpau-drivers-${DISTVERSIONFULL}
+DISTFILES_amd64=${LIB_DISTNAMES:S/$/${EXTRACT_SUFX_i386}:amd64,i386/} \
+		${LIB_DISTNAMES:S/$/${EXTRACT_SUFX_amd64}:amd64/} \
+		${BIN_DISTNAMES:S/$/${EXTRACT_SUFX_amd64}:amd64/} \
+		mesa-vulkan-drivers-${DISTVERSIONFULL}${EXTRACT_SUFX_amd64}:amd64
 SRC_DISTFILES=	freeglut-3.0.0-8.el7${SRC_SUFX}:SOURCE \
 		llvm-private-7.0.1-1.el7${SRC_SUFX}:SOURCE \
 		mesa-${DISTVERSIONFULL}${SRC_SUFX}:SOURCE \

@@ -7,7 +7,7 @@ PORTREVISION=	3
 CATEGORIES=	math
 DISTNAME=	${PORTNAME}_${DISTVERSION}
 
-MAINTAINER=	ports@FreeBSD.org
+MAINTAINER=	dbn@FreeBSD.org
 COMMENT=	Stable Distribution Functions
 
 LICENSE=	GPLv2 GPLv3

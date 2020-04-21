@@ -2,10 +2,10 @@
 
 PORTNAME=	keras
 DISTVERSION=	2.3.1
-CATEGORIES=	math # machine-learning
+CATEGORIES=	math
 PKGNAMEPREFIX=	${PYTHON_PKGNAMEPREFIX}
 
-MAINTAINER=	yuri@FreeBSD.org
+MAINTAINER=	neel@neelc.org
 COMMENT=	Deep learning library for Python
 
 LICENSE=	MIT

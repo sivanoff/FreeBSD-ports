@@ -11,9 +11,6 @@ COMMENT=	Extensible network forensic analysis framework
 LICENSE=	MIT
 LICENSE_FILE=	${WRKSRC}/LICENSE.txt
 
-DEPRECATED=	Uses deprecated version of python
-EXPIRATION_DATE=	2020-09-15
-
 BUILD_DEPENDS=	bash:shells/bash \
 		${PYTHON_PKGNAMEPREFIX}GeoIP2>0:net/py-GeoIP2@${PY_FLAVOR} \
 		${PYTHON_PKGNAMEPREFIX}pycryptodome>0:security/py-pycryptodome@${PY_FLAVOR} \
@@ -22,7 +19,7 @@ BUILD_DEPENDS=	bash:shells/bash \
 		${PYTHON_PKGNAMEPREFIX}pypcap>0:net/py-pypcap@${PY_FLAVOR}
 RUN_DEPENDS:=	${BUILD_DEPENDS}
 
-USES=		python:2.7 shebangfix
+USES=		python:-2.7 shebangfix
 USE_GITHUB=	yes
 
 NO_ARCH=	yes
@@ -30,8 +27,8 @@ SHEBANG_FILES=	bin/*.py
 
 GH_ACCOUNT=	USArmyResearchLab
 GH_PROJECT=	Dshell
-GH_TAGNAME=	2c63476
-SNAPDATE=	20200302
+GH_TAGNAME=	695c891
+SNAPDATE=	20190523
 
 OPTIONS_DEFINE=	DOCS
 

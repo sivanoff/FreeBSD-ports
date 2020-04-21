@@ -4,10 +4,10 @@
 PORTNAME=	zziplib
 DISTVERSIONPREFIX=	v
 DISTVERSION=	0.13.69
-PORTREVISION=	2
+PORTREVISION=	1
 CATEGORIES=	devel
 
-MAINTAINER=	sunpoet@FreeBSD.org
+MAINTAINER=	ports@FreeBSD.org
 COMMENT=	Library to provide transparent read access to zipped files
 
 LICENSE=	LGPL21 MPL11
@@ -17,11 +17,12 @@ LICENSE_FILE_MPL11=	${WRKSRC}/docs/COPYING.MPL
 
 BUILD_DEPENDS=	zip:archivers/zip
 
-USES=		libtool pathfix pkgconfig
+USES=		libtool pathfix pkgconfig python:2.7,build shebangfix
 USE_GITHUB=	yes
 GH_ACCOUNT=	gdraheim
 GH_PROJECT=	zziplib
 USE_LDCONFIG=	yes
+SHEBANG_FILES=	docs/*.py
 
 GNU_CONFIGURE=	yes
 CONFIGURE_ARGS=	--srcdir=${WRKSRC}

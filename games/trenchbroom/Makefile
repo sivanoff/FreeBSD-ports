@@ -19,7 +19,7 @@ GH_PROJECT=	TrenchBroom
 GH_TAGNAME=	ed46601
 
 USES=		cmake:insource compiler:c++11-lib gl gnome pkgconfig
-USE_GL=		gl glew glu
+USE_GL=		glew
 USE_WX=		3.0+
 CMAKE_ARGS=	-DAPP_BUILD_CHANNEL:STRING="Beta for ${OPSYS}/${ARCH}"
 INSTALLS_ICONS=	yes
@@ -35,8 +35,6 @@ post-patch:
 		${WRKSRC}/common/src/View/AppInfoPanel.cpp
 	@${REINPLACE_CMD} -e 's,%%DATADIR%%,${DATADIR},' \
 		${WRKSRC}/common/src/IO/SystemPaths.cpp
-	@${REINPLACE_CMD} -e '/return m_.*Margin/s,(),,' \
-		${WRKSRC}/common/src/View/CellLayout.h
 
 do-install:
 	${INSTALL_PROGRAM} ${WRKSRC}/TrenchBroom ${STAGEDIR}${PREFIX}/bin

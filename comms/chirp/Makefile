@@ -1,10 +1,10 @@
 # $FreeBSD$
 
 PORTNAME=	chirp
-DISTVERSIONPREFIX=	daily-
-DISTVERSION=	20200107
+DISTVERSION=	0.4.1.2019.05.11
 CATEGORIES=	comms hamradio
-MASTER_SITES=	https://trac.chirp.danplanet.com/chirp_daily/daily-${DISTVERSION}/
+MASTER_SITES=	https://trac.chirp.danplanet.com/chirp_daily/daily-${PORTVERSION:C/[0-9]+\.[0-9]+\.[0-9]+\.//:C/\.//g}/
+DISTNAME=	${PORTNAME}-daily-${PORTVERSION:C/[0-9]+\.[0-9]+\.[0-9]+\.//:C/\.//g}
 
 MAINTAINER=	hamradio@FreeBSD.org
 COMMENT=	Free, open-source tool for programming your amateur radio

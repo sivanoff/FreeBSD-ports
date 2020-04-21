@@ -1,14 +1,13 @@
-# Created by: Loïc BARTOLETTI <lbartoletti@FreeBSD.org>
+# Created by: Loïc BARTOLETTI <lbartoletti@tuxfamily.org>
 # $FreeBSD$
 
 PORTNAME=	postgis
 PORTVERSION=	3.0.0
-PORTREVISION=	1
 CATEGORIES=	databases geography
 MASTER_SITES=	https://download.osgeo.org/postgis/source/
 PKGNAMESUFFIX=	30
 
-MAINTAINER=	lbartoletti@FreeBSD.org
+MAINTAINER=	lbartoletti@tuxfamily.org
 COMMENT=	Geographic objects support for PostgreSQL databases
 
 LICENSE=	GPLv2

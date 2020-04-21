@@ -13,7 +13,6 @@ MAINTAINER=	FreeBSD@ShaneWare.Biz
 COMMENT=	HTML template engine for Python
 
 LICENSE=	MIT
-LICENSE_FILE=	${WRKSRC}/LICENSE
 
 RUN_DEPENDS=	${PYTHON_PKGNAMEPREFIX}markdown>=2.0.3:textproc/py-markdown@${PY_FLAVOR}
 

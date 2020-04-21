@@ -2,7 +2,7 @@
 # $FreeBSD$
 
 PORTNAME=	fs-uae
-PORTVERSION=	3.0.2
+PORTVERSION=	3.0.0
 CATEGORIES=	emulators
 MASTER_SITES=	http://fs-uae.net/stable/${PORTVERSION}/
 
@@ -25,16 +25,14 @@ USE_GL=		gl
 USE_GNOME=	glib20
 USE_XORG=	x11
 
+LLD_UNSAFE=	yes
 INSTALLS_ICONS=	yes
 
 GNU_CONFIGURE=	yes
+CONFIGURE_ARGS=	--disable-jit
 CFLAGS+=	-Wno-c++11-narrowing
-LDFLAGS_i386=	-Wl,-znotext
 
-OPTIONS_DEFINE=	DOCS DEBUG JIT
-
-JIT_DESC=	Enable JIT compiler (experimental)
-JIT_CONFIGURE_ENABLE=	jit
+OPTIONS_DEFINE=	DOCS
 
 post-patch:
 	@${REINPLACE_CMD} -e 's|= bind|= ::bind|' \

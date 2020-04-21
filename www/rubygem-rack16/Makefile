@@ -7,7 +7,7 @@
 # 	www/rubygem-actionpack4
 
 PORTNAME=	rack
-PORTVERSION=	1.6.13
+PORTVERSION=	1.6.12
 CATEGORIES=	www rubygems
 MASTER_SITES=	RG
 PKGNAMESUFFIX=	16
@@ -30,8 +30,8 @@ rackup_CMD=	${LOCALBASE}/bin/rackup
 
 PORTSCOUT=	limit:^1\.6\.
 
-# Avoid CONFLICTS_INSTALL with www/rubygem-rack
+# avoid duplicate file from www/rubygem-rack port
 post-install:
-	${RM} ${STAGEDIR}${PREFIX}/bin/rackup
+	@${RM} ${STAGEDIR}${PREFIX}/bin/rackup
 
 .include <bsd.port.mk>

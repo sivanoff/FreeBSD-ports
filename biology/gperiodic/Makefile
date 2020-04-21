@@ -5,7 +5,7 @@
 PORTNAME=	gperiodic
 PORTVERSION=	3.0.3
 CATEGORIES=	biology
-MASTER_SITES=	SF/${PORTNAME}
+MASTER_SITES=	https://sourceforge.net/projects/gperiodic/files/
 
 MAINTAINER=	ports@FreeBSD.org
 COMMENT=	Displays a periodic table of the elements

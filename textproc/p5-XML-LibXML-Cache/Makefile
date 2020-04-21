@@ -2,7 +2,8 @@
 # $FreeBSD$
 
 PORTNAME=	XML-LibXML-Cache
-PORTVERSION=	0.14
+PORTVERSION=	0.12
+PORTREVISION=	1
 CATEGORIES=	textproc perl5
 MASTER_SITES=	CPAN
 PKGNAMEPREFIX=	p5-
@@ -20,9 +21,7 @@ RUN_DEPENDS=	p5-URI>=0:net/p5-URI \
 TEST_DEPENDS=	p5-File-Touch>=0:devel/p5-File-Touch \
 		p5-Test-Deep>=0:devel/p5-Test-Deep
 
-USES=		perl5
 USE_PERL5=	configure
-
-NO_ARCH=	yes
+USES=		perl5
 
 .include <bsd.port.mk>

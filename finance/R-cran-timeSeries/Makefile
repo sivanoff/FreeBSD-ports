@@ -7,7 +7,7 @@ PORTREVISION=	3
 CATEGORIES=	finance
 DISTNAME=	${PORTNAME}_${DISTVERSION}
 
-MAINTAINER=	ports@FreeBSD.org
+MAINTAINER=	dbn@FreeBSD.org
 COMMENT=	Rmetrics - Financial Time Series Objects
 
 LICENSE=	GPLv2+

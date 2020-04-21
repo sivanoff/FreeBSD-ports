@@ -5,11 +5,12 @@ PORTNAME=	gnaural
 PORTVERSION=	1.0.20110606
 PORTREVISION=	4
 CATEGORIES=	audio
-MASTER_SITES=	SF/${PORTNAME}/Gnaural/ \
-		LOCAL/martymac
+MASTER_SITES=	SF/${PORTNAME}/Gnaural/
 
 MAINTAINER=	martymac@FreeBSD.org
 COMMENT=	Binaural beat generator
+
+BROKEN=		unfetchable
 
 LICENSE=	GPLv2 LGPL21
 LICENSE_COMB=	multi

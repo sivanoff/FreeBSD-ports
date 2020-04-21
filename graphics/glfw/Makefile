@@ -2,11 +2,12 @@
 # $FreeBSD$
 
 PORTNAME=	glfw
-PORTVERSION=	3.3.2
+PORTVERSION=	3.3
+PORTREVISION=	1
 CATEGORIES=	graphics
 MASTER_SITES=	SF
 
-MAINTAINER=	ports@FreeBSD.org
+MAINTAINER=	neel@neelc.org
 COMMENT=	Portable framework for OpenGL development
 
 LICENSE=	ZLIB
@@ -37,7 +38,7 @@ WAYLAND_USE=		KDE=ecm
 X11_USES=		xorg
 X11_USE=		XORG=x11,xcursor,xi,xinerama,xrandr,xxf86vm
 
-PLIST_SUB=	VERSION=${PORTVERSION:R} MAJVER="${PORTVERSION:C|\..*||}"
+PLIST_SUB=	VERSION="${PORTVERSION}" MAJVER="${PORTVERSION:C|\..*||}"
 
 do-install-DOCS-on:
 	@${MKDIR} ${STAGEDIR}${DOCSDIR}/docs/html/search

@@ -3,7 +3,6 @@
 
 PORTNAME=	gucharmap
 PORTVERSION=	11.0.1
-PORTREVISION=	1
 CATEGORIES=	deskutils gnome
 #MASTER_SITES=	GNOME
 DIST_SUBDIR=	gnome3
@@ -18,7 +17,6 @@ BUILD_DEPENDS=	itstool:textproc/itstool \
 		UCD>=0:textproc/UCD \
 		gtkdocize:textproc/gtk-doc \
 		${LOCALBASE}/share/aclocal/yelp.m4:textproc/yelp-tools
-LIB_DEPENDS+=	libfreetype.so:print/freetype2
 
 PORTSCOUT=	limitw:1,even
 

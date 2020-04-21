@@ -5,10 +5,12 @@ PORTNAME=	squish
 PORTVERSION=	1.10
 PORTREVISION=	2
 CATEGORIES=	graphics
-MASTER_SITES=	https://storage.googleapis.com/google-code-archive-downloads/v2/code.google.com/libsquish/
+MASTER_SITES=	http://her.gr.distfiles.macports.org/squish/
 
 MAINTAINER=	rddeblois@gmail.com
 COMMENT=	Open source DXT compression library
+
+BROKEN=		unfetchable
 
 LICENSE=	MIT
 

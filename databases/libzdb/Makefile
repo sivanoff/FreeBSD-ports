@@ -2,7 +2,8 @@
 # $FreeBSD$
 
 PORTNAME=	libzdb
-PORTVERSION=	3.2.1
+PORTVERSION=	3.2
+PORTREVISION=	1
 CATEGORIES=	databases
 MASTER_SITES=	https://www.tildeslash.com/libzdb/dist/
 
@@ -21,9 +22,9 @@ INSTALL_TARGET=	install-strip
 USE_LDCONFIG=	yes
 
 OPTIONS_DEFINE=		SSL
+OPTIONS_DEFAULT=	MYSQL PGSQL SQLITE SSL
 OPTIONS_MULTI=		DB
 OPTIONS_MULTI_DB=	MYSQL PGSQL SQLITE
-OPTIONS_DEFAULT=	MYSQL PGSQL SQLITE SSL
 
 MYSQL_CONFIGURE_WITH=	mysql=${LOCALBASE}/bin/mysql_config
 MYSQL_USES=		mysql
@@ -33,15 +34,14 @@ SQLITE_CONFIGURE_WITH=	sqlite=${LOCALBASE}
 SQLITE_USES=		sqlite
 SSL_USES=		ssl
 
-.include <bsd.port.options.mk> 	 
+.include <bsd.port.options.mk>
 
-# See PR/237200 for details
-.if ${PORT_OPTIONS:MSSL} 	 
-.if ${SSL_DEFAULT} == base 	 
-CONFIGURE_ARGS+=        --enable-openssl 	 
-.else 	 
-CONFIGURE_ARGS+=        --enable-openssl=${OPENSSLBASE} 	 
-.endif 	 
+.if ${PORT_OPTIONS:MSSL}
+.if ${SSL_DEFAULT} == base
+CONFIGURE_ARGS+=	--enable-openssl
+.else
+CONFIGURE_ARGS+=	--enable-openssl=${OPENSSLBASE}
+.endif
 .endif
 
 .include <bsd.port.mk>

@@ -2,7 +2,7 @@
 # $FreeBSD$
 
 PORTNAME=	nginx-prometheus-exporter
-PORTVERSION=	0.6.0
+PORTVERSION=	0.4.2
 DISTVERSIONPREFIX=v
 CATEGORIES=	www
 

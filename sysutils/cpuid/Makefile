@@ -2,13 +2,13 @@
 # $FreeBSD$
 
 PORTNAME=	cpuid
-DISTVERSION=	20200127
+DISTVERSION=	20180519
 DISTVERSIONSUFFIX=	.src
 CATEGORIES=	sysutils
 MASTER_SITES=	http://www.etallen.com/cpuid/
 PKGNAMESUFFIX=	${CPUID_SUFFIX}
 
-MAINTAINER=	pkubaj@FreeBSD.org
+MAINTAINER=	pkubaj@anongoth.pl
 COMMENT=	Tool to dump x86 CPUID information about the CPU(s)
 
 LICENSE=	GPLv2

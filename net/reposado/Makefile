@@ -16,9 +16,6 @@ GH_TAGNAME=	de2fdb6
 
 LICENSE_FILE=	${WRKSRC}/LICENSE.txt
 
-DEPRECATED=	Uses deprecated version of python
-EXPIRATION_DATE=	2020-09-15
-
 USES=		python:2.7
 USE_PYTHON=	distutils
 

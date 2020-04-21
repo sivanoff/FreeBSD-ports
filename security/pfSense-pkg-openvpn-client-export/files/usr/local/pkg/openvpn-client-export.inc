@@ -845,8 +845,7 @@ function openvpn_client_export_sharedkey_config($srvid, $useaddr, $proxy, $nokey
 
 	/* TODO: Protocol could move to after remote. If client is 2.4, can be copied direct from server. Perhaps leverage openvpn_client_export_build_remote_lines() */
 	$conf .= "proto {$proto}\n";
-	$remoteproto = strtolower($settings['protocol']);
-	$conf .= "remote {$server_host} {$server_port} {$remoteproto}\n";
+	$conf .= "remote {$server_host} {$server_port}\n";
 
 	if ($settings['local_network']) {
 		list($ip, $mask) = explode('/', $settings['local_network']);
@@ -983,8 +982,7 @@ function openvpn_client_export_build_remote_lines($settings, $useaddr, $interfac
 			$remotes[] = "remote {$dest['host']} {$dest['port']} {$dest['proto']}";
 		}
 	} else {
-		$remoteproto = strtolower($settings['protocol']);
-		$remotes[] = "remote {$server_host} {$settings['local_port']} {$remoteproto}";
+		$remotes[] = "remote {$server_host} {$settings['local_port']} {$proto}";
 	}
 
 	return implode($nl, $remotes);

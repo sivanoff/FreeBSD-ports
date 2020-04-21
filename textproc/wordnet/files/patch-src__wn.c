@@ -1,5 +1,5 @@
 --- src/wn.c	Fri May  6 13:29:09 2005
-+++ src/wn.c	Mon Mar 16 23:04:47 2020
++++ src/wn.c	Wed Dec 21 01:41:13 2005
 @@ -8,14 +8,14 @@
  #include <string.h>
  #include <stdlib.h>
@@ -29,7 +29,7 @@
 +    const char *helpstr;	
  } searchstr[] = {		/* index by search type type */
      { NULL, NULL, NULL },
-@@ -122,11 +123,12 @@
+@@ -122,11 +123,11 @@
  };
  
 -static int getoptidx(char *), cmdopt(char *);
@@ -44,7 +44,6 @@
 +       printsearches(const char *, int, unsigned long);
 +static int error_message(const char *);
  
-+int
  main(int argc,char *argv[])
 @@ -214,9 +215,10 @@
  }
@@ -75,14 +74,6 @@
 +printsearches(const char *word, int dbase, unsigned long search)
  {
      int j;
-@@ -284,6 +286,5 @@
- 	    printf(searchstr[j].template,
- 		   partchars[dbase], partchars[dbase]);
--	    printf(searchstr[j].helpstr);
--	    printf("\n");
-+	    puts(searchstr[j].helpstr);
- 	}
- }
 @@ -316,5 +319,6 @@
  }
  
@@ -106,5 +97,4 @@
 +static int
 +error_message(const char *msg)
  {
--    fprintf(stderr, msg);
-+    fputs(msg, stderr);
+     fprintf(stderr, msg);

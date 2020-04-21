@@ -1,4 +1,4 @@
-# Created by: lbartoletti <lbartoletti@FreeBSD.org>
+# Created by: lbartoletti <coder@tuxfamily.org>
 # $FreeBSD$
 
 PORTNAME=	libgaiagraphics
@@ -7,7 +7,7 @@ PORTREVISION=	4
 CATEGORIES=	graphics geography
 MASTER_SITES=	http://www.gaia-gis.it/gaia-sins/
 
-MAINTAINER=	lbartoletti@FreeBSD.org
+MAINTAINER=	lbartoletti@tuxfamily.org
 COMMENT=	Library supporting common-utility raster handling methods
 
 LIB_DEPENDS=	libpng.so:graphics/png \

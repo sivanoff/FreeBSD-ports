@@ -2,7 +2,7 @@
 # $FreeBSD$
 
 PORTNAME=	gspread
-PORTVERSION=	3.3.0
+PORTVERSION=	3.0.1
 DISTVERSIONPREFIX=     v
 CATEGORIES=	net python
 MASTER_SITES=	CHEESESHOP
@@ -18,7 +18,7 @@ LICENSE=	MIT
 
 RUN_DEPENDS=	${PYTHON_PKGNAMEPREFIX}requests>2.2.1:www/py-requests@${PY_FLAVOR}
 
-USES=	python
+USES=	python:2.7
 USE_PYTHON=	distutils autoplist
 
 .include <bsd.port.mk>

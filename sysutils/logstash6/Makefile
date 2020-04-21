@@ -2,7 +2,8 @@
 # $FreeBSD$
 
 PORTNAME=	logstash
-PORTVERSION=	6.8.7
+PORTVERSION=	6.8.5
+PORTREVISION=	0
 CATEGORIES=	sysutils java
 MASTER_SITES=	http://artifacts.elastic.co/downloads/logstash/
 PKGNAMESUFFIX=	6
@@ -14,10 +15,9 @@ LICENSE=	APACHE20
 
 RUN_DEPENDS=	${LOCALBASE}/bin/bash:shells/bash
 
-USES=		cpe shebangfix
-
 CONFLICTS=	logstash-[0-9]* logstash5-[0-9]*
 
+USES=		cpe shebangfix
 SHEBANG_FILES=	bin/*
 CPE_VENDOR=	elasticsearch
 USE_JAVA=	yes

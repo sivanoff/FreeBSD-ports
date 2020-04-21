@@ -77,9 +77,9 @@ post-patch-erlang:
 		${REINPLACE_CMD} -i '' -e 's/{ *vsn,.*}/{vsn, "${PORTVERSION}"}/' \
 			${WRKSRC}/ebin/${ERL_APP_NAME}.app; \
 	fi
-	@${GREP} -l "%%LOCALBASE%%" $$(${FIND} ${WRKSRC} -type f) \
+	@${GREP} -l "%%LOCALBASE%%" $$(${FIND} ${WRKSRC}) \
 		| ${XARGS} ${REINPLACE_CMD} -i '' -e "s@%%LOCALBASE%%@${LOCALBASE}@"
-	@${GREP} -l "%%PORTVERSION%%" $$(${FIND} ${WRKSRC} -type f) \
+	@${GREP} -l "%%PORTVERSION%%" $$(${FIND} ${WRKSRC}) \
 		| ${XARGS} ${REINPLACE_CMD} -i '' -e "s@%%PORTVERSION%%@${PORTVERSION}@"
 # Always try to build with the system version of rebar and rebar3
 	@if [ -f ${WRKSRC}/rebar.config ]; then \

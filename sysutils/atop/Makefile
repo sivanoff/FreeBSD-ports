@@ -6,7 +6,7 @@ PORTVERSION=	2.0.2.b3
 PORTREVISION=	3
 CATEGORIES=	sysutils
 
-MAINTAINER=	samm@FreeBSD.org
+MAINTAINER=	samm@freebsd.org
 COMMENT=	ASCII Monitor for system resources and process activity
 
 LICENSE=	GPLv2

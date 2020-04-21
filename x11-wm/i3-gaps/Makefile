@@ -1,7 +1,7 @@
 # $FreeBSD$
 
 PORTNAME=	i3
-DISTVERSION=	4.18
+DISTVERSION=	4.17.1
 CATEGORIES=	x11-wm
 PKGNAMESUFFIX=	-gaps
 
@@ -34,8 +34,8 @@ USES=		autoreconf compiler:c11 gettext-runtime gmake gnome iconv \
 		localbase perl5 pkgconfig xorg
 USE_GITHUB=	yes
 GH_ACCOUNT=	Airblader
-USE_GNOME=	glib20
 USE_PERL5=	run
+USE_GNOME=	glib20
 USE_XORG=	xcb
 
 GNU_CONFIGURE=	yes
@@ -46,6 +46,7 @@ CONFLICTS_INSTALL=	i3
 
 OPTIONS_DEFINE=		DOCS
 
-DOCS_CONFIGURE_ENABLE=	docs
+post-patch-DOCS-off:
+	@${REINPLACE_CMD} 's|print_BUILD_DOCS=yes|print_BUILD_DOCS=no|' ${WRKSRC}/configure.ac
 
 .include <bsd.port.mk>

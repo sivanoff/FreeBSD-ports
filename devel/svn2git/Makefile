@@ -6,7 +6,7 @@ PORTVERSION=	1.0.12
 PORTREVISION=	2
 CATEGORIES=	devel kde
 
-MAINTAINER=	ports@FreeBSD.org
+MAINTAINER=	dbn@FreeBSD.org
 COMMENT=	Imports svn repositories into git
 
 LICENSE=	GPLv3

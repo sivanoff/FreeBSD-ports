@@ -21,7 +21,7 @@ USE_RUBY=	yes
 
 NO_ARCH=	yes
 
-# coffee-rails 5.0.0+ requires Rails 5.2.0+
+# It requires Rails 5.2.0+ since 5.0.0.
 PORTSCOUT=	limit:^4\.
 
 .include <bsd.port.mk>

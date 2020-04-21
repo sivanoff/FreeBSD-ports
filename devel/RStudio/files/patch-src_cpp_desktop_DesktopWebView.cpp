@@ -1,6 +1,6 @@
---- src/cpp/desktop/DesktopWebView.cpp.orig	2020-01-23 23:30:24 UTC
+--- src/cpp/desktop/DesktopWebView.cpp.orig	2019-02-18 00:53:59 UTC
 +++ src/cpp/desktop/DesktopWebView.cpp
-@@ -272,7 +272,7 @@ void WebView::contextMenuEvent(QContextMenuEvent* even
+@@ -257,7 +257,7 @@ void WebView::contextMenuEvent(QContextM
           
        case QWebEngineContextMenuData::MediaTypeAudio:
           
@@ -9,7 +9,7 @@
           if (data.mediaFlags().testFlag(QWebEngineContextMenuData::MediaPaused))
              menu->addAction(label(tr("&Play")), [&]() { triggerPageAction(QWebEnginePage::ToggleMediaPlayPause); });
           else
-@@ -289,7 +289,7 @@ void WebView::contextMenuEvent(QContextMenuEvent* even
+@@ -274,7 +274,7 @@ void WebView::contextMenuEvent(QContextM
           
        case QWebEngineContextMenuData::MediaTypeVideo:
           
@@ -18,7 +18,7 @@
           if (data.mediaFlags().testFlag(QWebEngineContextMenuData::MediaPaused))
              menu->addAction(label(tr("&Play")), [&]() { triggerPageAction(QWebEnginePage::ToggleMediaPlayPause); });
           else
-@@ -347,7 +347,7 @@ void WebView::contextMenuEvent(QContextMenuEvent* even
+@@ -332,7 +332,7 @@ void WebView::contextMenuEvent(QContextM
        menu->addAction(selectAll);
     }
     

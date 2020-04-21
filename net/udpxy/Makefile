@@ -18,9 +18,10 @@ GH_ACCOUNT=	pcherenkov
 WRKSRC_SUBDIR=	chipmunk
 
 OPTIONS_SINGLE=	CONF
-OPTIONS_SINGLE_CONF=	RELEASE LEAN
+OPTIONS_SINGLE_CONF=	RELEASE LEAN DEBUG
 RELEASE_DESC=	No asserts, no debug symbols, verbose on
 LEAN_DESC=	No asserts, no debug symbols, verbose off
+DEBUG_DESC=	Asserts, debug symbols, verbose on
 OPTIONS_DEFAULT=	RELEASE
 
 PLIST_FILES=	sbin/udpxy \
@@ -38,12 +39,13 @@ post-install:
 
 .include <bsd.port.options.mk>
 
-.if defined(WITH_DEBUG)
-ALL_TARGET=debug
-.elif ${PORT_OPTIONS:MRELEASE}
+.if ${PORT_OPTIONS:MRELEASE}
 ALL_TARGET=release
 .elif ${PORT_OPTIONS:MLEAN}
 ALL_TARGET=lean
+.elif ${PORT_OPTIONS:MDEBUG}
+ALL_TARGET=debug
+WITH_DEBUG=yes
 .endif
 
 .include <bsd.port.mk>

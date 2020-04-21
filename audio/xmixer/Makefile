@@ -10,16 +10,13 @@ MASTER_SITES=	http://mpx.freeshell.net/
 MAINTAINER=	ports@FreeBSD.org
 COMMENT=	Audio mixer (gtk and Xlib) for X11R6
 
-LICENSE=	GPLv2
-LICENSE_FILE=	${WRKSRC}/COPYING
-
 WRKSRC=		${WRKDIR}/${PORTNAME}
 
 GNU_CONFIGURE=	yes
 ALL_TARGET=	xmixer
 
 PLIST_FILES=	bin/xmixer \
-		share/man/man1/xmixer.1.gz
+		man/man1/xmixer.1.gz
 
 USES=		xorg
 USE_XORG=	x11 xt ice xaw xmu sm
@@ -35,6 +32,6 @@ post-patch:
 
 do-install:
 	${INSTALL_PROGRAM} ${WRKSRC}/xmixer ${STAGEDIR}${PREFIX}/bin
-	${INSTALL_MAN} ${WRKSRC}/xmixer.man ${STAGEDIR}${PREFIX}/share/man/man1/xmixer.1
+	${INSTALL_MAN} ${WRKSRC}/xmixer.man ${STAGEDIR}${MAN1PREFIX}/man/man1/xmixer.1
 
 .include <bsd.port.mk>

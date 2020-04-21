@@ -41,6 +41,7 @@ bin/sequence
 bin/splitHaplotype
 bin/splitReads
 bin/sqStoreCreate
+bin/sqStoreCreatePartition
 bin/sqStoreDumpFASTQ
 bin/sqStoreDumpMetaData
 bin/tgStoreCompress

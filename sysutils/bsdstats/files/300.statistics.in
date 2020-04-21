@@ -26,11 +26,23 @@ WC=/usr/bin/wc
 MV=/bin/mv
 RM=/bin/rm
 case $(${UNAME}) in
+  FreeBSD)
+    UMASK=/usr/bin/umask
+    OPENSSL=/usr/bin/openssl
+    CHOWN=/usr/sbin/chown
+    NC=/usr/bin/nc
+    ;;
   OpenBSD)
     UMASK=/usr/bin/umask
     OPENSSL=/usr/sbin/openssl
     CHOWN=/sbin/chown
     NC=/usr/bin/nc
+    ;;
+  DragonFly)
+    UMASK=/usr/bin/umask
+    OPENSSL=/usr/bin/openssl
+    CHOWN=/usr/sbin/chown
+    NC=/usr/local/bin/netcat
     ;;
   NetBSD)
     UMASK=umask
@@ -339,24 +351,16 @@ setup_proxies() {
 
 report_devices() {
   case $(${UNAME}) in
-    FreeBSD|DragonFly|MidnightBSD)
+    FreeBSD|DragonFly)
       local query_string=""
       local line
-      while read line
-      do
+      for line in $(${PCICONF} -l); do
         local DRIVER=$(echo "${line}" | ${AWK} -F\@ '{print $1}')
-        if [ "0`echo "${line}" | awk '{print $5}' | awk -F= '{print $1}'`" = "0vendor" ]; then
-          local VENDOR=$(echo "${line}" | ${AWK} '{print $5}' | ${CUT} -c10-15)
-          local DEVICE=$(echo "${line}" | ${AWK} '{print $6}' | ${CUT} -c10-15)
-          local DEV=$(echo "${DEVICE}${VENDOR}")
-        else
-          local DEV=$(echo "${line}" | ${AWK} '{print $4}' | ${CUT} -c8-15)
-        fi
+        local DEV=$(echo "${line}" | ${AWK} '{print $4}' | ${CUT} -c8-15)
         local CLASS=$(echo "${line}" | ${AWK} '{print $2}' | ${CUT} -c9-14)
         query_string=$query_string`echo \&dev[]=${DRIVER}:${DEV}:${CLASS}`
-      done << EOT
-$(${PCICONF} -l)
-EOT
+      done
+
       echo_begin "Posting device statistics to ${checkin_server_description}"
       do_http_request_check_status "GET" "/scripts/report_devices.php?token=${TOKEN}&key=${KEY}$query_string" \
         "" "" "system devices submission"
@@ -369,30 +373,14 @@ EOT
   esac
 }
 
-get_mports() {
-  for i in `/usr/libexec/mport.list | xargs`
-  do
-    pkg=$(echo "select pkg from packages where pkg || '-' || version = '$i'" | sqlite3 /var/db/mport/master.db)
-    echo -n "$i "
-    mport info $pkg | grep Origin | awk '{print $3}'
-  done
-}
-
 report_ports() {
   case $(${UNAME}) in
-    FreeBSD|DragonFly|MidnightBSD)
+    FreeBSD|DragonFly)
       local query_string=""
       # Detect pkgng
       if [ -e /var/db/pkg/local.sqlite ]; then
         # Use pkgng
-        case $(${UNAME}) in
-          MidnightBSD)
-            query_string="${query_string}$( get_mports | ${SED} -E -e 's/\+/%2b/g' -e 's/,/%2c/g' -e 's/^([^ ]+) +([^\/]+)\/.+$/\&port[]=\2:\1/g' | tr -d '\n')"
-            ;;
-          *)
-            query_string="${query_string}$( pkg info -o "*" | ${SED} -E -e 's/\+/%2b/g' -e 's/,/%2c/g' -e 's/^([^ ]+) +([^\/]+)\/.+$/\&port[]=\2:\1/g' | tr -d '\n')"
-            ;;
-        esac
+        query_string="${query_string}$(pkg info -o "*" | ${SED} -E -e 's/\+/%2b/g' -e 's/,/%2c/g' -e 's/^([^ ]+) +([^\/]+)\/.+$/\&port[]=\2:\1/g' | tr -d '\n')"
       else
     #-----BEGIN LEGACY: to delete when FreeBSD with pkg_ tools is out of support period (!!! don't forget to clarify what does DragonFly use before removing !!!) -----
         # Use obsolete pkg_* tools

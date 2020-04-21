@@ -12,8 +12,6 @@ DISTNAME=	${PORTNAME}-v${PORTVERSION}
 MAINTAINER=	ports@FreeBSD.org
 COMMENT=	Defcon for Linux
 
-BROKEN=		unfetchable
-
 ONLY_FOR_ARCHS=	i386 amd64
 USES=		linux
 USE_LINUX=	dri libogg libvorbis sdl12 xorglibs

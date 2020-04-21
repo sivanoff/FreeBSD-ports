@@ -1,12 +1,12 @@
 # $FreeBSD$
 
 PORTNAME=	cloud-init
-PORTVERSION=	20.1
-PORTREVISION=	1
+PORTVERSION=	19.2
 CATEGORIES=	net python
+MASTER_SITES=	http://launchpad.net/${PORTNAME}/trunk/${PORTVERSION}/+download/
 PKGNAMEPREFIX=	${PYTHON_PKGNAMEPREFIX}
 
-MAINTAINER=	andrey@bsdnir.info
+MAINTAINER=	zi@FreeBSD.org
 COMMENT=	Init scripts for use on cloud images
 
 LICENSE=	GPLv3
@@ -29,9 +29,7 @@ RUN_DEPENDS=	dmidecode>0:sysutils/dmidecode \
 		${PYTHON_PKGNAMEPREFIX}jsonschema>0:devel/py-jsonschema@${PY_FLAVOR} \
 		${PYTHON_PKGNAMEPREFIX}jsonpointer>0:devel/py-jsonpointer@${PY_FLAVOR}
 
-USES=		python:3.6+ shebangfix
-USE_GITHUB=	yes
-GH_ACCOUNT=	canonical
+USES=		python shebangfix
 
 SHEBANG_FILES=	tools/validate-yaml.py tools/read-dependencies \
 		tools/read-version

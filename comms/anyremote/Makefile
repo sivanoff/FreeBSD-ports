@@ -6,7 +6,7 @@ PORTVERSION=	6.7.2
 CATEGORIES=	comms
 MASTER_SITES=	SF
 
-MAINTAINER=	samm@FreeBSD.org
+MAINTAINER=	samm@freebsd.org
 COMMENT=	Remote control service over Bluetooth, infrared, or TCP/IP networking
 
 LICENSE=	GPLv2

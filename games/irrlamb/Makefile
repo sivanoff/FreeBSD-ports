@@ -24,8 +24,7 @@ USE_GITHUB=	yes
 GH_ACCOUNT=	jazztickets
 
 USES=		cmake compiler:c++11-lib lua:53 openal
-
-LDFLAGS_i386=	-Wl,-znotext
+LLD_UNSAFE=	yes
 
 PORTDOCS=	*
 PORTDATA=	*

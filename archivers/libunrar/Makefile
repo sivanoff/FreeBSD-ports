@@ -8,7 +8,7 @@ CATEGORIES=	archivers
 MASTER_SITES=	http://www.rarlab.com/rar/
 DISTNAME=	unrarsrc-${PORTVERSION}
 
-MAINTAINER=	samm@FreeBSD.org
+MAINTAINER=	samm@freebsd.org
 COMMENT=	Library to work with RAR archives
 
 WRKSRC=		${WRKDIR}/unrar

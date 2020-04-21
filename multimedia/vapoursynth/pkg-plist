@@ -11,6 +11,7 @@
 %%PYTHON%%%%PYTHON_SITELIBDIR%%/vapoursynth.so
 %%VSSCRIPT%%libdata/pkgconfig/vapoursynth-script.pc
 %%CORE%%libdata/pkgconfig/vapoursynth.pc
+%%DOCS%%%%VSPIPE%%man/man1/vspipe.1.gz
 %%EEDI3%%%%DATADIR%%/libeedi3.so
 %%IMAGEMAGICK%%%%DATADIR%%/libimwri.so
 %%MISCFILTERS%%%%DATADIR%%/libmiscfilters.so
@@ -20,4 +21,3 @@
 %%ASS%%%%DATADIR%%/libsubtext.so
 %%VINVERSE%%%%DATADIR%%/libvinverse.so
 %%VIVTC%%%%DATADIR%%/libvivtc.so
-%%DOCS%%%%VSPIPE%%share/man/man1/vspipe.1.gz

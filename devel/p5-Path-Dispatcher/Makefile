@@ -1,10 +1,10 @@
 # $FreeBSD$
 
 PORTNAME=	Path-Dispatcher
-PORTVERSION=	1.07
+PORTVERSION=	1.06
 CATEGORIES=	devel perl5
 MASTER_SITES=	CPAN
-MASTER_SITE_SUBDIR=	CPAN:ETHER
+MASTER_SITE_SUBDIR=	CPAN:SARTAK
 PKGNAMEPREFIX=	p5-
 
 MAINTAINER=	perl@FreeBSD.org
@@ -14,14 +14,11 @@ LICENSE=	ART10 GPLv1+
 LICENSE_COMB=	dual
 
 BUILD_DEPENDS=	${RUN_DEPENDS}
-RUN_DEPENDS=	p5-Moo>=0:devel/p5-Moo \
-		p5-Try-Tiny>=0:lang/p5-Try-Tiny \
-		p5-Type-Tiny>=0:devel/p5-Type-Tiny
+RUN_DEPENDS=	p5-Any-Moose>=0.12:devel/p5-Any-Moose \
+		p5-Try-Tiny>=0.02:lang/p5-Try-Tiny
 TEST_DEPENDS=	p5-Test-Fatal>=0:devel/p5-Test-Fatal
 
 USES=		perl5
 USE_PERL5=	configure
-
-NO_ARCH=	yes
 
 .include <bsd.port.mk>

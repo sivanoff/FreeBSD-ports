@@ -11,9 +11,6 @@ COMMENT=	Agents and plugins for librenms
 
 LICENSE=	GPLv2
 
-DEPRECATED=	Uses deprecated version of python
-EXPIRATION_DATE=	2020-09-15
-
 USES=		shebangfix python:2.7,run php:cli
 NO_ARCH=	yes
 

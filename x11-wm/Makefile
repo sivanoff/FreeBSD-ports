@@ -16,8 +16,11 @@
     SUBDIR += blackbox
     SUBDIR += bspwm
     SUBDIR += cage
+    SUBDIR += ccsm
     SUBDIR += chamfer
+    SUBDIR += clementine-wm
     SUBDIR += compiz
+    SUBDIR += compiz-fusion
     SUBDIR += compiz-plugins-extra
     SUBDIR += compiz-plugins-main
     SUBDIR += compiz-plugins-unsupported
@@ -39,6 +42,7 @@
     SUBDIR += e16
     SUBDIR += e16-docs
     SUBDIR += echinus
+    SUBDIR += ede
     SUBDIR += emerald
     SUBDIR += enlightenment
     SUBDIR += epplets
@@ -62,7 +66,6 @@
     SUBDIR += ion
     SUBDIR += jewel
     SUBDIR += jwm
-    SUBDIR += kickshaw
     SUBDIR += larswm
     SUBDIR += libcompizconfig
     SUBDIR += libdockapp
@@ -81,8 +84,11 @@
     SUBDIR += muffin
     SUBDIR += mutter
     SUBDIR += nickleby
+    SUBDIR += obapps
     SUBDIR += obconf
     SUBDIR += obconf-qt
+    SUBDIR += obkey
+    SUBDIR += obmenu
     SUBDIR += obpager
     SUBDIR += olvwm
     SUBDIR += openbox
@@ -95,6 +101,7 @@
     SUBDIR += piewm
     SUBDIR += plasma5-kdecoration
     SUBDIR += plasma5-kwin
+    SUBDIR += plwm
     SUBDIR += pwm
     SUBDIR += qtile
     SUBDIR += ratmen
@@ -104,6 +111,7 @@
     SUBDIR += rubygem-uh-wm
     SUBDIR += sawfish
     SUBDIR += selectwm
+    SUBDIR += simple-ccsm
     SUBDIR += skippy-xd
     SUBDIR += spectrwm
     SUBDIR += stumpwm

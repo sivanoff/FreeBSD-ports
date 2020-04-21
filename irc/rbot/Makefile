@@ -28,7 +28,6 @@ LIB_DEPENDS=	libtokyocabinet.so:databases/tokyocabinet
 USE_RUBY=	yes
 USE_RUBY_SETUP=	yes
 CONFIGURE_ARGS=	--prefix=${PREFIX}
-NO_ARCH=	yes
 
 USE_GITHUB=	yes
 GH_ACCOUNT=	ruby-${PORTNAME}

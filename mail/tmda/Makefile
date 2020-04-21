@@ -14,9 +14,6 @@ COMMENT=	Python-based SPAM reduction system
 LICENSE=	GPLv2+
 LICENSE_FILE=	${WRKSRC}/COPYING
 
-DEPRECATED=	Uses EOL Python 2.7
-EXPIRATION_DATE=2020-08-15
-
 USES=		python:2.7 shebangfix tar:tgz
 SHEBANG_FILES=	bin/tmda-* contrib/collectaddys contrib/def2html \
 		contrib/printcdb contrib/printdbm contrib/smtp-check-sender \
@@ -32,7 +29,9 @@ SCRIPTS=	collectaddys def2html printcdb printdbm sendit.sh \
 		update-internaldomains vadduser-tmda vmailmgr-vdir.sh \
 		vpopmail-vdir.sh wrapfd3.sh
 
-OPTIONS_DEFINE=	DOCS EXAMPLES
+OPTIONS_DEFINE=	CDB DOCS EXAMPLES
+
+CDB_RUN_DEPENDS=	${PYTHON_SITELIBDIR}/cdbmodule.so:databases/py-cdb
 
 do-build:
 	cd ${WRKSRC} && ${PYTHON_CMD} ./compileall

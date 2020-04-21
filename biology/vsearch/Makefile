@@ -2,7 +2,7 @@
 
 PORTNAME=		vsearch
 DISTVERSIONPREFIX=	v
-DISTVERSION=		2.14.2
+DISTVERSION=		2.13.4
 CATEGORIES=		biology
 
 MAINTAINER=	jwb@FreeBSD.org
@@ -17,7 +17,7 @@ ONLY_FOR_ARCHS_REASON=	Explicitly enumerated by upstream developers
 
 LIB_DEPENDS=	libsysinfo.so:devel/libsysinfo
 
-USES=		autoreconf ghostscript:build gmake localbase
+USES=		autoreconf gmake localbase
 USE_GITHUB=	yes
 
 GH_ACCOUNT=	torognes

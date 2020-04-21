@@ -14,8 +14,7 @@ COMMENT=	Lunar Lander clone
 LICENSE=	GPLv3+
 LICENSE_FILE=	${WRKSRC}/COPYING
 
-BROKEN_FreeBSD_11_powerpc64=	fails to configure on powerpc64 elfv1: could not link against boost_filesystem-boost_filesystem
-BROKEN_FreeBSD_12_powerpc64=	fails to configure on powerpc64 elfv1: could not link against boost_filesystem-boost_filesystem
+BROKEN_powerpc64=	fails to configure: error: Could not link against boost_filesystem-boost_filesystem
 
 LIB_DEPENDS=	libfreetype.so:print/freetype2 \
 		libboost_filesystem.so:devel/boost-libs \

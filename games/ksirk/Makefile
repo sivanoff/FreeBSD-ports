@@ -2,13 +2,14 @@
 
 PORTNAME=	ksirk
 DISTVERSION=	${KDE_APPLICATIONS_VERSION}
-PORTREVISION=	1
 CATEGORIES=	games kde kde-applications
 
 MAINTAINER=	kde@FreeBSD.org
 COMMENT=	${${PORTNAME:tu}_DESC}
 
-USES=		cmake compiler:c++11-lang kde:5 qca qt:5 tar:xz
+LIB_DEPENDS=	libqca-qt5.so:devel/qca
+
+USES=		cmake compiler:c++11-lang kde:5 qt:5 tar:xz
 USE_KDE=	attica auth codecs completion config configwidgets \
 		coreaddons crash i18n iconthemes kio libkdegames newstuff \
 		service wallet widgetsaddons xmlgui

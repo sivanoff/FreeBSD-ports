@@ -1,4 +1,4 @@
-# Created by: Loïc BARTOLETTI <lbartoletti@FreeBSD.org>
+# Created by: Loïc BARTOLETTI <lbartoletti@tuxfamily.org>
 # $FreeBSD$
 
 PORTNAME=	pyqtree
@@ -8,7 +8,7 @@ MASTER_SITES=	CHEESESHOP
 PKGNAMEPREFIX=	${PYTHON_PKGNAMEPREFIX}
 DISTNAME=	Pyqtree-${PORTVERSION}
 
-MAINTAINER=	lbartoletti@FreeBSD.org
+MAINTAINER=	lbartoletti@tuxfamily.org
 COMMENT=	Pure Python quad tree spatial index for GIS or rendering usage
 
 LICENSE=	MIT

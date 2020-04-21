@@ -1,7 +1,9 @@
 # $FreeBSD$
 
 PORTNAME=	OpenSim
-DISTVERSION=	4.1
+DISTVERSION=	4.0-601
+DISTVERSIONSUFFIX=	-ga2574fcda
+PORTREVISION=	1
 CATEGORIES=	science
 PKGNAMESUFFIX=	-core
 
@@ -11,12 +13,10 @@ COMMENT=	Software for modeling of musculoskeletal structures
 LICENSE=	APACHE20
 LICENSE_FILE=	${WRKSRC}/LICENSE.txt
 
-BUILD_DEPENDS=	bash:shells/bash
 LIB_DEPENDS=	libdocopt.so:devel/docopt.cpp \
 		libSimTKcommon.so:science/simbody
 
-USES=		blaslapack:openblas cmake compiler:c++11-lib fortran gl shebangfix xorg # fortran only for simbody/openblas
-SHEBANG_FILES=	Applications/opensim-install-command-line.sh
+USES=		blaslapack:openblas cmake compiler:c++11-lib fortran gl xorg # fortran only for simbody/openblas
 USE_GITHUB=	yes
 GH_ACCOUNT=	${PORTNAME:tl}-org
 GH_PROJECT=	${PORTNAME:tl}-core

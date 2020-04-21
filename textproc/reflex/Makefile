@@ -2,9 +2,9 @@
 # $FreeBSD$
 
 PORTNAME=	reflex
-PORTVERSION=	20191123
+PORTVERSION=	20170521
 CATEGORIES=	textproc
-MASTER_SITES=	https://invisible-mirror.net/archives/reflex/ \
+MASTER_SITES=	ftp://invisible-island.net/reflex/ \
 		LOCAL/sunpoet
 
 MAINTAINER=	sunpoet@FreeBSD.org
@@ -13,10 +13,9 @@ COMMENT=	Relocalizable fast lexical scanner
 LICENSE=	BSD3CLAUSE
 LICENSE_FILE=	${WRKSRC}/COPYING
 
-USES=		tar:tgz
-
 CONFIGURE_ENV=	YACC="${YACC}"
 GNU_CONFIGURE=	yes
 TEST_TARGET=	bigcheck
+USES=		tar:tgz
 
 .include <bsd.port.mk>

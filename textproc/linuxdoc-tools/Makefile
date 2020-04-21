@@ -2,13 +2,15 @@
 # $FreeBSD$
 
 PORTNAME=	linuxdoc-tools
-PORTVERSION=	0.9.75
+PORTVERSION=	0.9.71
 CATEGORIES=	textproc
 MASTER_SITES=	DEBIAN
 DISTNAME=	${PORTNAME}_${DISTVERSION}.orig
 
 MAINTAINER=	felix@palmen-it.de
 COMMENT=	Fork of SGML-tools specially tailored for linuxdoc SGMLs
+
+BROKEN=		unfetchable
 
 LICENSE=	GPLv3 LinuxdocTools
 LICENSE_COMB=	multi

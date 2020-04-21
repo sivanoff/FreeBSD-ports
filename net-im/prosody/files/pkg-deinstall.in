@@ -17,8 +17,7 @@ POST-DEINSTALL)
 	echo "     pw groupdel -n %%GROUPS%%"
 	echo ""
 	echo "     and to remove all server data:"
-	echo "     rm -rf /var/db/prosody"
-	echo "     rm -rf /var/run/prosody"
+	echo "     rm -rf  /usr/local/var/lib/prosody"
 	echo ""
 	;;
 esac

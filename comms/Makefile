@@ -34,7 +34,6 @@
     SUBDIR += deforaos-phone
     SUBDIR += dfu-programmer
     SUBDIR += dfu-util
-    SUBDIR += digiham
     SUBDIR += direwolf
     SUBDIR += dsd
     SUBDIR += dump1090
@@ -45,11 +44,9 @@
     SUBDIR += efax
     SUBDIR += ems-flasher
     SUBDIR += fl_moxgen
-    SUBDIR += flamp
     SUBDIR += flcluster
     SUBDIR += fldigi
     SUBDIR += fllog
-    SUBDIR += flmsg
     SUBDIR += flrig
     SUBDIR += flwrap
     SUBDIR += freedv
@@ -103,7 +100,6 @@
     SUBDIR += mlan3
     SUBDIR += morse
     SUBDIR += multimon-ng
-    SUBDIR += nanovna-saver
     SUBDIR += nasawash
     SUBDIR += ncid
     SUBDIR += nec2c
@@ -142,6 +138,7 @@
     SUBDIR += py-gammu
     SUBDIR += py-hidapi
     SUBDIR += py-libconcord
+    SUBDIR += py-libimobiledevice
     SUBDIR += py-lirc
     SUBDIR += py-qt5-serialport
     SUBDIR += py-serial
@@ -201,7 +198,6 @@
     SUBDIR += uartlirc
     SUBDIR += uhd
     SUBDIR += uird
-    SUBDIR += ujprog
     SUBDIR += unixcw
     SUBDIR += usbmuxd
     SUBDIR += viewfax

@@ -2,8 +2,8 @@
 # $FreeBSD$
 
 PORTNAME=	amule
-PORTVERSION=	11028
-PORTREVISION=	5
+PORTVERSION=	11004
+PORTREVISION=	4
 CATEGORIES=	net-p2p
 MASTER_SITES=	http://amule.sourceforge.net/tarballs/
 PKGNAMESUFFIX=	-devel

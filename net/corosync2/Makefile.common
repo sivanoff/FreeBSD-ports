@@ -5,7 +5,7 @@ PORTNAME=		corosync
 CATEGORIES=		net
 MASTER_SITES=		http://build.clusterlabs.org/corosync/releases/
 
-MAINTAINER=		egypcio@FreeBSD.org
+MAINTAINER=		dpejesh@yahoo.com
 COMMENT=		Corosync Cluster Engine
 
 LICENSE=		BSD3CLAUSE

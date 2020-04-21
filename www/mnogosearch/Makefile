@@ -4,10 +4,13 @@
 PORTNAME=	mnogosearch
 PORTVERSION=	3.4.1
 CATEGORIES=	www databases
-MASTER_SITES=	http://www.mnogosearch.org/Download/
+MASTER_SITES=	http://www.mnogosearch.org/Download/ \
+		http://www.bayofrum.net/dist/${PORTNAME}/
 
 MAINTAINER=	crees@FreeBSD.org
 COMMENT=	Full featured SQL-based hypertext search engine
+
+BROKEN=		unfetchable
 
 LICENSE=	GPLv2
 LICENSE_FILE=	${WRKSRC}/COPYING

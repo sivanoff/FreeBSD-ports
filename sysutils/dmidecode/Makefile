@@ -14,13 +14,12 @@ LICENSE_FILE=	${WRKSRC}/LICENSE
 
 ONLY_FOR_ARCHS=	amd64 i386
 
-USES=		tar:xz
+OPTIONS_DEFINE=	DOCS
 
 MAKE_ENV=	DOCSDIR="${DOCSDIR}"
+USES=		tar:xz
 
 SUB_FILES=	dmidecode
-
-OPTIONS_DEFINE=	DOCS
 
 post-install:
 	${MKDIR} ${STAGEDIR}${PREFIX}/etc/periodic/daily/

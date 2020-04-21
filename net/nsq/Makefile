@@ -3,7 +3,6 @@
 PORTNAME=	nsq
 PORTVERSION=	1.2.0
 DISTVERSIONPREFIX=	v
-PORTREVISION=	2
 CATEGORIES=	net
 
 MAINTAINER=	jhixson@FreeBSD.org
@@ -11,7 +10,7 @@ COMMENT=	Realtime distributed messaging platform
 
 LICENSE=	MIT
 
-ONLY_FOR_ARCHS=	aarch64 amd64 armv7
+ONLY_FOR_ARCHS=	amd64
 
 USES=	go:modules
 

@@ -6,7 +6,7 @@ PORTVERSION=	2.0.0
 PORTREVISION=	16
 CATEGORIES=	x11 gnustep
 
-MAINTAINER=	ports@FreeBSD.org
+MAINTAINER=	theraven@FreeBSD.org
 COMMENT=	Metaport for GNUstep applications
 
 USES=		metaport gnustep

@@ -1,4 +1,4 @@
-# Created by: lbartoletti <lbartoletti@FreeBSD.org>
+# Created by: lbartoletti <lbartoletti@tuxfamily.org>
 # $FreeBSD$
 
 PORTNAME=	pointcloud
@@ -7,7 +7,7 @@ PORTREVISION=	3
 DISTVERSIONPREFIX=	v
 CATEGORIES=	databases geography
 
-MAINTAINER=	lbartoletti@FreeBSD.org
+MAINTAINER=	lbartoletti@tuxfamily.org
 COMMENT=	LIDAR types for PostgreSQL
 
 LICENSE=	BSD3CLAUSE

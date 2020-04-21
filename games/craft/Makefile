@@ -11,9 +11,6 @@ CATEGORIES=	games
 MAINTAINER=	danilo@FreeBSD.org
 COMMENT=	Simple Minecraft clone written in C using modern OpenGL
 
-DEPRECATED=	Uses deprecated version of python
-EXPIRATION_DATE=	2020-08-15
-
 LIB_DEPENDS=	libcurl.so:ftp/curl
 
 USE_GITHUB=	yes

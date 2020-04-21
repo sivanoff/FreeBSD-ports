@@ -43,9 +43,9 @@
 # .include "${.CURDIR}/../../www/redmine/bsd.redmine.mk"
 # }}}
 
-PKGNAMEPREFIX?=	redmine4-
+PKGNAMEPREFIX?=	redmine-
 
-RUN_DEPENDS+=	redmine4>=4.0:www/redmine4
+RUN_DEPENDS+=	redmine>=2.0:www/redmine
 
 USE_RUBY=	yes
 .if !defined(PLIST)

@@ -1,10 +1,12 @@
 # Created by: Olivier Duchateau
 # $FreeBSD$
 
-PORTNAME=	calculator
-PORTVERSION=	1.5.4
+PORTNAME=	pantheon-calculator
+PORTVERSION=	0.1.2
+PORTREVISION=	2
 CATEGORIES=	math
-PKGNAMEPREFIX=	pantheon-
+MASTER_SITES=	https://launchpadlibrarian.net/303135059/ \
+		https://launchpad.net/${PORTNAME}/0.4-loki/${PORTVERSION}/+download/
 DIST_SUBDIR=	pantheon
 
 MAINTAINER=	ports@FreeBSD.org
@@ -14,15 +16,15 @@ LICENSE=	GPLv3
 LICENSE_FILE=	${WRKSRC}/COPYING
 
 BUILD_DEPENDS=	valac:lang/vala
-LIB_DEPENDS=	libgee-0.8.so:devel/libgee \
-		libgranite.so:x11-toolkits/granite
+LIB_DEPENDS=	libgranite.so:x11-toolkits/granite \
+		libgee-0.8.so:devel/libgee
 
-USES=		gettext gnome meson pkgconfig python:3.5+,build
-USE_GNOME=	cairo gdkpixbuf2 glib20 gtk30
+USES=		cmake pkgconfig gettext gnome tar:xz
+USE_GNOME=	glib20 gtk30 cairo gdkpixbuf2 intltool
 
-USE_GITHUB=	yes
-GH_ACCOUNT=	elementary
+GLIB_SCHEMAS=	org.pantheon.calculator.gschema.xml
 
-GLIB_SCHEMAS=	io.elementary.calculator.gschema.xml
+OPTIONS_DEFINE=	NLS
+OPTIONS_SUB=	yes
 
 .include <bsd.port.mk>

@@ -11,8 +11,7 @@ MAINTAINER=	ports@FreeBSD.org
 COMMENT=	PAM module which permits authentication via ssh-agent
 
 BROKEN_mips64=		fails to compile: ed25519-donna-portable.h:85:4: Need a uint128_t implementation!
-BROKEN_FreeBSD_11_powerpc64=	fails to compile on powerpc64 elfv1: ed25519-donna-portable.h: warning: ALIGN redefined
-BROKEN_FreeBSD_12_powerpc64=	fails to compile on powerpc64 elfv1: ed25519-donna-portable.h: warning: ALIGN redefined
+BROKEN_powerpc64=	fails to compile: ed25519-donna-portable.h: warning: ALIGN redefined
 
 USES=		perl5 ssl tar:bzip2
 USE_PERL5=	build

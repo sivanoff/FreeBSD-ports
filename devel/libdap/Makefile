@@ -2,7 +2,7 @@
 # $FreeBSD$
 
 PORTNAME=	libdap
-PORTVERSION=	3.20.5
+PORTVERSION=	3.20.4
 CATEGORIES=	devel
 MASTER_SITES=	https://www.opendap.org/pub/source/ \
 		LOCAL/sunpoet
@@ -14,10 +14,10 @@ LICENSE=	LGPL21
 LICENSE_FILE=	${WRKSRC}/COPYING
 
 LIB_DEPENDS=	libcurl.so:ftp/curl \
-		libuuid.so:misc/e2fsprogs-libuuid
+		libuuid.so:misc/e2fsprogs-libuuid \
+		libxml2.so:textproc/libxml2
 
-USES=		bison:wrapper charsetfix gmake gnome libtool localbase pathfix ssl
-USE_GNOME=	libxml2
+USES=		bison charsetfix gmake libtool localbase pathfix ssl
 
 CONFIGURE_ARGS=	ac_cv_lib_crypto_OpenSSL_add_all_algorithms=yes \
 		ac_cv_type_max_align_t=yes

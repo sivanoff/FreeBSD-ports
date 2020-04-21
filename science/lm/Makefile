@@ -3,15 +3,13 @@
 PORTNAME=	lm
 DISTVERSION=	2.3.0
 DISTVERSIONSUFFIX=	-src
-PORTREVISION=	10
+PORTREVISION=	9
 CATEGORIES=	science
 MASTER_SITES=	http://scs.illinois.edu/schulten/${PORTNAME}/download/${PORTNAME}${DISTVERSION:R:S/.//}/
 PKGNAMESUFFIX=	-uiuc
 
 MAINTAINER=	yuri@FreeBSD.org
 COMMENT=	Software for sampling trajectories of the reaction-diffusion equations
-
-BROKEN=		unfetchable
 
 LICENSE=	UIUC_OPEN_SOURCE_LICENSE
 LICENSE_NAME=	University of Illinois Open Source License

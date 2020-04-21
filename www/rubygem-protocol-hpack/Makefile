@@ -2,7 +2,7 @@
 # $FreeBSD$
 
 PORTNAME=	protocol-hpack
-PORTVERSION=	1.4.2
+PORTVERSION=	1.4.1
 CATEGORIES=	www rubygems
 MASTER_SITES=	RG
 

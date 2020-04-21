@@ -1,4 +1,4 @@
-# Created by: lbartoletti <lbartoletti@FreeBSD.org>
+# Created by: lbartoletti <lbartoletti@tuxfamily.org>
 # $FreeBSD$
 
 PORTNAME=	lazperf
@@ -6,7 +6,7 @@ DISTVERSION=	1.3.0
 PORTREVISION=	2
 CATEGORIES=	archivers databases geography
 
-MAINTAINER=	lbartoletti@FreeBSD.org
+MAINTAINER=	lbartoletti@tuxfamily.org
 COMMENT=	Alternative LAZ implementation for C++ and JavaScript
 
 LICENSE=	LGPL21

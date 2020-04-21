@@ -2,7 +2,8 @@
 # $FreeBSD$
 
 PORTNAME=	libewf
-PORTVERSION=	20140808
+PORTVERSION=	20140807
+PORTREVISION=	1
 CATEGORIES=	devel
 MASTER_SITES=	https://github.com/libyal/libewf-legacy/releases/download/${PORTVERSION}/ \
 		LOCAL/antoine

@@ -2,9 +2,8 @@
 
 PORTNAME=	ricty
 PORTVERSION=	4.1.1
-PORTREVISION=	1
 CATEGORIES=	japanese x11-fonts
-MASTER_SITES=	https://rictyfonts.github.io/files/
+MASTER_SITES=	http://www.rs.tus.ac.jp/yyusa/ricty/
 PKGNAMEPREFIX=	ja-font-
 DISTNAME=	ricty_generator-${PORTVERSION}.sh
 EXTRACT_SUFX=	# empty
@@ -13,73 +12,82 @@ DIST_SUBDIR=	${PORTNAME}
 MAINTAINER?=	meta@FreeBSD.org
 COMMENT?=	Ricty - fonts for programming
 
-LICENSE=	OFL11 IPAFONTLICv1.0
-LICENSE_COMB=	multi
-LICENSE_NAME_IPAFONTLICv1.0=	IPA Font License Agreement v1.0
-LICENSE_TEXT_IPAFONTLICv1.0=	https://opensource.org/licenses/IPA
-# No package redistribution due to OFL11
-LICENSE_PERMS_IPAFONTLICv1.0=	dist-mirror dist-sell no-pkg-mirror \
-		no-pkg-sell auto-accept
+LICENSE=	OFL11
 
 BUILD_DEPENDS=	inconsolata-ttf>=2.000:x11-fonts/inconsolata-ttf \
-		${LOCALBASE}/share/fonts/migu/migu-1m-regular.ttf:japanese/font-migu \
-		${LOCALBASE}/share/fonts/migu/migu-1m-bold.ttf:japanese/font-migu \
+		${LOCALBASE}/share/fonts/TTF/migu-1m-regular.ttf:japanese/font-migu \
+		${LOCALBASE}/share/fonts/TTF/migu-1m-bold.ttf:japanese/font-migu \
 		fontforge:print/fontforge
 
-USES=		fonts:fc
-FONTNAME=	${PORTNAME}${PKGNAMESUFFIX}
-FONTPATHSPEC=	${FONTNAME}:pri=60
-
 NO_ARCH=	yes
-SUB_FILES=	genfontsdir.sh
+USES=		fonts:fc
 
-.if !defined(MASTERDIR)
+NO_PACKAGE=	redistribution is not allowed
+PKGINSTALL=	${WRKDIR}/pkg-install
+PKGDEINSTALL=	${WRKDIR}/pkg-install
+SUB_FILES=	pkg-install
+
+FONTNAME=	TTF
+
+.if !defined(PKGNAMESUFFIX)
 OPTIONS_DEFINE=	DISCORD
-OPTIONS_DEFAULT=DISCORD
 DISCORD_DESC=	Install Ricty-Discord
-DISCORD_RUN_DEPENDS=	${LOCALBASE}/share/fonts/ricty-discord/RictyDiscord-Regular.ttf:japanese/font-ricty-discord
+OPTIONS_DEFAULT=	DISCORD
 .endif
 
 .include <bsd.port.options.mk>
 
-.if ${SLAVE_PORT} == no
-SUB_LIST+=	DISCORD="" RICTY=\#
-.else
+.if !defined(PKGNAMESUFFIX)
+PLIST_SUB+=	DISCORD="@comment " RICTY=""
 SUB_LIST+=	DISCORD=\# RICTY=""
+.else
+PLIST_SUB+=	DISCORD="" RICTY="@comment "
+SUB_LIST+=	DISCORD="" RICTY=\#
+.endif
+
+.if ${PORT_OPTIONS:MDISCORD}
+RUN_DEPENDS+=	${LOCALBASE}/${DATADIR_REL}/RictyDiscord-Regular.ttf:japanese/font-ricty-discord
 .endif
 
 do-extract:
 	@${MKDIR} ${WRKSRC}
+	@${CP} ${DISTDIR}/${DIST_SUBDIR}/ricty_generator-${PORTVERSION}.sh ${WRKSRC}/ricty_generator.sh
 
 do-build:
 	cd ${WRKSRC} && ${SETENV} ${CONFIGURE_ENV} \
-		${SH} ${DISTDIR}/${DIST_SUBDIR}/ricty_generator-${PORTVERSION}.sh \
-			${LOCALBASE}/share/fonts/inconsolata/Inconsolata-Regular.ttf \
-			${LOCALBASE}/share/fonts/inconsolata/Inconsolata-Bold.ttf \
-			${LOCALBASE}/share/fonts/migu/migu-1m-regular.ttf \
-			${LOCALBASE}/share/fonts/migu/migu-1m-bold.ttf
-
-pre-install:
-	cd ${WRKDIR} && ${SH} ./genfontsdir.sh
+		${SH} ${WRKSRC}/ricty_generator.sh \
+			${PREFIX}/share/fonts/inconsolata/Inconsolata-Regular.ttf \
+			${PREFIX}/share/fonts/inconsolata/Inconsolata-Bold.ttf \
+			${PREFIX}/share/fonts/TTF/migu-1m-regular.ttf \
+			${PREFIX}/share/fonts/TTF/migu-1m-bold.ttf
 
 do-install:
-	@${MKDIR} \
-	    ${STAGEDIR}${FONTSDIR} \
-	    ${STAGEDIR}${PREFIX}/etc/fonts/conf.avail \
-	    ${STAGEDIR}${PREFIX}/etc/fonts/conf.d
-.if ${SLAVE_PORT} == no
-	${INSTALL_DATA} ${WRKDIR}/fonts.dir ${WRKSRC}/Ricty-*.ttf \
-	    ${STAGEDIR}${FONTSDIR}
-.else
-	${INSTALL_DATA} ${WRKDIR}/fonts.dir ${WRKSRC}/RictyDiscord-*.ttf \
-	    ${STAGEDIR}${FONTSDIR}
-.endif
-	${INSTALL_DATA} ${FILESDIR}/20-unhint-${FONTNAME}.conf \
-	    ${FILESDIR}/62-fonts-${FONTNAME}.conf \
+	${MKDIR} ${STAGEDIR}${DATADIR}
+	${MKDIR} ${STAGEDIR}${FONTSDIR}
+	${MKDIR} ${STAGEDIR}${PREFIX}/etc/fonts/conf.avail \
+		 ${STAGEDIR}${PREFIX}/etc/fonts/conf.d
+.if !defined(PKGNAMESUFFIX)
+	${INSTALL_DATA} ${WRKSRC}/Ricty-*.ttf ${STAGEDIR}${DATADIR}
+	cd ${STAGEDIR}${FONTSDIR} && ${LN} -s -f \
+	    ../../../${DATADIR_REL}/Ricty-*.ttf .
+	${INSTALL_DATA} ${FILESDIR}/20-unhint-${PORTNAME}.conf \
+	    ${FILESDIR}/62-fonts-${PORTNAME}.conf \
 	    ${STAGEDIR}${PREFIX}/etc/fonts/conf.avail
-	${RLN} ${STAGEDIR}${PREFIX}/etc/fonts/conf.avail/20-unhint-${FONTNAME}.conf \
-	    ${STAGEDIR}${PREFIX}/etc/fonts/conf.d/20-unhint-${FONTNAME}.conf
-	${RLN} ${STAGEDIR}${PREFIX}/etc/fonts/conf.avail/62-fonts-${FONTNAME}.conf \
-	    ${STAGEDIR}${PREFIX}/etc/fonts/conf.d/62-fonts-${FONTNAME}.conf
+	${LN} -s -f ../conf.avail/20-unhint-${PORTNAME}.conf \
+	    ${STAGEDIR}${PREFIX}/etc/fonts/conf.d/20-unhint-${PORTNAME}.conf
+	${LN} -s -f ../conf.avail/62-fonts-${PORTNAME}.conf \
+	    ${STAGEDIR}${PREFIX}/etc/fonts/conf.d/62-fonts-${PORTNAME}.conf
+.else
+	${INSTALL_DATA} ${WRKSRC}/RictyDiscord-*.ttf ${STAGEDIR}${DATADIR}
+	cd ${STAGEDIR}${FONTSDIR} && ${LN} -s -f \
+	    ../../../${DATADIR_REL}/RictyDiscord-*.ttf .
+	${INSTALL_DATA} ${FILESDIR}/20-unhint-${PORTNAME}discord.conf \
+	    ${FILESDIR}/62-fonts-${PORTNAME}discord.conf \
+	    ${STAGEDIR}${PREFIX}/etc/fonts/conf.avail
+	${LN} -s -f ../conf.avail/20-unhint-${PORTNAME}discord.conf \
+	    ${STAGEDIR}${PREFIX}/etc/fonts/conf.d/20-unhint-${PORTNAME}discord.conf
+	${LN} -s -f ../conf.avail/62-fonts-${PORTNAME}discord.conf \
+	    ${STAGEDIR}${PREFIX}/etc/fonts/conf.d/62-fonts-${PORTNAME}discord.conf
+.endif
 
 .include <bsd.port.mk>

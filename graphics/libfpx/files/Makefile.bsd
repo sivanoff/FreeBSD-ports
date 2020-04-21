@@ -2,7 +2,7 @@ LIB	=	fpx
 INCS	=	fpxlib.h
 SHLIB_MAJOR=	2
 SHLIB_MINOR=	7
-WARNS=	2
+WARNS=	3
 
 LIBDIR	=	${PREFIX}/lib
 INCSDIR	=	${PREFIX}/include

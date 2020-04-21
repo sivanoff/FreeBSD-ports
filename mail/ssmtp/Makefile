@@ -3,7 +3,7 @@
 
 PORTNAME=	ssmtp
 PORTVERSION=	2.64
-PORTREVISION=	4
+PORTREVISION=	3
 CATEGORIES=	mail
 MASTER_SITES=	DEBIAN_POOL
 DISTFILES=	${PORTNAME}_${PORTVERSION}.orig${EXTRACT_SUFX}
@@ -14,33 +14,29 @@ COMMENT=	Extremely simple MTA to get mail off the system to a mail hub
 LICENSE=	GPLv2+
 LICENSE_FILE=	${WRKSRC}/COPYRIGHT
 
-USES=		gmake tar:bzip2
 GNU_CONFIGURE=	yes
+USES=		gmake tar:bzip2
+GROUPS=		ssmtp
 
+SUB_FILES+=	pkg-message
 MAKE_ENV+=	TARGET_ARCH=
 CFLAGS+=	-I${OPENSSLINC}
 LDFLAGS+=	-L${OPENSSLLIB}
+MAILERCONF=	/etc/mail/mailer.conf
 
-SUB_FILES+=	pkg-message
-
-GROUPS=		ssmtp
-
-OPTIONS_DEFINE=		CRAMMD5 IPV6 LOGFILE OPENSSL USERPREFS XORIGIP
-OPTIONS_DEFAULT=	CRAMMD5 OPENSSL XORIGIP
-
-CRAMMD5_DESC=	CRAM-MD5 authentication support
+OPTIONS_DEFINE=	LOGFILE IPV6 USERPREFS XORIGIP CRAMMD5 OPENSSL
+OPTIONS_DEFAULT=XORIGIP CRAMMD5 OPENSSL
 LOGFILE_DESC=	Log file
 USERPREFS_DESC=	User-defined revaliases
 XORIGIP_DESC=	X-Originating-IP header for REMOTE_ADDR envvar
+CRAMMD5_DESC=	CRAM-MD5 authentication support
 
-CRAMMD5_CONFIGURE_ON=	--enable-md5auth
-IPV6_CONFIGURE_ON=	--enable-inet6
 LOGFILE_CONFIGURE_ON=	--enable-logfile
-OPENSSL_USES=		ssl
-OPENSSL_CONFIGURE_ON=	--enable-ssl
 XORIGIP_EXTRA_PATCHES=	${FILESDIR}/remote-addr.patch
-
-_MAILERCONF=	/etc/mail/mailer.conf
+IPV6_CONFIGURE_ON=	--enable-inet6
+CRAMMD5_CONFIGURE_ON=	--enable-md5auth
+OPENSSL_CONFIGURE_ON=	--enable-ssl
+OPENSSL_USES=		ssl
 
 .include <bsd.port.options.mk>
 
@@ -56,6 +52,15 @@ post-configure:
 		${WRKSRC}/ssmtp.c ${WRKSRC}/ssmtp.conf
 	@${REINPLACE_CMD} -e "s, /etc, ${PREFIX}/etc,g" ${WRKSRC}/ssmtp.8
 
+replace:
+	@${REINPLACE_CMD} -e 's,^[^#],#&,g' ${MAILERCONF}
+	@${ECHO_CMD} "sendmail	${PREFIX}/sbin/ssmtp" >> ${MAILERCONF}
+	@${ECHO_CMD} "send-mail	${PREFIX}/sbin/ssmtp" >> ${MAILERCONF}
+	@${ECHO_CMD} "mailq		${PREFIX}/sbin/ssmtp" >> ${MAILERCONF}
+	@${ECHO_CMD} "newaliases	${PREFIX}/sbin/ssmtp" >> ${MAILERCONF}
+	@${ECHO_CMD} "hoststat	/usr/bin/true" >> ${MAILERCONF}
+	@${ECHO_CMD} "purgestat	/usr/bin/true" >> ${MAILERCONF}
+
 do-install:
 	${INSTALL_PROGRAM} ${WRKSRC}/ssmtp ${STAGEDIR}${PREFIX}/sbin/ssmtp
 	@${MKDIR} ${STAGEDIR}${PREFIX}/etc/ssmtp
@@ -66,14 +71,5 @@ do-install:
 	${INSTALL_MAN} ${WRKSRC}/ssmtp.8 ${STAGEDIR}${MANPREFIX}/man/man8/ssmtp.8
 	${INSTALL_MAN} ${WRKSRC}/ssmtp.conf.5 \
 		${STAGEDIR}${MANPREFIX}/man/man5/ssmtp.conf.5
-
-replace:
-	@${REINPLACE_CMD} -e 's,^[^#],#&,g' ${_MAILERCONF}
-	@${ECHO_CMD} "sendmail	${PREFIX}/sbin/ssmtp" >> ${_MAILERCONF}
-	@${ECHO_CMD} "send-mail	${PREFIX}/sbin/ssmtp" >> ${_MAILERCONF}
-	@${ECHO_CMD} "mailq		${PREFIX}/sbin/ssmtp" >> ${_MAILERCONF}
-	@${ECHO_CMD} "newaliases	${PREFIX}/sbin/ssmtp" >> ${_MAILERCONF}
-	@${ECHO_CMD} "hoststat	/usr/bin/true" >> ${_MAILERCONF}
-	@${ECHO_CMD} "purgestat	/usr/bin/true" >> ${_MAILERCONF}
 
 .include <bsd.port.mk>

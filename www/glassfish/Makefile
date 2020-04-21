@@ -1,12 +1,12 @@
-# Created by: cjr@cruwe.de
+# Created by: cjr@cruwe.de 
 # $FreeBSD$
 
 PORTNAME=	glassfish
 PORTVERSION=	5.1.0
-PORTREVISION=	1
 CATEGORIES=	www java
 MASTER_SITES=	ECLIPSE/glassfish
 PKGNAMEPREFIX=	eclipse-
+PKGNAMESUFFIX=	5
 
 MAINTAINER=	jmd@FreeBSD.org
 COMMENT=	Eclipse Jakarta EE Platform
@@ -16,9 +16,10 @@ LICENSE=	EPL
 USES=		zip
 USE_JAVA=	yes
 
+JAVA_VERSION=	11+
 NO_BUILD=	yes
 
-CONFLICTS_INSTALL=	glassfish4
+CONFLICTS_INSTALL=	glassfish
 
 WRKSRC=		${WRKDIR}/glassfish5
 DATADIR=	${PREFIX}/${PORTNAME}-${PORTVERSION}

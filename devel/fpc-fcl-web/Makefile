@@ -1,6 +1,6 @@
 # $FreeBSD$
 
-PORTREVISION=	7
+PORTREVISION=	6
 CATEGORIES=	devel lang
 PKGNAMESUFFIX=	-fcl-web
 

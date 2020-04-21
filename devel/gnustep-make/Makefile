@@ -7,7 +7,7 @@ PORTREVISION=	3
 CATEGORIES=	devel gnustep
 MASTER_SITES=	GNUSTEP/core
 
-MAINTAINER=	ports@FreeBSD.org
+MAINTAINER=	theraven@FreeBSD.org
 COMMENT=	GNUstep makefile package
 
 LICENSE=	GPLv3

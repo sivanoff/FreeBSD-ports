@@ -2,8 +2,7 @@
 # $FreeBSD$
 
 PORTNAME=	grip
-PORTVERSION=	4.1.0
-PORTREVISION=	1
+PORTVERSION=	4.0.1
 CATEGORIES=	audio
 MASTER_SITES=	SF/grip/${PORTVERSION}
 
@@ -22,7 +21,7 @@ LIB_DEPENDS=	libcurl.so:ftp/curl \
 USES=		compiler:c++11-lang gmake gnome libtool localbase \
 		pathfix pkgconfig xorg gnome
 USE_XORG=	ice sm x11 xext
-USE_GNOME=	cairo gdkpixbuf2 gtk20
+USE_GNOME=	cairo gdkpixbuf2 gnomeprefix libgnomeui vte
 
 GNU_CONFIGURE=	yes
 CONFIGURE_ARGS+=--disable-werror

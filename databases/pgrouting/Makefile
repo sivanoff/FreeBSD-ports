@@ -1,4 +1,4 @@
-# Created by: lbartoletti <lbartoletti@FreeBSD.org>
+# Created by: lbartoletti <coder@tuxfamily.org>
 # $FreeBSD$
 
 PORTNAME=	pgrouting
@@ -7,7 +7,7 @@ DISTVERSION=	2.6.2
 PORTREVISION=	4
 CATEGORIES=	databases geography
 
-MAINTAINER=	lbartoletti@FreeBSD.org
+MAINTAINER=	lbartoletti@tuxfamily.org
 COMMENT=	Extension to PostGIS to provide geospatial routing functionality
 
 LICENSE=	GPLv2+

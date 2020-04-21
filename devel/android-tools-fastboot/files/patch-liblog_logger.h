@@ -1,4 +1,4 @@
---- liblog/logger.h.orig	2020-02-11 20:44:45 UTC
+--- liblog/logger.h.orig	2019-08-13 02:10:58 UTC
 +++ liblog/logger.h
 @@ -16,7 +16,13 @@
  
@@ -11,6 +11,6 @@
 +#else
  #include <stdatomic.h>
 +#endif
- #include <sys/cdefs.h>
  
+ #include <cutils/list.h>
  #include <log/log.h>

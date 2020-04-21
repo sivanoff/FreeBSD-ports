@@ -2,25 +2,23 @@
 
 PORTNAME=	sabredav
 PORTVERSION=	3.2.2
-PORTREVISION=	1
 CATEGORIES=	www
+MASTER_SITES=	https://github.com/fruux/sabre-dav/releases/download/${PORTVERSION}/
 
 MAINTAINER=	meyser@xenet.de
 COMMENT=	WebDav, CalDav and Carddav Server/Framework written in PHP
 
-LICENSE=	BSD3CLAUSE
+BROKEN=		unfetchable
 
-USES=			cpe php
-USE_PHP=		dom simplexml mbstring pcre spl ctype iconv xmlwriter
-USE_GITHUB=		yes
+LICENSE=	BSD3CLAUSE
 
 OPTIONS_MULTI=		DATABASE
 OPTIONS_MULTI_DATABASE=	MYSQL PGSQL SQLITE
 OPTIONS_DEFAULT=	MYSQL
 
+USES=			cpe php zip
 CPE_VENDOR=		fruux
-GH_ACCOUNT=		fruux
-GH_PROJECT=		sabre-dav
+USE_PHP=		dom simplexml mbstring pcre spl ctype iconv xmlwriter
 
 .include <bsd.port.options.mk>
 
@@ -36,10 +34,9 @@ USE_PHP+=		pdo_pgsql
 USE_PHP+=		pdo_sqlite
 .endif
 
-NO_BUILD=	yes
+WRKSRC=		${WRKDIR}/SabreDAV
 
-post-extract:
-	@${FIND} ${WRKSRC}/ -type f -name '.*' -delete
+NO_BUILD=	yes
 
 do-install:
 	  ${MKDIR} ${STAGEDIR}/${WWWDIR}

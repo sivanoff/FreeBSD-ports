@@ -1,7 +1,7 @@
 # $FreeBSD$
 
 PORTNAME=	cups-filters
-PORTVERSION=	1.27.3
+PORTVERSION=	1.25.13
 CATEGORIES=	print
 MASTER_SITES=	https://www.openprinting.org/download/cups-filters/
 
@@ -39,9 +39,7 @@ SHEBANG_FILES=	filter/braille/drivers/generic/brftoembosser.in \
 		filter/braille/filters/vectortopdf.in
 
 GNU_CONFIGURE=	yes
-CONFIGURE_ARGS=	--with-shell=/bin/sh \
-		--with-pdftops-path=${LOCALBASE}/bin/pdftops \
-		--with-test-font-path=/dev/null
+CONFIGURE_ARGS=	--with-shell=/bin/sh --with-pdftops-path=${LOCALBASE}/bin/pdftops
 INSTALL_TARGET=	install-strip
 
 OPTIONS_DEFINE= 		BRAILLE COLORD DOCS

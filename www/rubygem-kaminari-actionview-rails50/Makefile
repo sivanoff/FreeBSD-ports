@@ -2,7 +2,7 @@
 # $FreeBSD$
 
 PORTNAME=	kaminari-actionview
-PORTVERSION=	1.2.0
+PORTVERSION=	1.1.1
 CATEGORIES=	www rubygems
 MASTER_SITES=	RG
 PKGNAMESUFFIX=	-rails50
@@ -13,12 +13,11 @@ COMMENT=	Kaminari Action View adapter
 LICENSE=	MIT
 LICENSE_FILE=	${WRKSRC}/MIT-LICENSE
 
-RUN_DEPENDS=	rubygem-actionview50>=0:devel/rubygem-actionview50 \
+RUN_DEPENDS=	rubygem-actionview50>0:devel/rubygem-actionview50 \
 		rubygem-kaminari-core>=${PORTVERSION}:www/rubygem-kaminari-core
 
-USES=		gem
-USE_RUBY=	yes
-
 NO_ARCH=	yes
+USE_RUBY=	yes
+USES=		gem
 
 .include <bsd.port.mk>

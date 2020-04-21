@@ -6,7 +6,7 @@ PORTVERSION=	g20190526
 PORTREVISION=	3
 CATEGORIES=	devel
 
-MAINTAINER=	manu@FreeBSD.org
+MAINTAINER=	jsorocil@gmail.com
 COMMENT=	IceStorm tools for Lattice iCE40 FPGAs
 
 LICENSE=	ISCL

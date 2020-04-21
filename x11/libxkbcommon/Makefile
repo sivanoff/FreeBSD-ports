@@ -1,11 +1,9 @@
 # $FreeBSD$
 
 PORTNAME=	libxkbcommon
-PORTVERSION=	0.10.0
-PORTREVISION=	2
+PORTVERSION=	0.8.4
 CATEGORIES=	x11
 MASTER_SITES=	https://xkbcommon.org/download/
-DIST_SUBDIR=	xorg/lib
 
 MAINTAINER=	x11@FreeBSD.org
 COMMENT=	Keymap handling library for toolkits and window systems
@@ -15,16 +13,13 @@ LICENSE_FILE=	${WRKSRC}/LICENSE
 
 RUN_DEPENDS=	xkeyboard-config>0:x11/xkeyboard-config
 
-USES=		bison meson pkgconfig tar:xz xorg
+USES=		gmake bison tar:xz xorg xorg-cat:lib
 USE_XORG=	xcb
-MESON_ARGS=	-Denable-docs=false \
-		-Denable-wayland=false \
-		-Dx-locale-root="${PREFIX}/lib/X11/locale"
+INSTALL_TARGET=	install-strip
 
-.include <bsd.port.pre.mk>
+CONFIGURE_ARGS=	--without-doxygen \
+		--with-default-rules="xorg" \
+		--with-x-locale-root=${PREFIX}/lib/X11/locale \
+		--disable-wayland
 
-.if ${OSVERSION} < 1200000
-MESON_ARGS+=	-Ddefault-rules=xorg
-.endif
-
-.include <bsd.port.post.mk>
+.include <bsd.port.mk>

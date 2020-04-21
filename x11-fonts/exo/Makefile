@@ -1,4 +1,4 @@
-# Created by: Piotr Kubaj <pkubaj@FreeBSD.org>
+# Created by: Piotr Kubaj <pkubaj@anongoth.pl>
 # $FreeBSD$
 
 PORTNAME=	exo
@@ -7,7 +7,7 @@ PORTREVISION=	2
 CATEGORIES=	x11-fonts
 MASTER_SITES=	http://ndiscovered.com/archives/
 
-MAINTAINER=	pkubaj@FreeBSD.org
+MAINTAINER=	pkubaj@anongoth.pl
 COMMENT=	Geometric sans serif font with a technological feel
 
 LICENSE=	OFL11

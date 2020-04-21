@@ -21,8 +21,7 @@ GH_ACCOUNT=	dhewm
 
 USES=		cmake compiler:c++11-lang jpeg openal:al sdl
 USE_SDL=	sdl2
-
-LDFLAGS_i386=	-Wl,-znotext
+LLD_UNSAFE=	yes
 
 WRKSRC_SUBDIR=	neo
 

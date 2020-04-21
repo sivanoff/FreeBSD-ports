@@ -17,5 +17,3 @@
 	respect do not track policy = yes
 	disconnect idle clients after seconds = 3600
 	bind to = 127.0.0.1
-	web files owner = netdata
-	web files group = netdata

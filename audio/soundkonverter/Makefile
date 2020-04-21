@@ -7,7 +7,7 @@ DISTVERSIONPREFIX=	v
 PORTREVISION=	7
 CATEGORIES=	audio kde
 
-MAINTAINER=	ports@FreeBSD.org
+MAINTAINER=	dbn@FreeBSD.org
 COMMENT=	Frontend to various audio converters (transcoder)
 
 LICENSE=	GPLv2

@@ -9,9 +9,7 @@ CATEGORIES=	devel
 MAINTAINER=	rhurlin@gwdg.de
 COMMENT=	Library For Reading And Writing LAS-Format Data
 
-LICENSE=	BSD3CLAUSE BSL MIT
-LICENSE_COMB=	multi
-LICENSE_FILE=	${WRKSRC}/LICENSE.txt
+LICENSE=	BSD2CLAUSE
 
 USES=		autoreconf dos2unix gmake libtool
 GNU_CONFIGURE=	yes

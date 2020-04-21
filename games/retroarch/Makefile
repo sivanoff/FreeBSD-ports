@@ -7,7 +7,7 @@ DISTVERSIONPREFIX=	v
 PORTREVISION=	17
 CATEGORIES=	games
 
-MAINTAINER=	greg@unrelenting.technology
+MAINTAINER=	yuri@FreeBSD.org
 COMMENT=	Cross-platform entertainment system based on libretro API
 
 LICENSE=	GPLv3
@@ -57,7 +57,6 @@ FBO_CONFIGURE_ENABLE=	fbo
 
 CFLAGS+=	-pthread
 LDFLAGS+=	-pthread
-LDFLAGS_i386=	-Wl,-znotext
 CONFIGURE_ARGS+=--enable-threads
 CONFIGURE_ENV+=	MAN_DIR=${MANPREFIX}/man
 
@@ -68,6 +67,7 @@ SUB_FILES=	pkg-message
 GNU_CONFIGURE=	yes
 CONFIGURE_ARGS+=--global-config-dir=${LOCALBASE}/etc
 USE_XORG=	x11 xcb xext xinerama xv xxf86vm
+LLD_UNSAFE=	yes
 SHEBANG_FILES=	libretro-common/glsym/glgen.py libretro-common/glsym/rglgen.py tools/cg2glsl.py tools/vulkan_loader_generator.py
 
 post-patch:

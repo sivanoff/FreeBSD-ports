@@ -1,12 +1,10 @@
---- libcaf_io/src/io/network/ip_endpoint.cpp.orig	2020-04-05 00:36:43 UTC
+--- libcaf_io/src/io/network/ip_endpoint.cpp.orig	2019-12-27 13:50:38 UTC
 +++ libcaf_io/src/io/network/ip_endpoint.cpp
-@@ -30,6 +30,9 @@
+@@ -30,6 +30,7 @@
  #  include <ws2tcpip.h>
  #  include <ws2ipdef.h>
  #else
-+#  ifdef __FreeBSD__
-+#    include <sys/types.h>
-+#  endif
++#  include <sys/types.h>
  #  include <arpa/inet.h>
  #  include <cerrno>
  #  include <netinet/in.h>

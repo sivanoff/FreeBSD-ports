@@ -7,7 +7,7 @@
 
 PORTNAME=	gnome-icons
 PORTVERSION=	20060914
-PORTREVISION=	5
+PORTREVISION=	4
 CATEGORIES=	x11-themes gnome
 
 MAINTAINER=	ports@FreeBSD.org
@@ -25,8 +25,7 @@ RUN_DEPENDS=	${LOCALBASE}/share/icons/AquaFusion/index.theme:x11-themes/gnome-ic
 		${LOCALBASE}/share/icons/Snow-Apple/index.theme:x11-themes/gnome-icons-snow-apple \
 		${LOCALBASE}/share/icons/stylish/index.theme:x11-themes/gnome-icons-stylish \
 		${LOCALBASE}/share/icons/ximian-south/index.theme:x11-themes/gnome-icons-ximian-south \
-		${LOCALBASE}/share/icons/Lila/index.theme:x11-themes/gnome-icons-lila \
-		${LOCALBASE}/share/icons/GartoonRedux/index.theme:x11-themes/gnome-icons-gartoon-redux
+		${LOCALBASE}/share/icons/Lila/index.theme:x11-themes/gnome-icons-lila
 
 USES=		metaport
 

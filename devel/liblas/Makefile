@@ -9,9 +9,7 @@ CATEGORIES=	devel
 MAINTAINER=	wen@FreeBSD.org
 COMMENT=	Library For Reading And Writing LAS-Format Data
 
-LICENSE=	BSD3CLAUSE BSL MIT
-LICENSE_COMB=	multi
-LICENSE_FILE=	${WRKSRC}/LICENSE.txt
+LICENSE=	BSD2CLAUSE
 
 LIB_DEPENDS=	libboost_thread.so:devel/boost-libs \
 		libgeotiff.so:graphics/libgeotiff

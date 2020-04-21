@@ -11,6 +11,7 @@
     SUBDIR += d2coding-ttf
     SUBDIR += engdic
     SUBDIR += fcitx-hangul
+    SUBDIR += gimp-help
     SUBDIR += h2ps
     SUBDIR += hanyangfonts
     SUBDIR += hcode

@@ -1,11 +1,11 @@
 # $FreeBSD$
 
 PORTNAME=	check_nwc_health
-PORTVERSION=	7.10.3
+PORTVERSION=	7.10.1.5
 CATEGORIES=	net-mgmt
 MASTER_SITES=	https://labs.consol.de/assets/downloads/nagios/
 
-MAINTAINER=	leres@FreeBSD.org
+MAINTAINER=	leres@freebsd.org
 COMMENT=	Nagios plugin to monitor network equipment via SNMP
 
 LICENSE=	GPLv2

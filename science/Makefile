@@ -10,7 +10,6 @@
     SUBDIR += R-cran-AMORE
     SUBDIR += R-cran-DCluster
     SUBDIR += R-cran-Epi
-    SUBDIR += R-cran-FAdist
     SUBDIR += R-cran-bayesm
     SUBDIR += R-cran-cmprsk
     SUBDIR += R-cran-e1071
@@ -40,7 +39,6 @@
     SUBDIR += buddy
     SUBDIR += cdcl
     SUBDIR += cdf
-    SUBDIR += cdk
     SUBDIR += cdo
     SUBDIR += cgnslib
     SUBDIR += cgribex
@@ -55,6 +53,7 @@
     SUBDIR += code_saturne
     SUBDIR += colt
     SUBDIR += coordgenlibs
+    SUBDIR += coot
     SUBDIR += cp2k
     SUBDIR += cp2k-data
     SUBDIR += crf++
@@ -70,7 +69,6 @@
     SUBDIR += dvc
     SUBDIR += eccodes
     SUBDIR += elk
-    SUBDIR += elmerfem
     SUBDIR += epte
     SUBDIR += erd
     SUBDIR += erkale
@@ -97,6 +95,7 @@
     SUBDIR += gromacs
     SUBDIR += gsmc
     SUBDIR += gtamsanalyzer
+    SUBDIR += gwyddion
     SUBDIR += h5utils
     SUBDIR += h5z-zfp
     SUBDIR += harminv
@@ -150,6 +149,7 @@
     SUBDIR += mcxtrace-comps
     SUBDIR += mdynamix
     SUBDIR += medit
+    SUBDIR += meep
     SUBDIR += metaphysicl
     SUBDIR += minc2
     SUBDIR += mmdb2
@@ -216,6 +216,7 @@
     SUBDIR += paraview
     SUBDIR += pcmsolver
     SUBDIR += pnetcdf
+    SUBDIR += psychopy
     SUBDIR += pulseview
     SUBDIR += py-DendroPy
     SUBDIR += py-GPy
@@ -225,6 +226,7 @@
     SUBDIR += py-OpenFermion
     SUBDIR += py-PyFR
     SUBDIR += py-PyQuante
+    SUBDIR += py-ScientificPython
     SUBDIR += py-SimpleSpectral
     SUBDIR += py-abipy
     SUBDIR += py-asdf
@@ -237,13 +239,12 @@
     SUBDIR += py-coards
     SUBDIR += py-dlib
     SUBDIR += py-eccodes-python
-    SUBDIR += py-geolinks
     SUBDIR += py-geomet
     SUBDIR += py-geometer
     SUBDIR += py-gpaw
     SUBDIR += py-gsd
-    SUBDIR += py-h5json
     SUBDIR += py-h5py
+    SUBDIR += py-hcluster
     SUBDIR += py-kinematics
     SUBDIR += py-lifelines
     SUBDIR += py-mdp
@@ -260,15 +261,14 @@
     SUBDIR += py-phonopy
     SUBDIR += py-pupynere
     SUBDIR += py-pyaixi
-    SUBDIR += py-pycsw
     SUBDIR += py-pydicom
     SUBDIR += py-pygeodesy
-    SUBDIR += py-pygeometa
     SUBDIR += py-pymatgen
     SUBDIR += py-pymol
     SUBDIR += py-pyosf
     SUBDIR += py-pysal
     SUBDIR += py-pyteomics
+    SUBDIR += py-pyteomics.biolccc
     SUBDIR += py-qcelemental
     SUBDIR += py-qcengine
     SUBDIR += py-qspin
@@ -288,10 +288,10 @@
     SUBDIR += py-veusz
     SUBDIR += py-ws2300
     SUBDIR += pybrain
+    SUBDIR += pycdf
     SUBDIR += pynn
     SUBDIR += qbox
     SUBDIR += qcl
-    SUBDIR += qiskit-aer
     SUBDIR += qmcpack
     SUBDIR += quantum-espresso
     SUBDIR += quantum-espresso-pseudopotentials

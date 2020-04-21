@@ -10,14 +10,11 @@ MASTER_SITES=	http://monkey.org/~marius/nylon/
 MAINTAINER=	ports@FreeBSD.org
 COMMENT=	Unix SOCKS 4 and 5 proxy server
 
-LICENSE=	BSD3CLAUSE
-
 LIB_DEPENDS=	libevent.so:devel/libevent
-
-USES=		pkgconfig
 
 USE_RC_SUBR=	nylon
 
+USES=		pkgconfig
 GNU_CONFIGURE=	yes
 # Necessary for $PREFIX to work:
 CONFIGURE_ARGS=	--with-libevent=yes

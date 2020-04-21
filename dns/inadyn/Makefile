@@ -2,48 +2,41 @@
 # $FreeBSD$
 
 PORTNAME=	inadyn
-PORTVERSION=	2.6
-PORTREVISION=	1
+PORTVERSION=	1.96.2
+PORTREVISION=	3
 CATEGORIES=	dns
-MASTER_SITES=	https://github.com/troglobit/inadyn/releases/download/v${PORTVERSION}/
+MASTER_SITES=	http://www.inatech.eu/inadyn/ \
+		LOCAL/dhn
+DISTNAME=	${PORTNAME}.v${PORTVERSION}
 
-MAINTAINER=	samm@FreeBSD.org
+MAINTAINER=	samm@freebsd.org
 COMMENT=	Dynamic DNS update client
 
-LICENSE=	GPLv2
-LICENSE_FILE=	${WRKSRC}/COPYING
-
-LIB_DEPENDS=	libconfuse.so:devel/libconfuse
-RUN_DEPENDS=	ca_root_nss>=0:security/ca_root_nss
-
-USES=		pkgconfig
-
-GNU_CONFIGURE=	yes
-
-USERS=		inadyn
-GROUPS=		inadyn
-
+USES=		dos2unix gmake zip
 USE_RC_SUBR=	inadyn
+MAKEFILE=	makefile
 
-OPTIONS_DEFINE=		DOCS EXAMPLES
-OPTIONS_DEFAULT=	OPENSSL
-OPTIONS_SINGLE=		TLS
-OPTIONS_SINGLE_TLS=	GNUTLS OPENSSL
+PORTDOCS=	readme.html
+PLIST_FILES=	bin/inadyn man/man5/inadyn.conf.5.gz man/man8/inadyn.8.gz
 
-GNUTLS_LIB_DEPENDS=	libgnutls.so:security/gnutls
-OPENSSL_USES=		ssl
-OPENSSL_CONFIGURE_ENABLE=	openssl
-OPENSSL_CONFIGURE_ON=	OpenSSL_CFLAGS=-I${OPENSSLINC} OpenSSL_LIBS="-L${OPENSSLLIB} -lssl"
+OPTIONS_DEFINE=	DOCS
+
+post-extract:
+	@${MV} ${WRKDIR}/${PORTNAME} ${WRKSRC}
+	@${RM} ${WRKSRC}/bin/linux/inadyn
 
 post-patch:
+	@${REINPLACE_CMD} -e 's|gcc|$$\(CC\)|g' ${WRKSRC}/makefile
 	@${REINPLACE_CMD} -e "s,%%PREFIX%%,${PREFIX},g" \
-		${WRKSRC}/man/inadyn.8 ${WRKSRC}/man/inadyn.conf.5 \
-		${WRKSRC}/examples/README.md ${WRKSRC}/examples/inadyn.conf
+		${WRKSRC}/man/inadyn.8 ${WRKSRC}/readme.html \
+		${WRKSRC}/src/dyndns.h
 
-post-install:
-	${MV} ${STAGEDIR}${DOCSDIR}/examples ${STAGEDIR}${EXAMPLESDIR}
-	${INSTALL_DATA} ${STAGEDIR}${EXAMPLESDIR}/inadyn.conf ${STAGEDIR}${PREFIX}/etc/inadyn.conf.sample
-	${MKDIR} ${STAGEDIR}/var/cache/inadyn
-	${MKDIR} ${STAGEDIR}/var/run/inadyn
+do-install:
+	@${MKDIR} ${STAGEDIR}${DOCSDIR}
+	${INSTALL_DATA} -p ${WRKSRC}/${PORTDOCS} ${STAGEDIR}${DOCSDIR}
+	${INSTALL_PROGRAM} ${WRKSRC}/bin/linux/inadyn ${STAGEDIR}${PREFIX}/bin
+	${INSTALL_MAN} ${WRKSRC}/man/inadyn.8 ${STAGEDIR}${MANPREFIX}/man/man8
+	${INSTALL_MAN} ${WRKSRC}/man/inadyn.conf.5 \
+		${STAGEDIR}${MANPREFIX}/man/man5
 
 .include <bsd.port.mk>

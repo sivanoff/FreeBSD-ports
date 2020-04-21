@@ -4,7 +4,6 @@
 PORTNAME=	sngrep
 PORTVERSION=	1.4.6
 DISTVERSIONPREFIX=	v
-PORTREVISION=	1
 CATEGORIES=	net
 
 MAINTAINER=	tad@vif.com
@@ -21,7 +20,6 @@ GH_ACCOUNT=	irontec
 GNU_CONFIGURE=	yes
 
 OPTIONS_DEFINE=	OPENSSL PCRE UNICODE IPV6 EEP
-OPTIONS_DEFAULT=	IPV6 EEP UNICODE OPENSSL
 
 OPENSSL_DESC=	Adds OpenSSL support to parse TLS captured messages
 OPENSSL_CONFIGURE_ON=	--with-openssl
@@ -33,11 +31,18 @@ PCRE_LIB_DEPENDS=	libpcre.so:devel/pcre
 
 UNICODE_DESC=	Adds Ncurses UTF-8/Unicode support
 UNICODE_CONFIGURE_ON=	--enable-unicode
+UNICODE_LIB_DEPENDS=	libncursesw.so:devel/ncurses
 
 IPV6_DESC=	Enable IPv6 packet capture support
 IPV6_CONFIGURE_ON=	--enable-ipv6
 
 EEP_DESC=	Enable EEP packet send/receive support
 EEP_CONFIGURE_ON=	--enable-eep
+
+post-patch:
+	@${REINPLACE_CMD} -e 's|ncursesw/ncurses.h|ncurses.h|g' \
+		${WRKSRC}/configure.ac \
+		${WRKSRC}/src/curses/scrollbar.h \
+		${WRKSRC}/src/curses/ui_panel.h
 
 .include <bsd.port.mk>

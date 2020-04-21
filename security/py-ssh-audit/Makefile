@@ -2,18 +2,18 @@
 
 PORTNAME=	ssh-audit
 DISTVERSIONPREFIX=	v
-DISTVERSION=	2.2.0
+DISTVERSION=	1.7.0
 CATEGORIES=	security
 PKGNAMEPREFIX=	${PYTHON_PKGNAMEPREFIX}
 
-MAINTAINER=	pkubaj@FreeBSD.org
+MAINTAINER=	pkubaj@anongoth.pl
 COMMENT=	SSH server auditing
 
 LICENSE=	MIT
 
 USES=		python shebangfix
 USE_GITHUB=	yes
-GH_ACCOUNT=	jtesta
+GH_ACCOUNT=	arthepsy
 USE_PYTHON=	concurrent
 NO_BUILD=	yes
 NO_ARCH=	yes

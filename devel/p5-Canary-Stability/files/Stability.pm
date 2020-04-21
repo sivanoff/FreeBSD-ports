@@ -1,6 +1,6 @@
 =head1 NAME
 
-Canary::Stability - Stub to avoid harmful instructions
+Canary::Stability - Stub to prevent checking perl compatibility for "schmorp" modules
 
 =head1 SYNOPSIS
 
@@ -8,11 +8,9 @@ Canary::Stability - Stub to avoid harmful instructions
 
 =head1 PURPOSE
 
-The original Canary::Stability is a set of system checks
-that don't apply to FreeBSD, and includes potentially harmful
-recommendations. Rather than present those recommendations
-to users, we instead provide an empty stub to satisfy modules
-that list it as a dependency.
+This is a stub module that neutralizes the original Canary::Stability
+module. That module is a relic of a strange notion that "schmorp" should
+prevent people from using any Perl released after 2015.
 
 =cut
 

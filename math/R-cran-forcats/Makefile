@@ -6,7 +6,7 @@ PORTREVISION=	2
 CATEGORIES=	math
 DISTNAME=	${PORTNAME}_${DISTVERSION}
 
-MAINTAINER=	ports@FreeBSD.org
+MAINTAINER=	dbn@FreeBSD.org
 COMMENT=	Tools for Working with Categorical Variables (Factors)
 
 LICENSE=	GPLv3

@@ -2,7 +2,7 @@
 # $FreeBSD$
 
 PORTNAME=	CPANPLUS
-PORTVERSION=	0.9906
+PORTVERSION=	0.9178
 CATEGORIES=	devel perl5
 MASTER_SITES=	CPAN
 MASTER_SITE_SUBDIR=	CPAN:BINGOS
@@ -23,16 +23,15 @@ RUN_DEPENDS=	p5-Archive-Extract>=0.16:archivers/p5-Archive-Extract \
 		p5-Package-Constants>=0.01:devel/p5-Package-Constants \
 		p5-Term-UI>=0.18:devel/p5-Term-UI
 
-USES=		perl5
-USE_PERL5=	configure
+OPTIONS_DEFINE=	TEST_REPORTER YAML
+TEST_REPORTER_DESC=	Send reports to cpan-testers
 
 CONFIGURE_ARGS=	AUTOINSTALL=1
 INSTALL_TARGET=	pure_install
 MAKE_JOBS_UNSAFE=	yes
 NO_ARCH=	yes
-
-OPTIONS_DEFINE=	TEST_REPORTER YAML
-TEST_REPORTER_DESC=	Send reports to cpan-testers
+USES=		perl5
+USE_PERL5=	configure
 
 TEST_REPORTER_BUILD_DEPENDS=	p5-Test-Reporter>=0:devel/p5-Test-Reporter
 TEST_REPORTER_RUN_DEPENDS=	p5-Test-Reporter>=0:devel/p5-Test-Reporter

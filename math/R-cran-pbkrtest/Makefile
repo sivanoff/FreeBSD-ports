@@ -2,7 +2,8 @@
 # $FreeBSD$
 
 PORTNAME=	pbkrtest
-DISTVERSION=	0.4-8.6
+DISTVERSION=	0.4-7
+PORTREVISION=	3
 CATEGORIES=	math
 DISTNAME=	${PORTNAME}_${DISTVERSION}
 
@@ -11,8 +12,7 @@ COMMENT=	Parametric bootstrap and Kenward-Roger-based methods for mixed model co
 
 LICENSE=	GPLv2+
 
-CRAN_DEPENDS=	R-cran-lme4>=1.1.10:math/R-cran-lme4 \
-		R-cran-magrittr>0:devel/R-cran-magrittr
+CRAN_DEPENDS=	R-cran-lme4>=1.1.10:math/R-cran-lme4
 BUILD_DEPENDS=	${CRAN_DEPENDS}
 RUN_DEPENDS=	${CRAN_DEPENDS}
 

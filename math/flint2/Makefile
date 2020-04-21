@@ -2,7 +2,6 @@
 
 PORTNAME=	flint2
 DISTVERSION=	g20190210
-PORTREVISION=	1
 CATEGORIES=	math
 
 PATCH_SITES=	https://github.com/${GH_ACCOUNT}/${PORTNAME}/commit/
@@ -18,7 +17,7 @@ LICENSE_FILE=	${WRKSRC}/LICENSE
 LIB_DEPENDS=	libgmp.so:math/gmp \
 		libmpfr.so:math/mpfr
 
-USES=		compiler:c++11-lang gmake
+USES=		cmake
 GNU_CONFIGURE=	yes
 CONFIGURE_ARGS=	--disable-static
 USE_GITHUB=	yes
@@ -26,13 +25,6 @@ GH_ACCOUNT=	wbhart
 GH_TAGNAME=	2baa9bc
 USE_LDCONFIG=	yes
 
-OPTIONS_DEFINE=	NTL
-OPTIONS_DEFAULT=NTL
-
-NTL_DESC=		Victor Shoup's Number Theory Library (used by SageMath)
-NTL_LIB_DEPENDS=	libntl.so:math/ntl
-NTL_CONFIGURE_WITH=	ntl
-
-TEST_TARGET=	check
+CMAKE_ON=	BUILD_SHARED_LIBS
 
 .include <bsd.port.mk>

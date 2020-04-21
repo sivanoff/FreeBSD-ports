@@ -2,9 +2,10 @@
 # $FreeBSD$
 
 PORTNAME=	pkcs11-helper
-PORTVERSION=	1.26.0
+PORTVERSION=	1.25.1
+PORTREVISION=	1
 CATEGORIES=	security devel
-MASTER_SITES=	https://github.com/OpenSC/pkcs11-helper/releases/download/pkcs11-helper-${PORTVERSION:R}/
+MASTER_SITES=	https://github.com/OpenSC/pkcs11-helper/releases/download/pkcs11-helper-${PORTVERSION}/
 
 MAINTAINER=	ale@FreeBSD.org
 COMMENT=	Helper library for multiple PKCS\#11 providers
@@ -27,8 +28,6 @@ CONFIGURE_ARGS=	--disable-crypto-engine-gnutls \
 		--disable-crypto-engine-polarssl \
 		--disable-crypto-engine-mbedtls \
 		--disable-crypto-engine-cryptoapi
-
-INSTALL_TARGET=	install-strip
 
 OPTIONS_DEFINE=	DOCS
 

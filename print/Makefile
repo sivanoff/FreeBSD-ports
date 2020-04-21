@@ -17,7 +17,6 @@
     SUBDIR += bibcursed
     SUBDIR += biblio-py
     SUBDIR += bibview
-    SUBDIR += brlaser
     SUBDIR += c2ps
     SUBDIR += catdvi
     SUBDIR += cdlabelgen
@@ -166,6 +165,8 @@
     SUBDIR += pkfonts360
     SUBDIR += pkfonts400
     SUBDIR += pkfonts600
+    SUBDIR += pkipplib
+    SUBDIR += pkpgcounter
     SUBDIR += pmw
     SUBDIR += pnm2ppa
     SUBDIR += print-manager
@@ -175,11 +176,8 @@
     SUBDIR += pslib
     SUBDIR += pstotext
     SUBDIR += psutils
-    SUBDIR += py-font-v
     SUBDIR += py-fontaine
-    SUBDIR += py-fontbakery
     SUBDIR += py-fonttools
-    SUBDIR += py-fonttools3
     SUBDIR += py-fpdf
     SUBDIR += py-pdf
     SUBDIR += py-pdf2
@@ -252,6 +250,7 @@
     SUBDIR += trueprint
     SUBDIR += ttf2pt1
     SUBDIR += ttfautohint
+    SUBDIR += ttfquery
     SUBDIR += ttftot42
     SUBDIR += txtbdf2ps
     SUBDIR += typetools
@@ -260,7 +259,6 @@
     SUBDIR += xmbibtex
     SUBDIR += xpdfopen
     SUBDIR += xpp
-    SUBDIR += xreader
     SUBDIR += xtexsh
     SUBDIR += yatex
 

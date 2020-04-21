@@ -3,21 +3,25 @@
 
 PORTNAME=	spice
 PORTVERSION=	3f5.2
-PORTREVISION=	13
+PORTREVISION=	12
 CATEGORIES=	cad
-MASTER_SITES=	https://ptolemy.berkeley.edu/projects/embedded/pubs/downloads/spice/:srcs \
+MASTER_SITES=	http://embedded.eecs.berkeley.edu/pubs/downloads/spice/:srcs \
+		http://www-device.eecs.berkeley.edu/~bsim/Files/BSIM3/ftpv330/src/:bsim3 \
+		http://www-device.eecs.berkeley.edu/~bsim/Files/BSIM4/BSIM480/:bsim4 \
 		http://home.hiroshima-u.ac.jp/usdl/HiSIM2/:hisim2 \
-		LOCAL/hrs/${PORTNAME}
+		LOCAL/hrs/${PORTNAME}:docs
 DISTFILES=	spice3f5${EXTRACT_SUFX}:srcs \
-		BSIM3v330.tar.Z \
-		BSIM480_Code.zip \
+		BSIM3v330.tar.Z:bsim3 \
+		BSIM480_Code.zip:bsim4 \
 		HiSIM_2.8.0_Release_20140605.zip:hisim2 \
-		cp.ps toc.ps doc.ps
+		cp.ps:docs toc.ps:docs doc.ps:docs
 DIST_SUBDIR=	spice
 EXTRACT_ONLY=	spice3f5${EXTRACT_SUFX}
 
 MAINTAINER=	hrs@FreeBSD.org
 COMMENT=	General-purpose circuit simulation program
+
+BROKEN=		unfetchable
 
 LICENSE=	MIT
 LICENSE_FILE=	${WRKSRC}/COPYRIGHT
@@ -43,7 +47,7 @@ OPTIONS_DEFINE=	DOCS EXAMPLES X11 DEV_BSIM3 DEV_BSIM4 DEV_HISIM2
 OPTIONS_DEFAULT=X11
 
 X11_USES=		xorg
-X11_USE=		XORG=x11,xaw,xext,xmu,xorgproto,xt
+X11_USE=		XORG=x11,xaw,xext,xmu,xt
 X11_CONFIGURE_ENV=	WITH_X11=yes
 DEV_BSIM3_DESC=		BSIM3v3 MOS Transistor Model Support
 DEV_BSIM3_LICENSE=	BSIML

@@ -12,6 +12,7 @@
     SUBDIR += dtaus
     SUBDIR += eric6
     SUBDIR += geonext
+    SUBDIR += gimp-help
     SUBDIR += hunspell
     SUBDIR += hyphen
     SUBDIR += jdictionary-eng-ger
@@ -21,6 +22,7 @@
     SUBDIR += mythes
     SUBDIR += phone
     SUBDIR += schwobifyer
+    SUBDIR += trytond28_account_de_skr03
     SUBDIR += unix-connect
     SUBDIR += webalizer2
     SUBDIR += wordpress

@@ -2,13 +2,13 @@
 # $FreeBSD$
 
 PORTNAME=	WWW-Mechanize
-PORTVERSION=	1.96
+PORTVERSION=	1.95
 CATEGORIES=	www perl5
 MASTER_SITES=	CPAN
 PKGNAMEPREFIX=	p5-
 
 MAINTAINER=	perl@FreeBSD.org
-COMMENT=	Handy web browsing in a Perl object
+COMMENT=	This module is to help you automate interaction with a website
 
 LICENSE=	ART10 GPLv1+
 LICENSE_COMB=	dual

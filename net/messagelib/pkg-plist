@@ -490,6 +490,7 @@ lib/libKF5WebEngineViewer.so.%%KDE_APPLICATIONS_SHLIB_VER%%
 %%QT_MKSPECDIR%%/modules/qt_MessageCore.pri
 %%QT_MKSPECDIR%%/modules/qt_MessageList.pri
 %%QT_MKSPECDIR%%/modules/qt_MessageViewer.pri
+%%QT_MKSPECDIR%%/modules/qt_MimeTreeParser.pri
 %%QT_MKSPECDIR%%/modules/qt_TemplateParser.pri
 %%QT_MKSPECDIR%%/modules/qt_WebEngineViewer.pri
 %%QT_PLUGINDIR%%/messageviewer/grantlee/5.0/messageviewer_grantlee_extension.so
@@ -656,7 +657,6 @@ share/locale/ia/LC_MESSAGES/libmessagelist.mo
 share/locale/ia/LC_MESSAGES/libmessageviewer.mo
 share/locale/ia/LC_MESSAGES/libmimetreeparser.mo
 share/locale/ia/LC_MESSAGES/libtemplateparser.mo
-share/locale/ia/LC_MESSAGES/libwebengineviewer.mo
 share/locale/is/LC_MESSAGES/libmessagelist.mo
 share/locale/is/LC_MESSAGES/libmessageviewer.mo
 share/locale/is/LC_MESSAGES/libmimetreeparser.mo

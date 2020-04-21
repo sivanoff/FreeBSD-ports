@@ -3,12 +3,12 @@
 
 PORTNAME=	zathura-pdf-poppler
 PORTVERSION=	0.2.9
-PORTREVISION=	12
+PORTREVISION=	9
 CATEGORIES=	graphics
 MASTER_SITES=	https://pwmt.org/projects/zathura/plugins/download/ \
 		http://www.madpilot.net/~mad/pwmt.org/
 
-MAINTAINER=	ports@FreeBSD.org
+MAINTAINER=	mike.d.ft402@gmail.com
 COMMENT=	Poppler render PDF plugin for Zathura PDF viewer
 
 LICENSE=	ZLIB

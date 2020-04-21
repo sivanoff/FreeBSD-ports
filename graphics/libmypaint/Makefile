@@ -1,7 +1,8 @@
 # $FreeBSD$
 
 PORTNAME=	libmypaint
-PORTVERSION=	1.5.1
+PORTVERSION=	1.3.0
+PORTREVISION=	3
 CATEGORIES=	graphics
 MASTER_SITES=	https://github.com/mypaint/libmypaint/releases/download/v${PORTVERSION}/
 
@@ -22,14 +23,10 @@ INSTALL_TARGET=	install-strip
 TEST_TARGET=	check
 
 OPTIONS_SUB=	yes
-OPTIONS_DEFINE=	NLS OPENMP
-OPTIONS_DEFAULT_amd64=	OPENMP
+OPTIONS_DEFINE=	NLS
 
 NLS_USES=	gettext
 NLS_USE=	GNOME=intltool
 NLS_CONFIGURE_ENABLE=	nls i18n
-
-OPENMP_CONFIGURE_ENABLE=	openmp
-OPENMP_USES=			compiler:openmp
 
 .include <bsd.port.mk>

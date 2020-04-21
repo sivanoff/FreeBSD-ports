@@ -21,7 +21,7 @@ PLIST_FILES=	bin/${PORTNAME} libexec/${PORTNAME}
 PORTDATA=	*
 PORTDOCS=	*
 CPPFLAGS+=	-DAP_PATH="\"${DATADIR}/\""
-LDFLAGS_i386=	-Wl,-znotext
+LLD_UNSAFE=	yes
 
 DESKTOP_ENTRIES="Apricots" \
 		"${COMMENT}" \

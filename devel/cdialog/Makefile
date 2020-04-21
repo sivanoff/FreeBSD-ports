@@ -19,7 +19,7 @@ USE_LDCONFIG=	yes
 CONFIGURE_ARGS=	--enable-widec \
 		--includedir=${PREFIX}/include/${PORTNAME} \
 		--with-libtool \
-		--with-${NCURSES_IMPL} \
+		--with-ncursesw \
 		--with-package=${PORTNAME}
 MAKEFILE=	makefile
 

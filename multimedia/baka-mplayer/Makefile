@@ -35,6 +35,7 @@ post-patch:
 	${REINPLACE_CMD} '/^Comment/s,=.*,=${COMMENT},' \
 		${WRKSRC}/etc/${PORTNAME}.desktop
 	${REINPLACE_CMD} -e 's,/usr,${PREFIX},' \
+		-e 's,share/man,man,' \
 		${WRKSRC}/src/Baka-MPlayer.pro
 
 post-install:

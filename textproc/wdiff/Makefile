@@ -7,7 +7,7 @@ PORTREVISION=	2
 CATEGORIES=	textproc
 MASTER_SITES=	GNU
 
-MAINTAINER=	dinoex@FreeBSD.org
+MAINTAINER=	ports@FreeBSD.org
 COMMENT=	Display word differences between text files
 
 LICENSE=	GPLv3+

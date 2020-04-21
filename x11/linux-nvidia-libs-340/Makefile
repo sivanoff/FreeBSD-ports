@@ -1,6 +1,6 @@
 # $FreeBSD$
 
-DISTVERSION=	340.108
+DISTVERSION=	340.107
 # Explicitly set PORTREVISION as it can be overridden by the master port
 PORTREVISION=	0
 

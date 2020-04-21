@@ -1,8 +1,8 @@
 # $FreeBSD$
 
 PORTNAME=	wlrobs
-PORTVERSION=	s20200111
-DISTVERSIONSUFFIX=	-8345bf985e39
+PORTVERSION=	s20191230
+DISTVERSIONSUFFIX=	-d7294c05b907
 CATEGORIES=	multimedia
 #MASTER_SITES=	https://hg.sr.ht/~scoopta/${PORTNAME}/archive/${DISTVERSIONSUFFIX:S/^-//}${EXTRACT_SUFX}?dummy=/
 MASTER_SITES+=	LOCAL/jbeich # https://todo.sr.ht/~sircmpwn/hg.sr.ht/33
@@ -17,8 +17,7 @@ LICENSE_FILE=	${WRKSRC}/COPYING.md
 LIB_DEPENDS=	libwayland-client.so:graphics/wayland \
 		libobs.so:multimedia/obs-studio
 
-USES=		compiler:c11 gl meson pkgconfig
-USE_GL=		egl
+USES=		compiler:c11 meson pkgconfig
 DATADIR=	${PREFIX}/lib/obs-plugins
 PORTDATA=	${PORTNAME}.so
 

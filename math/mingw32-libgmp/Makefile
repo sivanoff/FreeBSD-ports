@@ -9,7 +9,7 @@ MASTER_SITES=	GNU/gmp
 PKGNAMEPREFIX=	mingw32-
 DISTNAME=	gmp-${DISTVERSION}a
 
-MAINTAINER=	ports@FreeBSD.org
+MAINTAINER=	cyberbotx@cyberbotx.com
 COMMENT=	Library for arbitrary precision arithmetic (MinGW32)
 
 BUILD_DEPENDS=	${PKGNAMEPREFIX}gcc:devel/${PKGNAMEPREFIX}gcc \

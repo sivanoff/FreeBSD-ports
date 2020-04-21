@@ -2,7 +2,7 @@
 # $FreeBSD$
 
 PORTNAME=	rply
-PORTVERSION=	0.7.7
+PORTVERSION=	0.7.5
 CATEGORIES=	devel python
 MASTER_SITES=	CHEESESHOP
 PKGNAMEPREFIX=	${PYTHON_PKGNAMEPREFIX}
@@ -17,7 +17,6 @@ RUN_DEPENDS=	${PYTHON_PKGNAMEPREFIX}appdirs>0:devel/py-appdirs@${PY_FLAVOR}
 
 USES=		python
 USE_PYTHON=	distutils autoplist
-
 NO_ARCH=	yes
 
 .include <bsd.port.mk>

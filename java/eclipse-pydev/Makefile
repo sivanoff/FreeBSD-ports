@@ -14,9 +14,6 @@ COMMENT=	Eclipse plugin for Python and Jython development
 
 LICENSE=	EPL
 
-DEPRECATED=	Uses deprecated version of python
-EXPIRATION_DATE=	2020-09-15
-
 RUN_DEPENDS=	${LOCALBASE}/bin/eclipse:java/eclipse
 
 BUNDLES_INFO=	${PREFIX}/share/eclipse/configuration/org.eclipse.equinox.simpleconfigurator/bundles.info

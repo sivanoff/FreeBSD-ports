@@ -1,19 +1,19 @@
 # $FreeBSD$
 
 PORTNAME=	applicationinsights
-PORTVERSION=	0.11.9
+DISTVERSION=	0.11.7
 CATEGORIES=	devel python
 MASTER_SITES=	CHEESESHOP
 PKGNAMEPREFIX=	${PYTHON_PKGNAMEPREFIX}
 
-MAINTAINER=	sunpoet@FreeBSD.org
+MAINTAINER=	dbn@FreeBSD.org
 COMMENT=	Applications Insights SDK for Python
 
 LICENSE=	MIT
 LICENSE_FILE=	${WRKSRC}/LICENSE.txt
 
 USES=		python
-USE_PYTHON=	autoplist concurrent distutils
+USE_PYTHON=	autoplist distutils
 
 NO_ARCH=	yes
 

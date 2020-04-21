@@ -2,7 +2,6 @@
 
 PORTNAME=	ebsynth
 PORTVERSION=	0.0.0.20190510
-PORTREVISION=	1
 CATEGORIES=	graphics
 
 MAINTAINER=	FreeBSD@ShaneWare.biz
@@ -10,7 +9,9 @@ COMMENT=	Example-based Image Synthesis and Style Transfer
 
 LICENSE=	PD
 
-USES=		compiler:c++11-lang
+LIB_DEPENDS=	libomp.so:devel/openmp
+
+USES=		compiler:c++11-lang localbase
 USE_GITHUB=	yes
 GH_ACCOUNT=	jamriska
 GH_TAGNAME=	2f5c97c0c21a

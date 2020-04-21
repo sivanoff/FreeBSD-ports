@@ -2,7 +2,8 @@
 # $FreeBSD$
 
 PORTNAME=	bx-python
-DISTVERSION=	0.8.8
+DISTVERSIONPREFIX=	v
+DISTVERSION=	0.8.6
 CATEGORIES=	biology python
 PKGNAMEPREFIX=	${PYTHON_PKGNAMEPREFIX}
 
@@ -12,10 +13,9 @@ COMMENT=	Python module for reading, manipulating and writing genomic data sets
 LICENSE=	MIT
 LICENSE_FILE=	${WRKSRC}/LICENSE
 
-PY_DEPENDS=	${PYNUMPY} \
-		${PYTHON_PKGNAMEPREFIX}six>0:devel/py-six@${PY_FLAVOR}
-BUILD_DEPENDS=	${PY_DEPENDS}
-RUN_DEPENDS=	${PY_DEPENDS}
+BUILD_DEPENDS=	${PYNUMPY} \
+		${PYTHON_PKGNAMEPREFIX}python-lzo>0:archivers/py-python-lzo@${PY_FLAVOR}
+RUN_DEPENDS:=	${BUILD_DEPENDS}
 
 USES=		compiler python
 USE_GITHUB=	yes

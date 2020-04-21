@@ -10,7 +10,6 @@
     SUBDIR += adwaita-qt
     SUBDIR += arc-gruvbox-theme
     SUBDIR += audacious-skins
-    SUBDIR += classiclooks
     SUBDIR += claws-mail-themes
     SUBDIR += clearlooks
     SUBDIR += clearlooks-metacity
@@ -43,7 +42,6 @@
     SUBDIR += gnome-icons-dropline-nou
     SUBDIR += gnome-icons-elementary
     SUBDIR += gnome-icons-faenza
-    SUBDIR += gnome-icons-gartoon-redux
     SUBDIR += gnome-icons-gentoo-test
     SUBDIR += gnome-icons-gion
     SUBDIR += gnome-icons-iris
@@ -98,6 +96,7 @@
     SUBDIR += kde-icons-gartoon-blue-svg
     SUBDIR += kde-icons-gartoon-svg
     SUBDIR += kde-icons-graphite-rade8
+    SUBDIR += kde-icons-kool-gorilla
     SUBDIR += kde-icons-lime-rade8
     SUBDIR += kde-icons-lush
     SUBDIR += kde-icons-noia
@@ -157,6 +156,7 @@
     SUBDIR += ubuntulooks
     SUBDIR += wallpapers-freebsd-kde
     SUBDIR += xcursor-themes
+    SUBDIR += xfce-evolution
     SUBDIR += xfce-icons-elementary
 
 .include <bsd.port.subdir.mk>

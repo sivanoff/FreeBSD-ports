@@ -41,8 +41,8 @@ _BLASLIB=	blas
 LAPACKLIB=	-llapack
 .elif ${blaslapack_ARGS} == openblas
 LIB_DEPENDS+=	libopenblas.so:math/openblas
-_BLASLIB=	openblas
-LAPACKLIB=	-lopenblas
+_BLASLIB=	openblasp
+LAPACKLIB=	-lopenblasp
 .else
 IGNORE=		USES=blaslapack: invalid arguments: ${blaslapack_ARGS}
 .endif

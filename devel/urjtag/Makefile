@@ -2,45 +2,46 @@
 # $FreeBSD$
 
 PORTNAME=	urjtag
-DISTVERSION=	2019.12
+PORTVERSION=	0.10
+PORTREVISION=	8
 CATEGORIES=	devel
 MASTER_SITES=	SF
 
-MAINTAINER=	yuri@FreeBSD.org
+MAINTAINER=	ports@FreeBSD.org
 COMMENT=	Extended utility to work with JTAG-aware boards
 
 LICENSE=	GPLv2
 
 RUN_DEPENDS=	bash:shells/bash
 
-USES=		gmake libtool readline tar:xz
+USES=		gmake localbase:ldflags readline shebangfix tar:bzip2
+SHEBANG_FILES=	src/bsdl2jtag
 USE_CSTD=	c99
-USE_LDCONFIG=	yes
-
 GNU_CONFIGURE=	yes
-CONFIGURE_ARGS=	--enable-stapl
 
-INSTALL_TARGET=	install-strip
+OPTIONS_DEFINE=		FTDI JEDEC NLS USB
+OPTIONS_DEFAULT=	FTDI USB
+OPTIONS_SUB=		yes
 
-OPTIONS_DEFINE=			FTDI JEDEC NLS PYTHON USB
-OPTIONS_DEFAULT=		FTDI USB
-OPTIONS_SUB=			yes
+FTDI_DESC=		FTDI-based USB JTAG adapters support
+FTDI_LIB_DEPENDS=	libftdi.so:devel/libftdi
+FTDI_CONFIGURE_WITH=	libftdi
 
-FTDI_DESC=			FTDI-based USB JTAG adapters support
-FTDI_LIB_DEPENDS=		libftdi1.so:devel/libftdi1
-FTDI_CONFIGURE_WITH=		libftdi
+JEDEC_DESC=		Experimental JEDEC flash detection
+JEDEC_CONFIGURE_ENABLE=	jedec
 
-JEDEC_DESC=			Experimental JEDEC flash detection
-JEDEC_CONFIGURE_ENABLE=		jedec-exp
+NLS_USES=		gettext
+NLS_CONFIGURE_ENABLE=	nls
 
-NLS_USES=			gettext
-NLS_CONFIGURE_ENABLE=		nls
+USB_DESC=		USB JTAG adapters support
+USB_CONFIGURE_ON=	--with-libusb=/usr
 
-PYTHON_CONFIGURE_ENABLE=	python
-PYTHON_BROKEN=			ld: error: unable to find library -l-Wl,-rpath
-
-USB_DESC=			USB JTAG adapters support
-USB_CONFIGURE_ON=		--with-libusb=/usr
-USB_CONFIGURE_OFF=		--without-libusb
+post-patch:
+# Suppress svn(1) binary detection
+	@${REINPLACE_CMD} -e \
+		's|^SVN=.*|SVN=''| ; \
+		 s|-Lwith_libusb |-L$$with_libusb/lib | ; \
+		 s|-I$$with_libusb"|-I$$with_libusb/include"|' \
+		${WRKSRC}/configure
 
 .include <bsd.port.mk>

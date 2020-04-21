@@ -15,20 +15,19 @@ COMMENT=	Light Color Management System -- a color management library
 LICENSE=	MIT
 LICENSE_FILE=	${WRKSRC}/COPYING
 
-USES=		libtool localbase:ldflags pathfix
-
-GNU_CONFIGURE=	yes
-INSTALL_TARGET=	install-strip
-TEST_TARGET=	check
-USE_LDCONFIG=	yes
-
-PORTDOCS=	*
-
 OPTIONS_DEFINE=	DOCS JPEGICC TIFFICC
 OPTIONS_DEFAULT=JPEGICC TIFFICC
 OPTIONS_SUB=	yes
 JPEGICC_DESC=	Build color profile applier for JPEG
 TIFFICC_DESC=	Build color profile applier for TIFF
+
+GNU_CONFIGURE=	yes
+INSTALL_TARGET=	install-strip
+TEST_TARGET=	check
+USE_LDCONFIG=	yes
+USES=		libtool localbase:ldflags pathfix
+
+PORTDOCS=	*
 
 JPEGICC_CONFIGURE_WITH=	jpeg
 JPEGICC_USES=		jpeg

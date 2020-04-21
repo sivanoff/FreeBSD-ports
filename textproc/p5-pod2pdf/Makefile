@@ -20,6 +20,4 @@ RUN_DEPENDS=	p5-PDF-API2>=0.60:textproc/p5-PDF-API2 \
 USES=		perl5
 USE_PERL5=	configure
 
-NO_ARCH=	yes
-
 .include <bsd.port.mk>

@@ -12,8 +12,6 @@ EXTRACT_SUFX=	.sh
 MAINTAINER=	ports@FreeBSD.org
 COMMENT=	Real-time action strategy with programs
 
-BROKEN=		unfetchable
-
 ONLY_FOR_ARCHS=	i386 amd64
 USES=		linux
 USE_LINUX=	dri libogg libvorbis sdl12 xorglibs

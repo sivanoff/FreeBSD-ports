@@ -1,11 +1,11 @@
---- syncthing/build.go.orig	2020-02-05 04:20:26 UTC
+--- syncthing/build.go.orig	2019-04-04 16:46:36 UTC
 +++ syncthing/build.go
-@@ -443,7 +443,7 @@ func build(target target, tags []string) {
- 	}
+@@ -398,7 +398,7 @@ func build(target target, tags []string) {
  
- 	for _, pkg := range target.buildPkgs {
--		args := []string{"build", "-v"}
-+		args := []string{"build"}
- 		args = appendParameters(args, tags, pkg)
+ 	rmr(target.BinaryName())
  
- 		runPrint(goCmd, args...)
+-	args := []string{"build", "-v"}
++	args := []string{"build"}
+ 	args = appendParameters(args, tags, target)
+ 
+ 	os.Setenv("GOOS", goos)

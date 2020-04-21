@@ -7,7 +7,7 @@ CATEGORIES=	graphics
 MASTER_SITES=	https://pwmt.org/projects/zathura-ps/download/ \
 		http://www.madpilot.net/~mad/pwmt.org/
 
-MAINTAINER=	ports@FreeBSD.org
+MAINTAINER=	mike.d.ft402@gmail.com
 COMMENT=	PostScript support for Zathura PDF viewer
 
 LICENSE=	ZLIB

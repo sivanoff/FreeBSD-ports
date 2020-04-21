@@ -81,7 +81,6 @@ include/Quotient/events/event.h
 include/Quotient/events/eventcontent.h
 include/Quotient/events/eventloader.h
 include/Quotient/events/receiptevent.h
-include/Quotient/events/reactionevent.h
 include/Quotient/events/redactionevent.h
 include/Quotient/events/roomavatarevent.h
 include/Quotient/events/roomcreateevent.h
@@ -108,7 +107,6 @@ include/Quotient/networksettings.h
 include/Quotient/qt_connection_util.h
 include/Quotient/room.h
 include/Quotient/settings.h
-include/Quotient/ssosession.h
 include/Quotient/syncdata.h
 include/Quotient/user.h
 include/Quotient/util.h

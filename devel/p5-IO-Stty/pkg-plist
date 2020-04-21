@@ -1,2 +1,3 @@
-%%SITE_PERL%%/IO/Stty.pm
+bin/stty.pl
 %%PERL5_MAN3%%/IO::Stty.3.gz
+%%SITE_PERL%%/IO/Stty.pm

@@ -2,7 +2,7 @@
 # $FreeBSD$
 
 PORTNAME=	bison
-PORTVERSION=	3.5.3
+PORTVERSION=	3.4.2
 PORTEPOCH=	1
 CATEGORIES=	devel
 MASTER_SITES=	GNU
@@ -19,7 +19,7 @@ RUN_DEPENDS=	m4>=1.4.16,1:devel/m4
 OPTIONS_DEFINE=	DOCS EXAMPLES NLS
 OPTIONS_SUB=	yes
 
-USES=		charsetfix compiler:c11 localbase makeinfo perl5 tar:xz
+USES=		charsetfix localbase makeinfo perl5 tar:xz
 USE_PERL5=	build
 
 CONFIGURE_ARGS=	--disable-yacc --enable-relocatable
@@ -36,6 +36,6 @@ NLS_USES=		gettext
 
 post-patch:
 	@${REINPLACE_CMD} -e 's|$$(docdir)\(/examples\)|$$(datarootdir)\1/bison|' ${WRKSRC}/Makefile.in
-	@${GREP} -l '_Noreturn void' ${WRKSRC}/lib/*.[ch] | ${XARGS} -J % ${REINPLACE_CMD} -e 's|\(.*\) _Noreturn void|_Noreturn \1 void|' %
+	@${REINPLACE_CMD} -e 's|\(.*\) _Noreturn void|_Noreturn \1 void|' ${WRKSRC}/data/skeletons/*.c ${WRKSRC}/lib/*.[ch]
 
 .include <bsd.port.mk>

@@ -2,13 +2,13 @@
 # $FreeBSD$
 
 PORTNAME=	decorator
-PORTVERSION=	4.4.2
+PORTVERSION=	4.3.0
 CATEGORIES=	devel python
 MASTER_SITES=	CHEESESHOP
 PKGNAMEPREFIX=	${PYTHON_PKGNAMEPREFIX}
 
 MAINTAINER=	ygy@FreeBSD.org
-COMMENT=	Decorators for Humans
+COMMENT=	Better living through Python with decorators
 
 LICENSE=	MIT
 LICENSE_FILE=	${WRKSRC}/LICENSE.txt

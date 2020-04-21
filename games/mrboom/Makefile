@@ -2,7 +2,7 @@
 # $FreeBSD$
 
 PORTNAME=	mrboom
-PORTVERSION=	4.9
+PORTVERSION=	4.8
 CATEGORIES=	games
 
 MAINTAINER=	ehaupt@FreeBSD.org
@@ -30,6 +30,9 @@ MAKE_ENV+=	LIBSDL2=1
 
 PLIST_FILES=	bin/mrboom man/man6/mrboom.6.gz \
 		share/applications/mrboom.desktop share/pixmaps/mrboom.png
+
+post-patch:
+	@${REINPLACE_CMD} -E '/^GIT_VERSION/d' ${WRKSRC}/Makefile
 
 post-install:
 	${INSTALL_DATA} ${WRKSRC}/Assets/${PORTNAME}.png \

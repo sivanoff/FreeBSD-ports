@@ -2,12 +2,12 @@
 # $FreeBSD$
 
 PORTNAME=	freedoom
-DISTVERSION=	0.12.1
+DISTVERSION=	0.11.3
 CATEGORIES=	games
 MASTER_SITES=	https://github.com/${PORTNAME}/${PORTNAME}/releases/download/v${PORTVERSION}/
 PKGNAMEPREFIX=	${DMPKGNAMEPREFIX}
 
-MAINTAINER=	pkubaj@FreeBSD.org
+MAINTAINER=	pkubaj@anongoth.pl
 COMMENT=	Complete Doom-based game IWAD that is Free Software
 
 LICENSE=	MIT

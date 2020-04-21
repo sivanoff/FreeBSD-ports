@@ -1,15 +1,17 @@
 # $FreeBSD$
 
 PORTNAME=	dnsdbq
-PORTVERSION=	2.1.1
+PORTVERSION=	1.5.0
 DISTVERSIONPREFIX=	v
 CATEGORIES=	dns
 
 MAINTAINER=	truckman@FreeBSD.org
 COMMENT=	DNSDB API Client, C Version
 
-LICENSE=		APACHE20
+LICENSE=		APACHE20 ISCL
+LICENSE_COMB=		multi
 LICENSE_FILE_APACHE20=	${WRKSRC}/Apache-2.0
+LICENSE_FILE_ISCL=	${WRKSRC}/ISC
 
 LIB_DEPENDS=	libjansson.so:devel/jansson \
 		libcurl.so:ftp/curl
@@ -18,7 +20,7 @@ USES=		compiler:c11 localbase
 USE_GITHUB=	yes
 GH_ACCOUNT=	dnsdb
 
-PORTSCOUT=	limit:^[0-9]*\.[0-9]*\.[0-9]*$$
+PORTSCOUT=	limit:^1
 
 do-install:
 	${INSTALL_PROGRAM} ${WRKSRC}/${PORTNAME} ${STAGEDIR}${PREFIX}/bin/

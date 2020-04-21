@@ -1,9 +1,9 @@
 # $FreeBSD$
 
 PORTNAME=	kdiff3
-DISTVERSION=	1.8.2
+DISTVERSION=	1.8.1
+PORTREVISION=	1
 CATEGORIES=	textproc kde
-MASTER_SITES=	KDE/stable/${PORTNAME}
 
 MAINTAINER=	kde@FreeBSD.org
 COMMENT=	KDE graphical frontend for diff
@@ -11,7 +11,9 @@ COMMENT=	KDE graphical frontend for diff
 LICENSE=	GPLv2
 LICENSE_FILE=	${WRKSRC}/COPYING
 
-USES=		cmake compiler:c++11-lang kde:5 qt:5 tar:xz
+USES=		cmake compiler:c++11-lang kde:5 qt:5
+USE_GITHUB=	yes
+GH_ACCOUNT=	KDE
 USE_KDE=	auth bookmarks codecs completion config configwidgets \
 		coreaddons crash ecm i18n iconthemes jobwidgets kio \
 		parts service sonnet textwidgets widgetsaddons xmlgui

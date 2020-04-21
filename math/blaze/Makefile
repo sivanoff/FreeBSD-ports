@@ -2,7 +2,7 @@
 
 PORTNAME=	blaze
 DISTVERSION=	3.5
-PORTREVISION=	6
+PORTREVISION=	5
 CATEGORIES=	math
 MASTER_SITES=	https://bitbucket.org/${BB_ACCOUNT}/${BB_PROJECT}/downloads/
 
@@ -13,9 +13,11 @@ LICENSE=	BSD3CLAUSE
 LICENSE_FILE=	${WRKSRC}/LICENSE
 
 BUILD_DEPENDS=	boost-libs>0:devel/boost-libs \
-		openblas>0:math/openblas
+		openblas>0:math/openblas \
+		openmp>0:devel/openmp
 RUN_DEPENDS=	boost-libs>0:devel/boost-libs \
-		openblas>0:math/openblas
+		openblas>0:math/openblas \
+		openmp>0:devel/openmp
 
 USES=		cmake compiler:c++14-lang fortran localbase:ldflags
 NO_ARCH=	yes

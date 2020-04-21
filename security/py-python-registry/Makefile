@@ -2,8 +2,9 @@
 # $FreeBSD$
 
 PORTNAME=	python-registry
-PORTVERSION=	1.3.1
+PORTVERSION=	1.2.0
 CATEGORIES=	security devel python
+MASTER_SITES=	LOCAL/antoine
 PKGNAMEPREFIX=	${PYTHON_PKGNAMEPREFIX}
 
 MAINTAINER=	antoine@FreeBSD.org
@@ -19,7 +20,7 @@ GH_ACCOUNT=	williballenthin
 
 NO_ARCH=	yes
 USES=		python shebangfix
-USE_PYTHON=	distutils autoplist concurrent
+USE_PYTHON=	distutils autoplist
 SHEBANG_FILES=	samples/*.py
 python_OLD_CMD=	.*
 
@@ -28,12 +29,12 @@ OPTIONS_DEFINE=	DOCS EXAMPLES
 PORTDOCS=	*
 PORTEXAMPLES=	*
 
-do-install-DOCS-on:
+post-install-DOCS-on:
 	@${MKDIR} ${STAGEDIR}${DOCSDIR}
 	${INSTALL_DATA} ${WRKSRC}/CHANGELOG.TXT ${WRKSRC}/CONTRIBUTORS.TXT ${WRKSRC}/README.MD \
 		${WRKSRC}/documentation/* ${STAGEDIR}${DOCSDIR}
 
-do-install-EXAMPLES-on:
+post-install-EXAMPLES-on:
 	@${MKDIR} ${STAGEDIR}${EXAMPLESDIR}
 	${INSTALL_SCRIPT} ${WRKSRC}/samples/*.py ${STAGEDIR}${EXAMPLESDIR}
 

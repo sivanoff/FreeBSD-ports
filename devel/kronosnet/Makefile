@@ -2,11 +2,11 @@
 # $FreeBSD$
 
 PORTNAME=	kronosnet
-PORTVERSION=	1.15
+PORTVERSION=	1.13
 CATEGORIES=	devel
 MASTER_SITES=	https://kronosnet.org/releases/
 
-MAINTAINER=	egypcio@FreeBSD.org
+MAINTAINER=	dpejesh@yahoo.com
 COMMENT=	Network abstraction layer designed for high availability
 
 LICENSE=	GPLv2

@@ -10,8 +10,6 @@ MASTER_SITES=	RG
 MAINTAINER=	tota@FreeBSD.org
 COMMENT=	Ruby library for implementing IRC server and client
 
-LICENSE=	RUBY
-
 NO_ARCH=	yes
 
 REINPLACE_ARGS=	-i ''

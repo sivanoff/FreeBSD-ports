@@ -1,4 +1,4 @@
-# Created by: lbartoletti <lbartoletti@FreeBSD.org>
+# Created by: lbartoletti <coder@tuxfamily.org>
 # $FreeBSD$
 
 PORTNAME=	libgta
@@ -6,7 +6,7 @@ PORTVERSION=	1.0.8
 CATEGORIES=	devel
 MASTER_SITES=	SAVANNAH/gta
 
-MAINTAINER=	lbartoletti@FreeBSD.org
+MAINTAINER=	lbartoletti@tuxfamily.org
 COMMENT=	Portable library that implements the GTA file format
 
 LICENSE=	LGPL21+

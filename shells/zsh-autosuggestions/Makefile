@@ -2,7 +2,7 @@
 
 PORTNAME=	zsh-autosuggestions
 DISTVERSIONPREFIX=	v
-DISTVERSION=	0.6.4
+DISTVERSION=	0.6.3
 CATEGORIES=	shells
 
 MAINTAINER=	jrm@FreeBSD.org
@@ -18,9 +18,8 @@ GH_ACCOUNT=	zsh-users
 
 NO_ARCH=	yes
 NO_BUILD=	yes
-SUB_FILES=	pkg-message
-
 PLIST_FILES=	${DATADIR}/${PORTNAME}.zsh
+SUB_FILES=	pkg-message
 
 do-install:
 	@${MKDIR} ${STAGEDIR}${DATADIR}

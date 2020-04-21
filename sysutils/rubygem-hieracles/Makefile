@@ -5,7 +5,7 @@ PORTVERSION=	0.4.2
 CATEGORIES=	sysutils rubygems
 MASTER_SITES=	RG
 
-MAINTAINER=	ports@FreeBSD.org
+MAINTAINER=	mose@gandi.net
 COMMENT=	CLI tool for Hiera parameters visualisation and analysis
 
 LICENSE=	MIT

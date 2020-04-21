@@ -1,31 +1,25 @@
---- src/chart1.cpp.orig	2020-01-13 17:48:06 UTC
+--- src/chart1.cpp.orig	2016-06-25 12:26:20 UTC
 +++ src/chart1.cpp
-@@ -7917,7 +7917,7 @@ void MyFrame::MouseEvent( wxMouseEvent& event )
- #endif
+@@ -10308,7 +10308,11 @@ extern "C" int wait(int *);             
  
- #ifdef __WXGTK__
--#include <malloc.h>
-+#include <stdlib.h>
- #endif
- 
- int g_lastMemTick = -1;
-@@ -10282,6 +10282,8 @@ extern "C" int wait(int *);                     // POS
+ #include <termios.h>
  #include <sys/ioctl.h>
- #ifdef __linux__
++#ifdef __linux__
  #include <linux/serial.h>
 +#else
 +#include <termios.h>
- #endif
++#endif
  
  #endif
-@@ -10357,17 +10359,25 @@ int isTTYreal(const char *dev)
- 	return 1;
-     return 0;
- #else /* !NetBSD */
+ 
+@@ -10374,16 +10378,24 @@ int paternFilter (const struct dirent * 
+ 
+ int isTTYreal(const char *dev)
+ {
 +#ifdef __linux__
      struct serial_struct serinfo;
 +#else
-+    struct termios termattr;
++    struct termios termAttr;
 +#endif
      int ret = 0;
  
@@ -37,15 +31,13 @@
          if (ioctl(fd, TIOCGSERIAL, &serinfo)==0) {
              // If device type is no PORT_UNKNOWN we accept the port
              if (serinfo.type != PORT_UNKNOWN)
--                ret = 1;
 +#else
-+        if (tcgetattr(fd, &termattr) == 0) {
++        if (tcgetattr(fd, &termAttr) == 0) {
 +#endif
-+	      ret = 1;
+                 ret = 1;
          }
          close (fd);
-     }
-@@ -10417,10 +10427,17 @@ wxArrayString *EnumerateSerialPorts( void )
+@@ -10409,10 +10421,17 @@ wxArrayString *EnumerateSerialPorts( voi
  
      //Initialize the pattern table
      if( devPatern[0] == NULL ) {

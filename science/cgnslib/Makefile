@@ -2,8 +2,9 @@
 # $FreeBSD$
 
 PORTNAME=	cgnslib
-PORTVERSION=	4.1.1
 DISTVERSIONPREFIX=	v
+DISTVERSION=	3.4.0
+PORTREVISION=	2
 PORTEPOCH=	1
 CATEGORIES=	science
 
@@ -41,16 +42,13 @@ HDF5_CMAKE_ON=		-DHDF5_INCLUDE_PATH:PATH="${LOCALBASE}/include"
 TESTS_CMAKE_BOOL=	CGNS_ENABLE_TESTS
 
 TOOLS_USES=		gl localbase tk xorg
-TOOLS_LIB_DEPENDS=	libfontconfig.so:x11-fonts/fontconfig	\
-			libfreetype.so:print/freetype2
-TOOLS_USE=		GL=egl,gl,glu	\
-			XORG=ice,sm,x11,xau,xcomposite,xcursor,xdamage,xdmcp,xext,xfixes,xft,xi,xinerama,xkbfile,xmu,xpm,xrandr,xrender,xres,xscrnsaver,xt,xtst,xv,xxf86vm
+TOOLS_USE=		GL=gl,glu XORG=ice,xext,x11,xmu
 TOOLS_CMAKE_BOOL=	CGNS_BUILD_CGNSTOOLS
 TOOLS_CMAKE_ON=		-DTCL_INCLUDE_PATH:STRING="${TCL_INCLUDEDIR}" \
 			-DTK_INCLUDE_PATH:STRING="${TK_INCLUDEDIR}"
 
 post-install:
-	${RLN} ${STAGEDIR}${PREFIX}/lib/libcgns.so.${PORTVERSION:R} \
-		${STAGEDIR}${PREFIX}/lib/libcgns.so.${PORTVERSION:R:R}
+	${RLN} ${STAGEDIR}${PREFIX}/lib/libcgns.so.${DISTVERSION:R} \
+		${STAGEDIR}${PREFIX}/lib/libcgns.so.${DISTVERSION:R:R}
 
 .include <bsd.port.mk>

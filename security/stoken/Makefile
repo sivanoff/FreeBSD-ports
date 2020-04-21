@@ -6,7 +6,7 @@ DISTVERSION=	0.92
 CATEGORIES=	security
 MASTER_SITES=	SF/stoken
 
-MAINTAINER=	samm@FreeBSD.org
+MAINTAINER=	samm@freebsd.org
 COMMENT=	Software Token for UNIX compatible with RSA SecurID
 
 LICENSE=	LGPL21

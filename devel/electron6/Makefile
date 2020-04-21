@@ -3,17 +3,15 @@
 PORTNAME=	electron
 DISTVERSIONPREFIX=	v
 DISTVERSION=	${ELECTRON_VER:S/-beta./.b/}
-PORTREVISION=	1
 CATEGORIES=	devel java
 MASTER_SITES=	https://github.com/tagattie/FreeBSD-Electron/releases/download/v6.0.9/:chromium \
 		https://commondatastorage.googleapis.com/chromium-browser-official/:chromium_official \
 		https://commondatastorage.googleapis.com/chromium-nodejs/:chromium_node \
 		https://commondatastorage.googleapis.com/chromium-fonts/:chromium_testfonts
-PKGNAMESUFFIX=	${ELECTRON_VER_MAJOR}
+PKGNAMESUFFIX=	6
 DISTFILES=	chromium-${CHROMIUM_VER}${EXTRACT_SUFX}:chromium \
 		chromium-${CHROMIUM_OFFICIAL_VER}${EXTRACT_SUFX}:chromium_official \
 		${CHROMIUM_NODE_MODULES_HASH}:chromium_node \
-		${CHROMIUM_TEST_FONTS_HASH}:chromium_testfonts \
 		electron-yarn-cache-${ELECTRON_VER}${EXTRACT_SUFX}:prefetch
 DIST_SUBDIR=	${PORTNAME}
 
@@ -33,7 +31,6 @@ BUILD_DEPENDS=	${LOCALBASE}/bin/ar:devel/binutils \
 		node:www/node12 \
 		npm:www/npm-node12
 LIB_DEPENDS=	libatk-bridge-2.0.so:accessibility/at-spi2-atk \
-		libatspi.so:accessibility/at-spi2-core \
 		libsnappy.so:archivers/snappy \
 		libFLAC.so:audio/flac \
 		libopus.so:audio/opus \
@@ -42,7 +39,6 @@ LIB_DEPENDS=	libatk-bridge-2.0.so:accessibility/at-spi2-atk \
 		libpci.so:devel/libpci \
 		libnspr4.so:devel/nspr \
 		libre2.so:devel/re2 \
-		liblcms2.so:graphics/lcms2 \
 		libdrm.so:graphics/libdrm \
 		libwebp.so:graphics/webp \
 		libavcodec.so:multimedia/ffmpeg \
@@ -55,11 +51,12 @@ LIB_DEPENDS=	libatk-bridge-2.0.so:accessibility/at-spi2-atk \
 		libexpat.so:textproc/expat2 \
 		libfontconfig.so:x11-fonts/fontconfig
 RUN_DEPENDS=	xdg-open:devel/xdg-utils
-TEST_DEPENDS=	${PYTHON_PKGNAMEPREFIX}python-dbusmock>0:devel/py-python-dbusmock@${PY_FLAVOR} \
-		npm:www/npm-node12
+TEST_DEPENDS=	yarn:www/yarn-node12
 
 USES=		bison dos2unix gettext-tools gl gnome jpeg localbase:ldflags \
-		ninja pkgconfig python:2.7,build,test tar:xz xorg
+		ninja pkgconfig python:2.7,build tar:xz xorg
+
+CONFLICTS_INSTALL=	electron4 electron5
 
 USE_GITHUB=	yes
 GH_TAGNAME=	${DISTVERSIONPREFIX}${ELECTRON_VER}
@@ -68,6 +65,7 @@ GH_TUPLE=	nodejs:node:v${NODE_VER}:node
 		# yaml:pyyaml:3.12:pyyaml \
 		# kennethreitz:requests:e4d59bedfd3c7f4f254f4f5d036587bcd8152458:requests
 
+ELECTRON_VER=	6.1.6
 # Official chromium version containing "gn" which is known to work
 CHROMIUM_OFFICIAL_VER=	76.0.3809.132
 # See ${WRKSRC}/electron/DEPS for CHROMIUM_VER
@@ -81,8 +79,6 @@ NODE_VER=	12.4.0
 
 NO_WRKSUBDIR=	yes
 WRKSRC_SUBDIR=	src
-
-DATADIR=	${PREFIX}/share/${PORTNAME}${PKGNAMESUFFIX}
 
 DOS2UNIX_FILES=	third_party/skia/third_party/vulkanmemoryallocator/include/vk_mem_alloc.h
 BINARY_ALIAS=	python=${PYTHON_CMD}
@@ -100,7 +96,6 @@ USE_LDCONFIG=	${DATADIR}
 GN_ARGS+=	clang_use_chrome_plugins=false \
 		enable_hangout_services_extension=true \
 		enable_nacl=false \
-		enable_one_click_signin=true \
 		enable_remoting=false \
 		fieldtrial_testing_like_official_build=true \
 		is_clang=true \
@@ -123,18 +118,22 @@ GN_ARGS+=	clang_use_chrome_plugins=false \
 		extra_ldflags="${LDFLAGS}"
 GN_BOOTSTRAP_FLAGS=	--no-clean --no-rebuild --skip-generate-buildfiles
 
-ALL_TARGET=	electron third_party/electron_node:headers
+ALL_TARGET=	electron
 MAKE_ARGS=	-C out/${BUILDTYPE}
 MAKE_ENV+=	C_INCLUDE_PATH=${LOCALBASE}/include \
 		CPLUS_INCLUDE_PATH=${LOCALBASE}/include
 
-OPTIONS_DEFINE=	CUPS DEBUG DIST DRIVER KERBEROS
+OPTIONS_DEFINE=	CUPS DEBUG DIST DRIVER KERBEROS TEST
 DIST_DESC=	Build distribution zip files
 DRIVER_DESC=	Install chromedriver
 OPTIONS_GROUP=	AUDIO
 OPTIONS_GROUP_AUDIO=	ALSA PULSEAUDIO
 OPTIONS_DEFAULT=	CUPS DRIVER KERBEROS ALSA
 OPTIONS_SUB=	yes
+
+.if make(makesum)
+.MAKEFLAGS:	WITH="${OPTIONS_DEFINE}"
+.endif
 
 ALSA_LIB_DEPENDS=	libasound.so:audio/alsa-lib
 ALSA_RUN_DEPENDS=	${LOCALBASE}/lib/alsa-lib/libasound_module_pcm_oss.so:audio/alsa-plugins
@@ -160,15 +159,18 @@ PULSEAUDIO_LIB_DEPENDS=	libpulse.so:audio/pulseaudio
 PULSEAUDIO_VARS=	GN_ARGS+=use_pulseaudio=true
 PULSEAUDIO_VARS_OFF=	GN_ARGS+=use_pulseaudio=false
 
+.include "Makefile.tests"
+TEST_DISTFILES=		${CHROMIUM_TEST_FONTS_HASH}:chromium_testfonts
+TEST_ALL_TARGET=	${TEST_TARGETS}
+TEST_ALL_TARGET+=	third_party/electron_node:headers
+
 POST_BUILD_TARGETS=	licenses version
-POST_BUILD_DIST_TARGETS=	electron_dist_zip electron_chromedriver_zip electron_mksnapshot_zip
+POST_BUILD_DIST_TARGETS=	dist.zip chromedriver.zip mksnapshot.zip
 
-YARN_TIMESTAMP=	1582868122
+YARN_TIMESTAMP=	1576123123
 
-PLIST_SUB=	ELECTRON_VER=${ELECTRON_VER} \
-		ELECTRON_VER_MAJOR=${ELECTRON_VER_MAJOR}
+PLIST_SUB=	ELECTRON_VER=${ELECTRON_VER}
 
-.include "Makefile.version"
 .include <bsd.port.pre.mk>
 
 .if ${ARCH} == "amd64"
@@ -187,11 +189,11 @@ pre-fetch:
 	@${MKDIR} ${DISTDIR}/${DIST_SUBDIR}
 	if [ ! -f ${DISTDIR}/${DIST_SUBDIR}/electron-yarn-cache-${ELECTRON_VER}${EXTRACT_SUFX} ]; \
 		then ${MKDIR} ${WRKDIR}; \
-		${ECHO_CMD} 'yarn-offline-mirror "./yarn-offline-cache"' >> \
-			${WRKDIR}/.yarnrc; \
+		${SED} -e 's|$${WRKDIR}|${WRKDIR}|' \
+			${FILESDIR}/yarnrc-offline-mirror >> ${WRKDIR}/.yarnrc; \
 		${CP} ${FILESDIR}/package.json ${FILESDIR}/yarn.lock ${WRKDIR}; \
 		cd ${WRKDIR} && ${SETENV} HOME=${WRKDIR} XDG_CACHE_HOME=${WRKDIR}/.cache \
-			yarn --frozen-lockfile --ignore-scripts; \
+			yarn --frozen-lockfile; \
 		${MTREE_CMD} -cbnSp yarn-offline-cache | ${MTREE_CMD} -C | ${SED} \
 			-e 's:time=[0-9.]*:time=${YARN_TIMESTAMP}.000000000:' \
 			-e 's:\([gu]id\)=[0-9]*:\1=0:g' \
@@ -211,7 +213,7 @@ post-extract:
 	${MV} ${WRKDIR}/${PORTNAME}-${ELECTRON_VER}/${GH_PROJECT_node}-${NODE_VER} \
 		${WRKSRC}/third_party/electron_node
 	${MV} ${WRKDIR}/${PORTNAME}-${ELECTRON_VER}/yarn-offline-cache ${WRKDIR}
-	${ECHO_CMD} 'yarn-offline-mirror "../../../yarn-offline-cache"' >> ${WRKSRC}/electron/.yarnrc
+	${SED} -e 's|$${WRKDIR}|${WRKDIR}|' ${FILESDIR}/yarnrc-offline-mirror >> ${WRKSRC}/electron/.yarnrc
 	cd ${WRKSRC}/electron && \
 		${SETENV} HOME=${WRKDIR} XDG_CACHE_HOME=${WRKDIR}/.cache yarn --frozen-lockfile --offline
 	# ${RMDIR} ${WRKSRC}/electron/vendor/${GH_PROJECT_boto}
@@ -223,6 +225,8 @@ post-extract:
 	# ${MV} ${WRKDIR}/${PORTNAME}-${ELECTRON_VER}/${GH_PROJECT_requests}-${GH_TAGNAME_requests} \
 	# 	${WRKSRC}/electron/vendor/${GH_PROJECT_requests}
 	${MV} ${WRKDIR}/${PORTNAME}-${ELECTRON_VER}/node_modules ${WRKSRC}/third_party/node
+
+post-extract-TEST-on:
 	${MV} ${WRKDIR}/${PORTNAME}-${ELECTRON_VER}/test_fonts ${WRKSRC}/third_party/test_fonts
 
 pre-patch:
@@ -299,8 +303,7 @@ do-install:
 .for f in default_app.asar electron.asar
 	${INSTALL_DATA} ${WRKSRC}/out/${BUILDTYPE}/resources/${f} ${STAGEDIR}${DATADIR}/resources
 .endfor
-	cd ${WRKSRC}/out/${BUILDTYPE}/gen && ${COPYTREE_SHARE} node_headers ${STAGEDIR}${DATADIR}
-	${RLN} ${STAGEDIR}${DATADIR}/electron ${STAGEDIR}${PREFIX}/bin/electron${PKGNAMESUFFIX}
+	${RLN} ${STAGEDIR}${DATADIR}/electron ${STAGEDIR}${PREFIX}/bin
 
 post-install-DIST-on:
 	${MKDIR} ${STAGEDIR}${DATADIR}/releases
@@ -310,11 +313,20 @@ post-install-DIST-on:
 post-install-DRIVER-on:
 	${INSTALL_PROGRAM} ${WRKSRC}/out/${BUILDTYPE}/chromedriver ${STAGEDIR}${DATADIR}
 
-do-test:
+do-test-TEST-on:
+	# chromium unit tests
+# .for t in ${TEST_ALL_TARGET}
+# 	cd ${WRKSRC}/out/${BUILDTYPE} && ${SETENV} LC_ALL=en_US.UTF-8 \
+# 		./${t} --gtest_filter=-${EXCLUDE_${t}:ts:} || ${TRUE}
+# .endfor
+	# electron unit tests
 	# Note 1: "npm install" will run before actual tests are executed
 	# Note 2: Xvfb or something similar is necessary for headless testing
+	# **Note 3: unit test won't run yet. (robotjs doesn't build with node 12).**
+.for t in ${TEST_MODULES}
 	cd ${WRKSRC}/electron && \
 		${SETENV} ${TEST_ENV} ELECTRON_OUT_DIR=${BUILDTYPE} \
-		npm run test -- --ci
+		npm run test -- --ci -g '${t}' || ${TRUE}
+.endfor
 
 .include <bsd.port.post.mk>

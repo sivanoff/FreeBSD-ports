@@ -1,6 +1,6 @@
 # $FreeBSD$
 
-PORTREVISION=	0
+PORTREVISION=	2
 CATEGORIES=	graphics
 
 COMMENT=	GStreamer GL graphics plugin
@@ -18,8 +18,13 @@ OPTIONS_DEFAULT=WAYLAND
 OPTIONS_SUB=	yes
 
 WAYLAND_CONFIGURE_ENABLE=	wayland
-WAYLAND_BUILD_DEPENDS=		wayland-protocols>=0:graphics/wayland-protocols
 WAYLAND_LIB_DEPENDS=		libwayland-egl.so:graphics/wayland
+
+EXTRA_PATCHDIR=	${.CURDIR}/../../graphics/gstreamer1-plugins-gl/files
+EXTRA_PATCHES=	${EXTRA_PATCHDIR}/patch-gst-libs_gst_gl_gstgl__fwd.h \
+		${EXTRA_PATCHDIR}/patch-gst-libs_gst_gl_gstglcontext.h \
+		${EXTRA_PATCHDIR}/patch-gst-libs_gst_gl_gstgldebug.h \
+		${EXTRA_PATCHDIR}/patch-gst-libs_gst_gl_gstglfuncs.h
 
 pre-build:
 .for dir in ${GL_GST_DIRS}

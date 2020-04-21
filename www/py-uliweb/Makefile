@@ -12,9 +12,6 @@ COMMENT=	Easy python web framework
 
 LICENSE=	BSD2CLAUSE
 
-DEPRECATED=	Uses deprecated version of python
-EXPIRATION_DATE=	2020-08-15
-
 USE_GITHUB=	yes
 GH_ACCOUNT=	limodou
 

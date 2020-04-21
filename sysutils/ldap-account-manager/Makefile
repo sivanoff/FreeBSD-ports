@@ -1,7 +1,8 @@
 # $FreeBSD$
 
 PORTNAME=	ldap-account-manager
-PORTVERSION=	7.1
+DISTVERSION=	6.8
+PORTREVISION=	1
 CATEGORIES=	sysutils www
 MASTER_SITES=	SF/${SHORTNAME}/LAM/${PORTVERSION}
 
@@ -15,8 +16,8 @@ RUN_DEPENDS=	p5-Quota>=0:sysutils/p5-Quota \
 		p5-perl-ldap>=0:net/p5-perl-ldap
 
 USES=		perl5 php:web tar:bzip2
-USE_PHP=	curl gd gettext gmp hash iconv json ldap openssl pcre \
-		session simplexml xml xmlreader xmlwriter zip
+USE_PHP=	curl gd gettext hash iconv json ldap openssl pcre session \
+		simplexml xml xmlreader xmlwriter zip
 
 NO_BUILD=	yes
 NO_ARCH=	yes

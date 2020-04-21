@@ -1,20 +1,15 @@
 # Created by: Alexander Botero-Lowry <alex@foxybanana.com>
 # $FreeBSD$
 
-PORTNAME=	yenc # is abandoned, successor: https://sourceforge.net/projects/sabnzbdplus/files/sabnzbdplus/
-PORTVERSION=	0.4.0
+PORTNAME=	yenc
+PORTVERSION=	0.3
 CATEGORIES=	news python
-MASTER_SITES=	CHEESESHOP
+MASTER_SITES=	http://sabnzbd.sourceforge.net/
+
 PKGNAMEPREFIX=	${PYTHON_PKGNAMEPREFIX}
 
 MAINTAINER=	jlaffaye@FreeBSD.org
-COMMENT=	Decoding module for yenc for Python written in C
-
-LICENSE=	LGPL21+
-LICENSE_FILE=	${WRKSRC}/COPYING
-
-DEPRECATED=	Uses deprecated version of python
-EXPIRATION_DATE=	2020-08-15
+COMMENT=	yenc decoding module for Python in C
 
 USES=		python:2.7
 USE_PYTHON=	distutils

@@ -2,7 +2,8 @@
 # $FreeBSD$
 
 PORTNAME=		hitch
-PORTVERSION=		1.5.2
+PORTVERSION=		1.5.0
+PORTREVISION=		2
 CATEGORIES=		security
 MASTER_SITES=		http://hitch-tls.org/source/ \
 			ZI

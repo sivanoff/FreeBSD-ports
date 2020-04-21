@@ -124,7 +124,6 @@ USE_XORG+=      xorg-macros
 
 .  elif ${_XORG_CAT} == driver
 USE_XORG+=	xi xorg-server xorgproto
-CFLAGS+=	-Werror=uninitialized
 .    if ${_XORG_BUILDSYS} == meson
 # Put special stuff for meson here
 .    else
@@ -151,7 +150,6 @@ PLIST_FILES+=	"@comment ${FONTSDIR}/fonts.dir" \
 .    endif
 
 .  elif ${_XORG_CAT} == lib
-CFLAGS+=	-Werror=uninitialized
 .include "${USESDIR}/pathfix.mk"
 .    if ${_XORG_BUILDSYS} == meson
 # put meson stuff here
@@ -167,15 +165,12 @@ CONFIGURE_ARGS+=--enable-malloc0returnsnull
 
 .  elif ${_XORG_CAT} == xserver
 DISTNAME?=	xorg-server-${PORTVERSION}
-CFLAGS+=	-Werror=uninitialized
 .include "${USESDIR}/pathfix.mk"
 .    if ${_XORG_BUILDSYS} == meson
 # put meson stuff here
 .    else
 CONFIGURE_ARGS+=	--with-xkb-path=${LOCALBASE}/share/X11/xkb \
 			--with-fontrootdir=${LOCALBASE}/share/fonts
-libtool_ARGS?=	# empty
-.include "${USESDIR}/libtool.mk"
 .    endif
 LIB_PC_DEPENDS+=	${LOCALBASE}/libdata/pkgconfig/dri.pc:graphics/mesa-dri
 USE_XORG+=	fontutil

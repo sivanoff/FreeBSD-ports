@@ -2,11 +2,11 @@
 # $FreeBSD$
 
 PORTNAME=	racc
-PORTVERSION=	1.4.16
+PORTVERSION=	1.4.14
 CATEGORIES=	devel ruby
 MASTER_SITES=	RG
 
-MAINTAINER=	meta@FreeBSD.org
+MAINTAINER=	murashin@gfd-dennou.org
 COMMENT=	LALR(1) parser generator for Ruby
 
 LICENSE=	LGPL21

@@ -2,7 +2,8 @@
 
 PORTNAME=	geonkick
 DISTVERSIONPREFIX=	v
-DISTVERSION=	1.9.2
+DISTVERSION=	1.8-2
+DISTVERSIONSUFFIX=	-g2e148d8
 CATEGORIES=	audio
 PKGNAMESUFFIX=	-lv2
 
@@ -25,9 +26,8 @@ LIB_DEPENDS=	libjack.so:audio/jack \
 
 USES=		compiler:c++14-lang cmake:noninja gnome localbase:ldflags \
 		pkgconfig shared-mime-info xorg
-USE_GITLAB=	yes
-GL_ACCOUNT=	geontime
-GL_COMMIT=	e45f118572980ce1bfd6c11ee0b4c2db7b06f9f0
+USE_GITHUB=	yes
+GH_ACCOUNT=	quamplex
 USE_GNOME=	cairo
 USE_XORG=	x11
 

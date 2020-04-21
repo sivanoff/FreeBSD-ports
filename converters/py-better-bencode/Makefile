@@ -6,12 +6,12 @@ CATEGORIES=	converters devel python
 MASTER_SITES=	CHEESESHOP
 PKGNAMEPREFIX=	${PYTHON_PKGNAMEPREFIX}
 
-MAINTAINER=	sunpoet@FreeBSD.org
-COMMENT=	Fast, standard compliant Bencode serialization
+MAINTAINER=	neel@neelc.org
+COMMENT=	Bencoding and bdecoding implementation
 
 LICENSE=	BSD3CLAUSE
 
 USES=		python
-USE_PYTHON=	autoplist concurrent distutils
+USE_PYTHON=	distutils autoplist
 
 .include <bsd.port.mk>

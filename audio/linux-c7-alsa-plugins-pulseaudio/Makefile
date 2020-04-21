@@ -4,7 +4,6 @@
 PORTNAME=	alsa-plugins
 PORTVERSION=	1.1.6
 DISTVERSIONSUFFIX=	-1.el7
-PORTREVISION=	1
 CATEGORIES=	audio linux
 PKGNAMESUFFIX=	-pulseaudio
 
@@ -25,9 +24,5 @@ DESCR=		${.CURDIR}/../${PORTNAME}/pkg-descr
 DOCSDIR=	${PREFIX}/usr/share/doc/${PORTNAME}${PKGNAMESUFFIX}-${PORTVERSION}
 
 OPTIONS_DEFINE=	DOCS
-
-post-patch:
-	@${LN} -sf ../../../usr/share/alsa/alsa.conf.d/50-pulseaudio.conf \
-		${WRKSRC}/etc/alsa/conf.d
 
 .include <bsd.port.mk>

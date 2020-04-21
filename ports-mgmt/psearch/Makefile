@@ -2,17 +2,12 @@
 # $FreeBSD$
 
 PORTNAME=	psearch
-PORTVERSION=	2.1.0
+PORTVERSION=	2.0.2
 CATEGORIES=	ports-mgmt
+MASTER_SITES=	https://opsec.eu/src/
 
-MAINTAINER=	mail@maxlor.com
+MAINTAINER=	pi@FreeBSD.org
 COMMENT=	Utility for searching the FreeBSD Ports Collection
-
-LICENSE=	BSD2CLAUSE
-
-USES=		compiler:c++11-lang
-USE_GITHUB=	yes
-GH_ACCOUNT=	maxlor
 
 PLIST_FILES=	bin/psearch \
 		man/man1/psearch.1.gz

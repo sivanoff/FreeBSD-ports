@@ -4,12 +4,10 @@
     COMMENT = Java language support
 
     SUBDIR += apache-bcel
-    SUBDIR += apache-commons-beanutils
     SUBDIR += apache-commons-cli
     SUBDIR += apache-commons-codec
     SUBDIR += apache-commons-collections
     SUBDIR += apache-commons-dbcp
-    SUBDIR += apache-commons-discovery
     SUBDIR += apache-commons-httpclient
     SUBDIR += apache-commons-lang
     SUBDIR += apache-commons-lang3
@@ -48,7 +46,10 @@
     SUBDIR += intellij-ultimate
     SUBDIR += jad
     SUBDIR += jai
+    SUBDIR += jakarta-commons-beanutils
+    SUBDIR += jakarta-commons-discovery
     SUBDIR += jakarta-oro
+    SUBDIR += jakarta-regexp
     SUBDIR += jasmin
     SUBDIR += jattach
     SUBDIR += java-cup
@@ -99,7 +100,6 @@
     SUBDIR += openjdk11
     SUBDIR += openjdk12
     SUBDIR += openjdk13
-    SUBDIR += openjdk14
     SUBDIR += openjdk7
     SUBDIR += openjdk7-jre
     SUBDIR += openjdk8

@@ -1,6 +1,6 @@
 # $FreeBSD$
 
-PORTREVISION=	5
+PORTREVISION=	4
 CATEGORIES=	graphics lang
 PKGNAMESUFFIX=	-imagemagick
 

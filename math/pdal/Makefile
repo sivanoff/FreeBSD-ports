@@ -1,12 +1,12 @@
-# Created by: bart <lbartoletti@FreeBSD.org>
+# Created by: bart <coder@tuxfamily.org>
 # $FreeBSD$
 
 PORTNAME=	pdal
 DISTVERSION=	2.0.1
-PORTREVISION=	2
+PORTREVISION=	1
 CATEGORIES=	math databases graphics
 
-MAINTAINER=	lbartoletti@FreeBSD.org
+MAINTAINER=	lbartoletti@tuxfamily.org
 COMMENT=	Library for translating and manipulating point cloud data
 
 LICENSE=	BSD3CLAUSE

@@ -22,6 +22,4 @@ TEST_DEPENDS=	p5-Test-FailWarnings>=0:devel/p5-Test-FailWarnings
 USES=		perl5
 USE_PERL5=	modbuildtiny
 
-NO_ARCH=	yes
-
 .include <bsd.port.mk>

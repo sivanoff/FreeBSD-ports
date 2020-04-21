@@ -2,7 +2,7 @@
 # $FreeBSD$
 
 PORTNAME=	mc
-PORTVERSION=	4.8.24
+PORTVERSION=	4.8.23
 CATEGORIES=	misc shells
 MASTER_SITES=	http://ftp.midnight-commander.org/ \
 		https://ftp.osuosl.org/pub/midnightcommander/
@@ -15,9 +15,9 @@ LICENSE_FILE=	${WRKSRC}/COPYING
 
 CONFLICTS=	mc-light-4*
 
-USES=		gmake gnome libtool perl5 pkgconfig python shebangfix tar:xz
+USES=		gmake gnome libtool perl5 pkgconfig python:2.7,run shebangfix tar:xz
 SHEBANG_FILES=	${WRKSRC}/src/vfs/extfs/helpers/s3+.in \
-		${WRKSRC}/src/vfs/extfs/helpers/uc1541
+		${WRKSRC}/src/vfs/extfs/helpers/uc1541.in
 python_OLD_CMD=	@PYTHON@
 USE_GNOME=	glib20
 GNU_CONFIGURE=	yes
@@ -76,6 +76,7 @@ post-patch:
 	@${REINPLACE_CMD} -e 's|missing-parameter-type|unused-variable|; \
 		s|but-set-variable|variable|' \
 		${WRKSRC}/configure
+	@${REINPLACE_CMD} -e 's|SUBDIRS = intl|SUBDIRS =|' ${WRKSRC}/Makefile.in
 
 post-install:
 	@${MKDIR} ${STAGEDIR}${DOCSDIR}

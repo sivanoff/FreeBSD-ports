@@ -1,7 +1,8 @@
 # $FreeBSD$
 
 PORTNAME=	dlib
-DISTVERSION=	19.19
+DISTVERSION=	19.17
+PORTREVISION=	4
 CATEGORIES=	science devel math python
 MASTER_SITES=	http://dlib.net/files/
 PKGNAMEPREFIX=	${PYTHON_PKGNAMEPREFIX}
@@ -13,16 +14,15 @@ LICENSE=	BSL
 LICENSE_FILE=	${WRKSRC}/dlib/LICENSE.txt
 
 BUILD_DEPENDS=		cmake:devel/cmake
-LIB_DEPENDS=		${PY_BOOST} \
-			libpng.so:graphics/png
+LIB_DEPENDS=		${PY_BOOST}
 
 USES=			compiler:c++11-lang pkgconfig python shebangfix \
 			tar:bzip2
 USE_PYTHON=		autoplist distutils
 SHEBANG_FILES=		python_examples/*.py
 
-OPTIONS_DEFINE=		X11 JPEG GIF SQLITE BLASLAPACK AVX
-OPTIONS_DEFAULT=	X11 JPEG GIF SQLITE
+OPTIONS_DEFINE=		X11 JPEG PNG GIF SQLITE BLASLAPACK AVX
+OPTIONS_DEFAULT=	X11 JPEG PNG GIF SQLITE
 
 BLASLAPACK_DESC=	Use Blas and Lapack libraries from ports
 AVX_DESC=		Use AVX instructions if supported by CPU

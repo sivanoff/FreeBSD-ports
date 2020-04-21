@@ -1,27 +1,23 @@
-* Try using modesetting driver before falling back to scfb or vesa
-*
-* Use our scfb driver as fallback instead of Linux's fbdev
-*
---- hw/xfree86/common/xf86AutoConfig.c.orig	2017-03-15 18:05:25 UTC
+--- hw/xfree86/common/xf86AutoConfig.c.orig	2017-01-11 20:00:58 UTC
 +++ hw/xfree86/common/xf86AutoConfig.c
-@@ -294,7 +294,7 @@ listPossibleVideoDrivers(XF86MatchedDriv
-     xf86PciMatchDriver(md);
+@@ -276,7 +276,7 @@ listPossibleVideoDrivers(char *matches[]
+         i += xf86PciMatchDriver(&matches[i], nmatches - i);
  #endif
  
 -#if defined(__linux__)
 +#if defined(__linux__) || defined(__FreeBSD__) || defined(__DragonFly__)
-     xf86AddMatchedDriver(md, "modesetting");
+     matches[i++] = xnfstrdup("modesetting");
  #endif
  
-@@ -302,8 +302,10 @@ listPossibleVideoDrivers(XF86MatchedDriv
-     /* Fallback to platform default frame buffer driver */
+@@ -285,8 +285,10 @@ listPossibleVideoDrivers(char *matches[]
+     if (i < (nmatches - 1)) {
  #if !defined(__linux__) && defined(__sparc__)
-     xf86AddMatchedDriver(md, "wsfb");
+         matches[i++] = xnfstrdup("wsfb");
 -#else
 +#elif defined(__linux__)
-     xf86AddMatchedDriver(md, "fbdev");
+         matches[i++] = xnfstrdup("fbdev");
 +#elif defined(__FreeBSD__)
-+    xf86AddMatchedDriver(md, "scfb");
++        matches[i++] = xnfstrdup("scfb");
  #endif
+     }
  #endif                          /* !__sun */
- 

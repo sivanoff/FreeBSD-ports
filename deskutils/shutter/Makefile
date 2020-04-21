@@ -2,12 +2,15 @@
 # $FreeBSD$
 
 PORTNAME=	shutter
-PORTVERSION=	0.94.3
+PORTVERSION=	0.93.1
+PORTREVISION=	5
 CATEGORIES=	deskutils
-MASTER_SITES=	https://launchpadlibrarian.net/427931700/
+MASTER_SITES=	http://shutter-project.org/wp-content/uploads/releases/tars/
 
 MAINTAINER=	nivit@FreeBSD.org
 COMMENT=	Screenshot tool
+
+BROKEN=		unfetchable
 
 LICENSE=	GPLv3 GPLv2 # the latter for some shipped cursors
 LICENSE_COMB=	multi
@@ -25,7 +28,7 @@ RUN_DEPENDS=	ImageMagick6>=6.9.3.1,1:graphics/ImageMagick6 \
 		p5-Gtk2-ImageView>=0.05:x11-toolkits/p5-Gtk2-ImageView \
 		p5-Gtk2-Unique>=0.05:x11-toolkits/p5-Gtk2-Unique \
 		p5-Gtk2>=1.2491:x11-toolkits/p5-Gtk2 \
-		p5-JSON-MaybeXS>=1.0:converters/p5-JSON-MaybeXS \
+		p5-JSON-XS>=3.01:converters/p5-JSON-XS \
 		p5-JSON>=2.90:converters/p5-JSON \
 		p5-Locale-gettext>=1.05:devel/p5-Locale-gettext \
 		p5-Net-DBus>=1.0.0:devel/p5-Net-DBus \
@@ -40,20 +43,23 @@ RUN_DEPENDS=	ImageMagick6>=6.9.3.1,1:graphics/ImageMagick6 \
 		p5-XML-Simple>=2.20:textproc/p5-XML-Simple \
 		xdg-utils>=1.0.2.20130919:devel/xdg-utils
 
-USES=		desktop-file-utils gettext-runtime gnome perl5 shebangfix
-
-USE_PERL5=	run
 INSTALLS_ICONS=	yes
-NO_BUILD=	yes
 
-SHEBANG_FILES=	bin/shutter share/shutter/resources/system/upload_plugins/*.pm
-SHUTTER_DESKTOP=	share/applications/shutter.desktop
+METADATA_DESC=	Enable Shutter to write Metadata
+METADATA_RUN_DEPENDS=	p5-Image-ExifTool>=9.76:graphics/p5-Image-ExifTool
+
+NO_BUILD=	yes
 
 OPTIONS_DEFINE=	METADATA NLS
 OPTIONS_SUB=	yes
 
-METADATA_DESC=	Enable Shutter to write Metadata
-METADATA_RUN_DEPENDS=	p5-Image-ExifTool>=9.76:graphics/p5-Image-ExifTool
+SHEBANG_FILES=	bin/shutter share/shutter/resources/system/upload_plugins/*.pm
+SHUTTER_DESKTOP=	share/applications/shutter.desktop
+
+USE_PERL5=	run
+USES=		desktop-file-utils gettext-runtime gnome perl5 shebangfix
+
+.include <bsd.port.options.mk>
 
 post-patch:
 	${REINPLACE_CMD} -e '/OnlyShowIn/d' ${WRKSRC}/${SHUTTER_DESKTOP}
@@ -65,11 +71,11 @@ do-install:
 	${INSTALL_MAN} share/man/man1/shutter.1.gz ${STAGEDIR}${MANPREFIX}/man/man1/)
 	@(cd ${WRKSRC}/share && \
 	${COPYTREE_SHARE} "icons pixmaps" ${STAGEDIR}${LOCALBASE}/share)
-	@(cd ${WRKSRC}/share/shutter && \
-	${COPYTREE_SHARE} resources ${STAGEDIR}${DATADIR})
-
-do-install-NLS-on:
+.if ${PORT_OPTIONS:MNLS}
 	@(cd ${WRKSRC}/share/locale && \
 	${COPYTREE_SHARE} . ${STAGEDIR}${PREFIX}/share/locale)
+.endif
+	@(cd ${WRKSRC}/share/shutter && \
+	${COPYTREE_SHARE} resources ${STAGEDIR}${DATADIR})
 
 .include <bsd.port.mk>

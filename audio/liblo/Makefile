@@ -2,26 +2,24 @@
 # $FreeBSD$
 
 PORTNAME=	liblo
-PORTVERSION=	0.31
+PORTVERSION=	0.28
+PORTREVISION=	3
 CATEGORIES=	audio
 MASTER_SITES=	SF
 
-MAINTAINER=	sunpoet@FreeBSD.org
+MAINTAINER=	ports@FreeBSD.org
 COMMENT=	Lightweight Open Sound Control implementation
 
 LICENSE=	LGPL21
 
-USES=		gmake libtool pathfix
-
 GNU_CONFIGURE=	yes
 INSTALL_TARGET=	install-strip
+USES=		gmake libtool pathfix
 USE_LDCONFIG=	yes
 
 PORTDOCS=	*
-PORTEXAMPLES=	example_client \
-		example_server \
-		example_tcp_echo_server \
-		nonblocking_server_example
+PORTEXAMPLES=	example_client example_server \
+		example_tcp_echo_server nonblocking_server_example
 
 OPTIONS_DEFINE=	DOXYGEN DOCS EXAMPLES
 OPTIONS_SUB=	yes
@@ -32,19 +30,21 @@ DOXYGEN_BUILD_DEPENDS=	doxygen:devel/doxygen
 
 post-patch:
 .if ${ARCH} == i386 || ${ARCH} == powerpc
-	@${REINPLACE_CMD} -e 's|deadbeef||; s|f00baa23||' ${WRKSRC}/lo/lo_macros.h
+	@${REINPLACE_CMD} -e 's,deadbeef,, ; s,f00baa23,,' \
+		${WRKSRC}/lo/lo_macros.h
 .endif
 
-post-install-DOCS-on:
+post-install:
 	@${MKDIR} ${STAGEDIR}${DOCSDIR}
-	cd ${WRKSRC} && ${INSTALL_DATA} AUTHORS ChangeLog NEWS README TODO ${STAGEDIR}${DOCSDIR}
-
-post-install-DOXYGEN-on:
-	cd ${WRKSRC}/doc/man/man3 && ${INSTALL_MAN} l*.3 p*.3 ${STAGEDIR}${PREFIX}/share/man/man3/
-	cd ${WRKSRC}/doc && ${COPYTREE_SHARE} html ${STAGEDIR}${DOCSDIR}
-
-post-install-EXAMPLES-on:
+.for f in AUTHORS ChangeLog NEWS README TODO
+	${INSTALL_DATA} ${WRKSRC}/${f} ${STAGEDIR}${DOCSDIR}
+.endfor
 	@${MKDIR} ${STAGEDIR}${EXAMPLESDIR}
-	cd ${WRKSRC}/examples && ${INSTALL_SCRIPT} ${PORTEXAMPLES} ${STAGEDIR}${EXAMPLESDIR}
+	${INSTALL_SCRIPT} ${PORTEXAMPLES:S|^|${WRKSRC}/examples/|} \
+		${STAGEDIR}${EXAMPLESDIR}
+post-install-DOXYGEN-on:
+	(cd ${WRKSRC}/doc/man/man3 && ${INSTALL_MAN} l*.3 p*.3 \
+		${STAGEDIR}${MAN3PREFIX}/man/man3/)
+	(cd ${WRKSRC}/doc && ${COPYTREE_SHARE} html ${STAGEDIR}${DOCSDIR})
 
 .include <bsd.port.mk>

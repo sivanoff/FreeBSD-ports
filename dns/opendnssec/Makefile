@@ -3,7 +3,7 @@
 
 PORTNAME=	opendnssec
 PORTVERSION=	1.4.14
-PORTREVISION=	3
+PORTREVISION=	2
 CATEGORIES=	dns
 MASTER_SITES=	http://dist.opendnssec.org/source/
 
@@ -11,9 +11,6 @@ MAINTAINER=	jaap@NLnetLabs.nl
 COMMENT=	Tool suite for maintaining DNSSEC
 
 LICENSE=	BSD3CLAUSE
-
-DEPRECATED=	EOLed by upstream
-EXPIRATION_DATE=	2020-10-09
 
 BUILD_DEPENDS=	ldns>=1.6.16:dns/ldns
 LIB_DEPENDS=	libldns.so:dns/ldns

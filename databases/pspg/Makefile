@@ -1,7 +1,7 @@
 # $FreeBSD$
 
 PORTNAME=	pspg
-DISTVERSION=	2.7.2
+DISTVERSION=	2.6.4
 CATEGORIES=	databases
 
 MAINTAINER=	dmgk@FreeBSD.org
@@ -15,9 +15,7 @@ USES=		autoreconf compiler:c11 gmake localbase ncurses pkgconfig \
 
 USE_GITHUB=	yes
 GH_ACCOUNT=	okbob
-
 GNU_CONFIGURE=	yes
-CONFIGURE_ARGS=	--without-inotify
 
 SUB_FILES=	pkg-message
 

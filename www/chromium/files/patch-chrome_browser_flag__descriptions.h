@@ -1,6 +1,6 @@
---- chrome/browser/flag_descriptions.h.orig	2020-04-03 04:11:29 UTC
+--- chrome/browser/flag_descriptions.h.orig	2019-12-16 21:51:23 UTC
 +++ chrome/browser/flag_descriptions.h
-@@ -21,9 +21,9 @@
+@@ -20,9 +20,9 @@
  #include "ui/android/buildflags.h"
  #endif  // defined(OS_ANDROID)
  
@@ -12,15 +12,16 @@
  
  // This file declares strings used in chrome://flags. These messages are not
  // translated, because instead of end-users they target Chromium developers and
-@@ -2128,14 +2128,14 @@ extern const char kZeroStateFilesDescription[];
+@@ -2233,7 +2233,7 @@ extern const char kZeroStateFilesDescription[];
  
  #endif  // #if defined(OS_CHROMEOS)
  
 -#if defined(OS_CHROMEOS) || defined(OS_LINUX)
 +#if defined(OS_CHROMEOS) || defined(OS_LINUX) || defined(OS_BSD)
+ extern const char kTerminalSystemAppName[];
+ extern const char kTerminalSystemAppDescription[];
  
- #if BUILDFLAG(USE_TCMALLOC)
- extern const char kDynamicTcmallocName[];
+@@ -2242,7 +2242,7 @@ extern const char kDynamicTcmallocName[];
  extern const char kDynamicTcmallocDescription[];
  #endif  // BUILDFLAG(USE_TCMALLOC)
  
@@ -29,7 +30,7 @@
  
  // All views-based platforms --------------------------------------------------
  
-@@ -2154,12 +2154,12 @@ extern const char kReopenTabInProductHelpDescription[]
+@@ -2261,12 +2261,12 @@ extern const char kReopenTabInProductHelpDescription[]
  
  // Random platform combinations -----------------------------------------------
  
@@ -44,29 +45,21 @@
  
  #if BUILDFLAG(ENABLE_CLICK_TO_CALL)
  
-@@ -2171,21 +2171,21 @@ extern const char kClickToCallDetectionV2Description[]
+@@ -2278,7 +2278,7 @@ extern const char kClickToCallUIDescription[];
  
  #endif  // BUILDFLAG(ENABLE_CLICK_TO_CALL)
- 
--#if defined(OS_WIN) || defined(OS_MACOSX) || defined(OS_LINUX) || \
-+#if defined(OS_WIN) || defined(OS_MACOSX) || defined(OS_LINUX) || defined(OS_BSD) || \
-     defined(OS_CHROMEOS)
- 
- extern const char kRemoteCopyReceiverName[];
- extern const char kRemoteCopyReceiverDescription[];
- 
--#endif  // defined(OS_WIN) || defined(OS_MACOSX) || defined(OS_LINUX) ||
-+#endif  // defined(OS_WIN) || defined(OS_MACOSX) || defined(OS_LINUX) || defined(OS_BSD) ||
-         // defined(OS_CHROMEOS)
  
 -#if defined(OS_WIN) || defined(OS_MACOSX) || defined(OS_LINUX)
 +#if defined(OS_WIN) || defined(OS_MACOSX) || defined(OS_LINUX) || defined(OS_BSD)
  
  extern const char kDirectManipulationStylusName[];
  extern const char kDirectManipulationStylusDescription[];
+@@ -2292,7 +2292,7 @@ extern const char kProfileMenuRevampDescription[];
+ extern const char kSyncClipboardServiceName[];
+ extern const char kSyncClipboardServiceDescription[];
  
 -#endif  // defined(OS_WIN) || defined(OS_MACOSX) || defined(OS_LINUX)
 +#endif  // defined(OS_WIN) || defined(OS_MACOSX) || defined(OS_LINUX) || defined(OS_BSD)
  
- #if defined(OS_WIN) || defined(OS_MACOSX) || defined(OS_CHROMEOS)
+ #if defined(OS_MACOSX) || defined(OS_CHROMEOS)
  

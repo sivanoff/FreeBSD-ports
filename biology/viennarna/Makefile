@@ -1,7 +1,8 @@
 # $FreeBSD$
 
 PORTNAME=	viennarna
-DISTVERSION=	2.4.14
+DISTVERSION=	2.4.13
+PORTREVISION=	2
 CATEGORIES=	biology
 MASTER_SITES=	https://www.tbi.univie.ac.at/RNA/download/sourcecode/2_4_x/
 DISTNAME=	ViennaRNA-${DISTVERSION}

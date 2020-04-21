@@ -13,8 +13,6 @@ LICENSE_FILE=	${WRKSRC}/COPYING
 LIB_DEPENDS=	libImlib2.so:graphics/imlib2 \
 		libwebp.so:graphics/webp
 
-CONFLICTS_INSTALL=	imlib2
-
 USES=		gmake pkgconfig
 USE_GITHUB=	yes
 GH_ACCOUNT=	gawen947

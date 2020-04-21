@@ -31,7 +31,7 @@ USE_SDL=	sdl2 image2 ttf2
 USE_GL=		gl glu glew
 USE_XORG=	x11 xext sm ice
 INSTALLS_ICONS=	yes
-LDFLAGS_i386=	-Wl,-znotext
+LLD_UNSAFE=	yes
 
 PORTDOCS=	*
 PORTDATA=	*

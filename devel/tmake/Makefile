@@ -13,22 +13,28 @@ COMMENT=	Extremely portable perl-based make utility
 LICENSE=	MIT
 LICENSE_FILE=	${WRKSRC}/LICENSE
 
-USES=		perl5 shebangfix zip
-
 NO_ARCH=	yes
 NO_BUILD=	yes
+REINPLACE_ARGS=	-i ''
+USES=		perl5 shebangfix zip
 
 SHEBANG_FILES=	bin/progen bin/tmake
 
 post-patch:
-	@${REINPLACE_CMD} -e 's|/usr/local|${LOCALBASE}|' ${WRKSRC}/lib/freebsd-g++/tmake.conf
+	@${RM} ${WRKSRC}/lib/make/generic.t.orig
+	@${REINPLACE_CMD} \
+		-e 's|/usr/local|${LOCALBASE}|' \
+		-e 's|/usr/X11R6|${LOCALBASE}|' \
+		-e '/^TMAKE_CFLAGS_RELEASE/ s| -O[0-9]||' \
+			${WRKSRC}/lib/freebsd-g++/tmake.conf
 
 do-install:
 	${MKDIR} ${STAGEDIR}${DATADIR}/
 	cd ${WRKSRC}/bin/ && ${INSTALL_SCRIPT} progen tmake ${STAGEDIR}${PREFIX}/bin/
-	cd ${WRKSRC}/lib/ && ${COPYTREE_SHARE} . ${STAGEDIR}${DATADIR}/ '! -name *.bak -and ! -name *.orig'
+	cd ${WRKSRC}/lib/ && ${COPYTREE_SHARE} . ${STAGEDIR}${DATADIR}/
 	@${ECHO_MSG}
-	@${ECHO_MSG} "Make sure to set your TMAKEPATH environment variable to ${DATADIR}/freebsd-g++"
+	@${ECHO_MSG} "Make sure to set your TMAKEPATH environment variable"
+	@${ECHO_MSG} "to ${DATADIR}/freebsd-g++."
 	@${ECHO_MSG}
 
 .include <bsd.port.mk>

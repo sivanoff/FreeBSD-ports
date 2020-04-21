@@ -4,7 +4,7 @@ PORTNAME=	ttyd
 PORTVERSION=	1.5.2
 CATEGORIES=	sysutils
 
-MAINTAINER=	ports@FreeBSD.org
+MAINTAINER=	neel@neelc.org
 COMMENT=	Program to share your terminal over the web
 
 LICENSE=	MIT

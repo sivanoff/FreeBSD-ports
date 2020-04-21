@@ -3,7 +3,7 @@
 
 PORTNAME=	thebridge
 PORTVERSION=	1.09
-PORTREVISION=	2
+PORTREVISION=	1
 CATEGORIES=	comms hamradio
 MASTER_SITES=	SF/cqinet/${PORTNAME}/${PORTNAME}-${PORTVERSION}
 
@@ -25,11 +25,7 @@ SHEBANG_FILES=	addons/usermgmt.cgi
 
 INSTALL_TARGET=	install-strip
 
-OPTIONS_DEFINE=			DOCS READLINE
-OPTIONS_DEFAULT=		READLINE
-
-READLINE_CONFIGURE_WITH=	readline
-READLINE_USES=			readline
+OPTIONS_DEFINE=	DOCS
 
 post-patch:
 	@${REINPLACE_CMD} 's!tbdcmd=\/usr\/local!tbdcmd=${PREFIX}!'\

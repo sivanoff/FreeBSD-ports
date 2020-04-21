@@ -2,7 +2,8 @@
 # $FreeBSD$
 
 PORTNAME=	pystemmer
-PORTVERSION=	2.0.0.1
+PORTVERSION=	1.3.0
+PORTREVISION=	2
 CATEGORIES=	textproc python
 MASTER_SITES=	CHEESESHOP \
 		http://snowball.tartarus.org/wrappers/

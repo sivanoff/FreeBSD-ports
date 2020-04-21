@@ -6,7 +6,7 @@ PORTVERSION=	4.4
 CATEGORIES=	devel
 MASTER_SITES=	SF
 
-MAINTAINER=	hselasky@FreeBSD.org
+MAINTAINER=	hselasky@freebsd.org
 COMMENT=	Simple and powerful JUnit/CppUnit/xUnit-like framework for C++
 
 LICENSE=	LGPL3+

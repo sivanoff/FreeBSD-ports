@@ -11,8 +11,6 @@ DISTNAME=	${PORTNAME}src${PORTVERSION:S/.r/r/}
 MAINTAINER=	ports@FreeBSD.org
 COMMENT=	Fast-action, networked, anti-social, kill-everything game
 
-BROKEN=		unfetchable
-
 LICENSE=	GPLv2+
 LICENSE_FILE=	${WRKSRC}/gpl.txt
 

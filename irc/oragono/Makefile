@@ -2,7 +2,7 @@
 
 PORTNAME=	oragono
 DISTVERSIONPREFIX=	v
-DISTVERSION=	2.0.0
+DISTVERSION=	1.2.0
 CATEGORIES=	irc
 
 MAINTAINER=	yuri@FreeBSD.org
@@ -13,15 +13,10 @@ LICENSE_FILE=	${WRKSRC}/LICENSE
 
 USES=		go
 USE_GITHUB=	yes
-GH_TUPLE=	oragono:oragono-vendor:1deff6c:v/vendor \
-		golang:sys:fead79001313:golang_sys/vendor/golang.org/x/sys_fead79001313
+GH_TUPLE=	oragono:oragono-vendor:1deff6c:v/vendor
 
 GO_PKGNAME=	github.com/${GH_ACCOUNT}/${PORTNAME}
 
 PLIST_FILES=	bin/${PORTNAME}
-
-pre-build:
-	${RM} -r ${WRKSRC}/vendor/golang.org/x/sys
-	${MV} ${WRKSRC}/vendor/golang.org/x/sys_fead79001313 ${WRKSRC}/vendor/golang.org/x/sys
 
 .include <bsd.port.mk>

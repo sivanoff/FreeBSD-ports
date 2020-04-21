@@ -3,7 +3,6 @@
 
 PORTNAME=	chef-zero
 PORTVERSION=	13.1.0
-PORTREVISION=	1
 CATEGORIES=	sysutils
 MASTER_SITES=	RG
 
@@ -14,7 +13,7 @@ LICENSE=	APACHE20
 LICENSE_FILE=	${WRKSRC}/LICENSE
 
 RUN_DEPENDS=	rubygem-ffi-yajl>=2.2<3:devel/rubygem-ffi-yajl \
-		rubygem-hashie3>=2.0<4.0:devel/rubygem-hashie3 \
+		rubygem-hashie>=2.0<4.0:devel/rubygem-hashie \
 		rubygem-mixlib-log>=1.3<2:devel/rubygem-mixlib-log \
 		rubygem-rack>=2.0,3<3,3:www/rubygem-rack \
 		rubygem-uuidtools>=2.1<3:devel/rubygem-uuidtools

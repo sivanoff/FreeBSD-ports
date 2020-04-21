@@ -1,14 +1,16 @@
 # $FreeBSD$
 
 PORTNAME?=	husky
-PORTVERSION=	1.9.20191207
+PORTVERSION=	1.9.20140519
+PORTREVISION?=	3
 PORTEPOCH?=	0
 CATEGORIES?=	news mail
-MASTER_SITES=	http://download.huskyproject.org/sources/
-DISTNAME=	husky-all-1.9-source-20191207
+MASTER_SITES=	SF/husky/husky/1.9-current/2014.05.19
 
 MAINTAINER?=	osharoiko@gmail.com
 COMMENT?=	Husky full featured highly portable FTN Tosser
+
+DISTNAME=	husky-all-1.9-source-20140519
 
 .if ${PORTNAME} == "husky"
 RUN_DEPENDS=	hpt:news/husky-hpt \
@@ -18,19 +20,19 @@ NO_BUILD=	yes
 NO_INSTALL=	yes
 .endif
 
-USES+=		alias dos2unix gmake zip
+USES+=		alias gmake tar:tgz
 
-NO_WRKSUBDIR=	yes
-BUILD_WRKSRC=	${WRKSRC}/${COMPONENT_SUBDIR}
-INSTALL_WRKSRC=	${BUILD_WRKSRC}
+HUSKY_ROOTDIR=	${WRKDIR}/husky
+PATCH_WRKSRC=	${HUSKY_ROOTDIR}
+WRKSRC=		${HUSKY_ROOTDIR}/${COMPONENT_SUBDIR}
 PKGDIR=		${.CURDIR}
 
 USERS=		fido
 GROUPS=		fido
 
 pre-build:
-	${LN} -sf ${WRKSRC}/huskybse/huskymak.cfg ${WRKSRC}
+	${LN} -sf ${HUSKY_ROOTDIR}/huskybse/huskymak.cfg ${HUSKY_ROOTDIR}
 	@${REINPLACE_CMD} -e 's|gcc|${CC}|; s|g++|${CXX}|' \
-		${WRKSRC}/huskybse/huskymak.cfg
+		${HUSKY_ROOTDIR}/huskybse/huskymak.cfg
 
 .include <bsd.port.mk>

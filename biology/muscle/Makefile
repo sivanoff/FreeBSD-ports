@@ -2,24 +2,27 @@
 # $FreeBSD$
 
 PORTNAME=	muscle
-PORTVERSION=	3.8.1551
+PORTVERSION=	3.8.31
 CATEGORIES=	biology
-MASTER_SITES=	http://www.drive5.com/muscle/
-DISTNAME=	${PORTNAME}_src_${PORTVERSION}
+MASTER_SITES=	http://www.drive5.com/muscle/downloads${PORTVERSION}/
+DISTNAME=	${PORTNAME}${PORTVERSION}_src
 
-MAINTAINER=	mzaki@e-mail.ne.jp
+MAINTAINER=	mzaki@m.u-tokyo.ac.jp
 COMMENT=	MUltiple Sequence Comparison by Log-Expectation
 
-LICENSE=	PD
+FETCH_ARGS=	-A
 
-USES=		dos2unix gmake
-NO_WRKSUBDIR=	yes
+WRKSRC=		${WRKDIR}/${PORTNAME}${PORTVERSION}/src
+
+USES=		dos2unix
 DOS2UNIX_GLOB=	*.cpp
+
+ALL_TARGET=	muscle
 
 PLIST_FILES=	bin/muscle
 
-post-patch:
-	${MV} ${WRKSRC}/subfams.cpp ${WRKSRC}/subfams.cpp.not_to_be_compiled
+ONLY_FOR_ARCHS=		amd64 i386
+ONLY_FOR_ARCHS_REASON=	Fails to install: tries to modify /dev/tty
 
 do-install:
 	${INSTALL_PROGRAM} ${WRKSRC}/muscle ${STAGEDIR}${PREFIX}/bin

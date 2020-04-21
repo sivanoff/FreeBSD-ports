@@ -2,7 +2,8 @@
 # $FreeBSD$
 
 PORTNAME=	screen
-PORTVERSION=	4.8.0
+PORTVERSION=	4.7.0
+PORTREVISION=	8
 CATEGORIES=	sysutils
 MASTER_SITES=	GNU \
 		ftp://ftp.gnu.org/gnu/screen/ \

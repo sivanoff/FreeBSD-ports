@@ -2,12 +2,12 @@
 # $FreeBSD$
 
 PORTNAME=	eiskaltdcpp
-PORTREVISION=	20
+PORTREVISION=	15
 CATEGORIES=	net-p2p
 PKGNAMESUFFIX=	-gtk
 
 MAINTAINER=	ports@FreeBSD.org
-COMMENT=	EiskaltDC++ client GTK graphic interface
+COMMENT=	EiskaltDC++ Direct Connect client GTK GUI
 
 LICENSE=	GPLv3
 

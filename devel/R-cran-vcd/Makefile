@@ -2,11 +2,12 @@
 # $FreeBSD$
 
 PORTNAME=	vcd
-DISTVERSION=	1.4-5
+DISTVERSION=	1.4-4
+PORTREVISION=	2
 CATEGORIES=	devel
 DISTNAME=	${PORTNAME}_${DISTVERSION}
 
-MAINTAINER=	ports@FreeBSD.org
+MAINTAINER=	pfg@FreeBSD.org
 COMMENT=	Visualization techniques, data sets for categorical data
 
 LICENSE=	GPLv2

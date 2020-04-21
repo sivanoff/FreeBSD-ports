@@ -2,7 +2,7 @@
 # $FreeBSD$
 
 PORTNAME=	Unix-Groups-FFI
-PORTVERSION=	1.000
+PORTVERSION=	0.002
 CATEGORIES=	devel perl5
 MASTER_SITES=	CPAN
 PKGNAMEPREFIX=	p5-
@@ -14,11 +14,10 @@ LICENSE=	ART20
 LICENSE_FILE=	${WRKSRC}/LICENSE
 
 BUILD_DEPENDS=	${RUN_DEPENDS}
-RUN_DEPENDS=	p5-FFI-Platypus>=1.00:devel/p5-FFI-Platypus
-
-USES=		perl5
-USE_PERL5=	configure
+RUN_DEPENDS=	p5-FFI-Platypus>=0.20:devel/p5-FFI-Platypus
 
 NO_ARCH=	yes
+USE_PERL5=	configure
+USES=		perl5
 
 .include <bsd.port.mk>

@@ -22,7 +22,7 @@ USES=		compiler:c++11-lang gl gmake openal:al,alut sdl tar:bzip2
 USE_GL=		gl glu
 USE_SDL=	image sdl ttf
 
-LDFLAGS_i386=	-Wl,-znotext
+LLD_UNSAFE=	yes
 
 OPTIONS_DEFINE=	DOCS
 

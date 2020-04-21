@@ -5,7 +5,7 @@ PORTVERSION=	1.1.1
 DISTVERSIONPREFIX=	v
 CATEGORIES=	databases
 
-MAINTAINER=	lbartoletti@FreeBSD.org
+MAINTAINER=	lbartoletti@tuxfamily.org
 COMMENT=	Simple database explorer
 
 LICENSE=	GPLv3

@@ -5,11 +5,14 @@ PORTNAME=	cops
 PORTVERSION=	1.04
 PORTREVISION=	1
 CATEGORIES=	security
-MASTER_SITES=	https://cschubert.com/distfiles/
+MASTER_SITES=	http://www.fish2.com/cops/ \
+		http://komquats.com/distfiles/
 DISTNAME=	${PORTNAME}${PORTVERSION:S/.//g}+
 
 MAINTAINER=	cy@FreeBSD.org
 COMMENT=	System secureness checker
+
+BROKEN=		unfetchable
 
 USES=		groff perl5 shebangfix
 USE_PERL5=	run

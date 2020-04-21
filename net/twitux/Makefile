@@ -3,7 +3,7 @@
 
 PORTNAME=	twitux
 PORTVERSION=	0.69
-PORTREVISION=	9
+PORTREVISION=	8
 CATEGORIES=	net
 MASTER_SITES=	SF
 
@@ -17,7 +17,7 @@ LIB_DEPENDS=	libsoup-2.4.so:devel/libsoup \
 
 USES=		gettext gmake gnome pkgconfig tar:bzip2 xorg
 USE_XORG=	x11
-USE_GNOME=	glib20 gtk20 gconf2 intltool libxml2
+USE_GNOME=	glib20 gtk20 gconf2 intltool libxml2 gnomedocutils
 INSTALLS_OMF=	yes
 GNU_CONFIGURE=	yes
 CONFIGURE_ENV+=	GMSGFMT="${LOCALBASE}/bin/msgfmt"

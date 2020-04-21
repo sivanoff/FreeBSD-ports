@@ -1,7 +1,7 @@
 # $FreeBSD$
 
 PORTNAME=	ipdb
-PORTVERSION=	0.13.2
+PORTVERSION=	0.12.3
 CATEGORIES=	devel python
 MASTER_SITES=	CHEESESHOP
 PKGNAMEPREFIX=	${PYTHON_PKGNAMEPREFIX}
@@ -18,5 +18,8 @@ USES=		python
 USE_PYTHON=	autoplist concurrent distutils
 
 NO_ARCH=	yes
+
+post-patch:
+	@${REINPLACE_CMD} -e '/zip_safe=/ s|True|False|' ${WRKSRC}/setup.py
 
 .include <bsd.port.mk>

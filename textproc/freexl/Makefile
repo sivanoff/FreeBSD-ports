@@ -1,12 +1,12 @@
-# Created by: lbartoletti <lbartoletti@FreeBSD.org>
+# Created by: lbartoletti <coder@tuxfamily.org>
 # $FreeBSD$
 
 PORTNAME=	freexl
 DISTVERSION=	1.0.5
 CATEGORIES=	textproc
-MASTER_SITES=	https://www.gaia-gis.it/gaia-sins/freexl-sources/
+MASTER_SITES=	http://www.gaia-gis.it/gaia-sins/freexl-sources/
 
-MAINTAINER=	lbartoletti@FreeBSD.org
+MAINTAINER=	lbartoletti@tuxfamily.org
 COMMENT=	Library to extract valid data from within an Excel (.xls) spreadsheet
 
 LICENSE=	GPLv2+ LGPL21+ MPL11

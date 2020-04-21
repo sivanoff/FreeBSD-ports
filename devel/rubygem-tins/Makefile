@@ -2,7 +2,7 @@
 # $FreeBSD$
 
 PORTNAME=	tins
-PORTVERSION=	1.24.1
+PORTVERSION=	1.22.2
 CATEGORIES=	devel rubygems
 MASTER_SITES=	RG
 
@@ -11,8 +11,6 @@ COMMENT=	Useful tools library in Ruby
 
 LICENSE=	MIT
 LICENSE_FILE=	${WRKSRC}/COPYING
-
-RUN_DEPENDS=	rubygem-sync>=0:devel/rubygem-sync
 
 USES=		gem
 USE_RUBY=	yes

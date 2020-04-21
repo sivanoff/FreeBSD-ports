@@ -3,7 +3,6 @@
 
 PORTNAME=	prosody
 PORTVERSION=	0.11.4
-PORTREVISION=	1
 CATEGORIES=	net-im
 MASTER_SITES=	http://prosody.im/downloads/source/ \
 		http://redundancy.redundancy.org/mirror/
@@ -14,30 +13,27 @@ COMMENT=	Simple extensible XMPP server written in Lua
 LICENSE=	MIT
 LICENSE_FILE=	${WRKSRC}/COPYING
 
-RUN_DEPENDS=	${LUA_MODLIBDIR}/socket/core.so:net/luasocket \
-		${LUA_MODLIBDIR}/ssl.so:security/luasec \
-		${LUA_MODLIBDIR}/lxp.so:textproc/luaexpat \
-		${LUA_MODLIBDIR}/lfs.so:devel/luafilesystem \
-		${LUA_MODLIBDIR}/bit.so:devel/lua-bitop
+RUN_DEPENDS=	${LUA_MODLIBDIR}/socket/core.so:net/luasocket-51 \
+		${LUA_MODLIBDIR}/ssl.so:security/luasec-51 \
+		${LUA_MODLIBDIR}/lxp.so:textproc/luaexpat-51 \
+		${LUA_MODLIBDIR}/lfs.so:devel/luafilesystem-51 \
+		${LUA_MODLIBDIR}/bit.so:devel/lua51-bitop
 LIB_DEPENDS=	libidn.so:dns/libidn
 
-USES=		compiler:c11 cpe gmake lua:52 ssl
+USES=		compiler:c11 cpe gmake lua:51 shebangfix ssl
+SHEBANG_FILES=	prosody prosodyctl
 LUA_PREMK=	yes
 HAS_CONFIGURE=	yes
-CONFIGURE_ARGS=	--prefix="${PREFIX}" \
-		--datadir="/var/db/prosody" \
-		--lua-version="${LUA_VER}" \
+CFLAGS+=	-I${OPENSSLINC}
+LDFLAGS+=	-L${OPENSSLLIB}
+CONFIGURE_ARGS=	--ostype=freebsd \
+		--c-compiler="${CC}" \
+		--linker="${CC}" \
+		--with-lua-include="${LUA_INCDIR}" \
 		--lua-suffix="${LUA_VER_STR}" \
 		--with-lua-include="${LUA_INCDIR}" \
 		--with-lua-lib="${LUA_LIBDIR}" \
-		--with-random=arc4random \
-		--c-compiler="${CC}" \
-		--cflags="${CFLAGS}" \
-		--add-cflags="-fPIC -std=c99 -I${LOCALBASE}/include -I${OPENSSLINC}" \
-		--linker="${CC}" \
-		--ldflags="${LDFLAGS}" \
-		--add-ldflags="-shared -L${LOCALBASE}/lib -L${OPENSSLLIB}" \
-		--no-example-certs
+		--prefix="${PREFIX}"
 
 MAKEFILE=	GNUmakefile
 USERS=		prosody
@@ -51,9 +47,19 @@ PLIST_SUB=	PROSODY_USER=${USERS} \
 		PROSODY_GROUP=${GROUPS} \
 		PROSODY_GROUP_regex=\b${GROUPS}\b
 
+OPTIONS_DEFINE=	LUAJIT
+LUAJIT_DESC=		Run prosody using luajit
+LUAJIT_LIB_DEPENDS=	libluajit-5.1.so:lang/luajit
+
+.include <bsd.port.options.mk>
+
+.if ${PORT_OPTIONS:MLUAJIT}
+lua_CMD=	${LOCALBASE}/bin/luajit
+.else
+lua_CMD=	${LOCALBASE}/bin/${LUA_CMD}
+.endif
+
 post-install:
 	@${STRIP_CMD} ${STAGEDIR}${PREFIX}/lib/prosody/util/*.so
-	@${MKDIR} ${STAGEDIR}/var/run/prosody
-	@${RM} ${STAGEDIR}${ETCDIR}/certs/*
 
 .include <bsd.port.mk>

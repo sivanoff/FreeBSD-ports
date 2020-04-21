@@ -4,7 +4,6 @@
 PORTNAME=	synfigstudio
 PORTVERSION=	1.2.2
 DISTVERSIONPREFIX=v
-PORTREVISION=	2
 CATEGORIES=	graphics multimedia
 
 MAINTAINER=	woodsb02@FreeBSD.org

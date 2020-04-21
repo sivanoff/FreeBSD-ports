@@ -2,9 +2,10 @@
 # $FreeBSD$
 
 PORTNAME=		openvpn
-DISTVERSION=		202013
+DISTVERSION=		201935
 CATEGORIES=		security net net-vpn
-MASTER_SITES=		https://secure-computing.net/files/openvpn/
+MASTER_SITES=		https://secure-computing.net/files/openvpn/ \
+			ftp://ftp2.secure-computing.net/pub/FreeBSD/openvpn-devel/
 PKGNAMESUFFIX=		-devel
 
 MAINTAINER=		ecrist@secure-computing.net

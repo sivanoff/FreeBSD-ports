@@ -11,8 +11,6 @@ DISTNAME=	${PORTNAME}
 MAINTAINER=	ports@FreeBSD.org
 COMMENT=	Scans for a limited set of distributed denial of service agents
 
-BROKEN=		unfetchable
-
 USES=		tar
 ALL_TARGET=	dds
 

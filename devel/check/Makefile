@@ -2,14 +2,15 @@
 # $FreeBSD$
 
 PORTNAME=	check
-PORTVERSION=	0.14.0
+PORTVERSION=	0.13.0
 CATEGORIES=	devel
 
 MAINTAINER=	sunpoet@FreeBSD.org
 COMMENT=	Unit test framework for C
 
 LICENSE=	LGPL21
-LICENSE_FILE=	${WRKSRC}/COPYING.LESSER
+
+OPTIONS_DEFINE=	DOCS EXAMPLES
 
 USES=		autoreconf libtool makeinfo pathfix pkgconfig
 
@@ -19,19 +20,19 @@ INSTALL_TARGET=	install-strip
 USE_LDCONFIG=	yes
 
 INFO=		check
+PORTDOCS=	*
+PORTEXAMPLES=	*
 
-GH_ACCOUNT=	libcheck
+GH_ACCOUNT=	lib${PORTNAME}
 USE_GITHUB=	yes
-
-OPTIONS_DEFINE=	DOCS EXAMPLES
 
 post-patch:
 	@${REINPLACE_CMD} \
 		-e 's|COPYING.LESSER||' \
-		-e '/^docdir = / s|$$(PACKAGE)|check|' \
+		-e '/^docdir = / s|$$(PACKAGE)|${PORTNAME}|' \
 			${WRKSRC}/Makefile.am
 	@${REINPLACE_CMD} \
-		-e '/^exampledir = / s|(docdir)/example|(datadir)/examples/check|' \
+		-e '/^exampledir = / s|(docdir)/example|(datadir)/examples/${PORTNAME}|' \
 		-e '/^example[a-z]*dir = / s|(docdir)/example/|(exampledir)/|' \
 			${WRKSRC}/doc/Makefile.am
 

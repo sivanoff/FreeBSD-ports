@@ -2,7 +2,7 @@
 # $FreeBSD$
 
 PORTNAME=	adminer
-PORTVERSION=	4.7.6
+PORTVERSION=	4.7.4
 CATEGORIES=	databases www
 MASTER_SITES=	https://github.com/vrana/adminer/releases/download/v${PORTVERSION}/
 EXTRACT_SUFX=	.php
@@ -24,7 +24,7 @@ SUB_FILES=	pkg-message
 SUB_LIST=	PHPVER="${PHP_VER}"
 
 do-install:
-	${MKDIR} ${STAGEDIR}${WWWDIR}
-	${INSTALL_DATA} ${DISTDIR}/${DISTNAME}${EXTRACT_SUFX} ${STAGEDIR}${WWWDIR}/index.php
+	${MKDIR} ${STAGEDIR}${WWWDIR}/${PORTNAME}
+	${CP} ${DISTDIR}/${DISTNAME}${EXTRACT_SUFX} ${STAGEDIR}${WWWDIR}/${PORTNAME}/index.php
 
 .include <bsd.port.mk>

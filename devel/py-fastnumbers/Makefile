@@ -1,7 +1,7 @@
 # $FreeBSD$
 
 PORTNAME=	fastnumbers
-DISTVERSION=	3.0.0
+DISTVERSION=	2.2.1
 CATEGORIES=	devel python
 MASTER_SITES=	CHEESESHOP
 PKGNAMEPREFIX=	${PYTHON_PKGNAMEPREFIX}
@@ -12,7 +12,7 @@ COMMENT=	Super-fast and clean conversions to numbers
 LICENSE=	MIT
 LICENSE_FILE=	${WRKSRC}/LICENSE
 
-USES=		python:3.5+
+USES=		python
 USE_PYTHON=	autoplist distutils
 
 post-install:

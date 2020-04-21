@@ -1,6 +1,6 @@
---- src/cpp/core/r_util/RSessionContext.cpp.orig	2020-01-23 23:30:24 UTC
+--- src/cpp/core/r_util/RSessionContext.cpp.orig	2017-11-16 21:40:37 UTC
 +++ src/cpp/core/r_util/RSessionContext.cpp
-@@ -186,8 +186,8 @@ bool isSharedPath(const std::string& projectPath,
+@@ -138,8 +138,8 @@ bool isSharedPath(const std::string& pro
        // not shared if we're in any of the groups that own the directory
        // (note that this checks supplementary group IDs only, so the check
        // against the primary group ID above is still required)

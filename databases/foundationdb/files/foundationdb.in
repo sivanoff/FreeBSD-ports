@@ -3,7 +3,7 @@
 # $FreeBSD$
 #
 
-# PROVIDE: foundationdb
+# PROVIDE: founationdb
 # REQUIRE: LOGIN
 # BEFORE:  securelevel
 # KEYWORD: shutdown
@@ -21,7 +21,7 @@
 
 name="foundationdb"
 rcvar="${name}_enable"
-foundationdb_enable=${foundationdb_enable:-"NO"}
+trafficserver_enable=${trafficserver_enable:-"NO"}
 command=/usr/local/sbin/fdbmonitor
 pidfile="/var/run/fdbmonitor.pid"
 

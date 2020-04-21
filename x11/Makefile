@@ -8,7 +8,6 @@
     SUBDIR += 9menu
     SUBDIR += admiral
     SUBDIR += alacritty
-    SUBDIR += albert
     SUBDIR += alltray
     SUBDIR += alttab
     SUBDIR += aminal
@@ -37,7 +36,6 @@
     SUBDIR += cinnamon-session
     SUBDIR += cl-clx
     SUBDIR += cl-clx-sbcl
-    SUBDIR += clipman
     SUBDIR += compton-conf
     SUBDIR += conlecterm
     SUBDIR += controllermap
@@ -184,7 +182,6 @@
     SUBDIR += libxshmfence
     SUBDIR += lightdm
     SUBDIR += lightdm-gtk-greeter
-    SUBDIR += lightdm-gtk-greeter-settings
     SUBDIR += lilyterm
     SUBDIR += linux-c7-libxkbcommon
     SUBDIR += linux-c7-pixman
@@ -221,6 +218,7 @@
     SUBDIR += menu-cache
     SUBDIR += menulibre
     SUBDIR += metalock
+    SUBDIR += metisse
     SUBDIR += mkcomposecache
     SUBDIR += mlterm
     SUBDIR += mons
@@ -236,6 +234,7 @@
     SUBDIR += nvidia-settings
     SUBDIR += nvidia-xconfig
     SUBDIR += nxcomp
+    SUBDIR += ooxcb
     SUBDIR += p5-Clipboard
     SUBDIR += p5-X11-GUITest
     SUBDIR += p5-X11-IdleTime
@@ -269,6 +268,7 @@
     SUBDIR += py-qt5-opengl
     SUBDIR += py-xcffib
     SUBDIR += py-xdot
+    SUBDIR += py-xdot06
     SUBDIR += qimageblitz
     SUBDIR += qt5-qev
     SUBDIR += qt5-x11extras
@@ -279,10 +279,13 @@
     SUBDIR += rofi
     SUBDIR += rofi-calc
     SUBDIR += rofi-pass
+    SUBDIR += rox-wallpaper
     SUBDIR += roxbg
     SUBDIR += roxterm
     SUBDIR += rsibreak
     SUBDIR += rubygem-gnome
+    SUBDIR += run_scaled
+    SUBDIR += rxvt
     SUBDIR += rxvt-unicode
     SUBDIR += sakura
     SUBDIR += sbxkb
@@ -292,7 +295,6 @@
     SUBDIR += sessreg
     SUBDIR += setlayout
     SUBDIR += setxkbmap
-    SUBDIR += showkeys
     SUBDIR += simdock
     SUBDIR += simplestroke
     SUBDIR += sisctrl
@@ -317,6 +319,7 @@
     SUBDIR += tabbed
     SUBDIR += temperature.app
     SUBDIR += terminal.app
+    SUBDIR += terminator
     SUBDIR += terminology
     SUBDIR += thinglaunch
     SUBDIR += thingylaunch
@@ -333,13 +336,13 @@
     SUBDIR += wallutils
     SUBDIR += waybar
     SUBDIR += wbar
+    SUBDIR += wbarconf
     SUBDIR += wcm
     SUBDIR += wdisplays
     SUBDIR += wdm
     SUBDIR += wev
     SUBDIR += wf-shell
     SUBDIR += wl-clipboard
-    SUBDIR += wlogout
     SUBDIR += wmappl
     SUBDIR += wmblob
     SUBDIR += wmbutton
@@ -351,14 +354,11 @@
     SUBDIR += wmutils-core
     SUBDIR += wmutils-opt
     SUBDIR += wmxss
-    SUBDIR += wofi
     SUBDIR += workrave
-    SUBDIR += wshowkeys
     SUBDIR += x11perf
     SUBDIR += x3270
     SUBDIR += xaniroc
     SUBDIR += xantfarm
-    SUBDIR += xapps
     SUBDIR += xascii
     SUBDIR += xauth
     SUBDIR += xautolock
@@ -499,7 +499,6 @@
     SUBDIR += xtermcontrol
     SUBDIR += xtermset
     SUBDIR += xtestpicture
-    SUBDIR += xtitle
     SUBDIR += xtoolwait
     SUBDIR += xtrans
     SUBDIR += xtrlock

@@ -1,7 +1,7 @@
 # $FreeBSD$
 
 PORTNAME=	enchive
-PORTVERSION=	3.5
+PORTVERSION=	3.4
 CATEGORIES=	security
 
 MAINTAINER=	acm@FreeBSD.org

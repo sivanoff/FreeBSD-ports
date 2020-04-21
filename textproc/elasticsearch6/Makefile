@@ -2,10 +2,10 @@
 # $FreeBSD$
 
 PORTNAME=	elasticsearch
-PORTVERSION=	6.8.7
+PORTVERSION=	6.8.5
 CATEGORIES=	textproc java devel
 MASTER_SITES=	https://artifacts.elastic.co/downloads/${PORTNAME}/ \
-		https://ftp.sk.freebsd.org/pub/local/distfiles/
+		http://mirrors.rit.edu/zi/
 PKGNAMESUFFIX=	6
 
 MAINTAINER=	elastic@FreeBSD.org
@@ -51,8 +51,8 @@ OPTIONS_DEFINE=	DOCS
 .include <bsd.port.options.mk>
 
 CONFIG_FILES=	elasticsearch.yml \
-		jvm.options \
 		log4j2.properties \
+		jvm.options \
 		role_mapping.yml \
 		roles.yml
 BINS=		elasticsearch \
@@ -90,9 +90,11 @@ SUB_LIST=	ETCDIR=${ETCDIR} JAVA_HOME=${JAVA_HOME}
 SUB_FILES=	pkg-message
 
 post-patch:
+	${REINPLACE_CMD} -e "s|%%PREFIX%%|${PREFIX}|g" ${WRKSRC}/config/elasticsearch.yml
+	${REINPLACE_CMD} -e "s|%%PREFIX%%|${PREFIX}|g" ${WRKSRC}/bin/elasticsearch
 	${RM} ${WRKSRC}/lib/jna-*.jar
 	# ML plugin not supported on FreeBSD
-	${RM} -rf ${WRKSRC}/modules/x-pack-ml
+	${RM} -rf ${WRKSRC}/modules/x-pack/x-pack-ml
 
 do-install:
 	${MKDIR} ${STAGEDIR}${PREFIX}/etc/elasticsearch
@@ -123,8 +125,6 @@ post-install:
 	${ECHO} "@sample ${ETCDIR}/elasticsearch.yml.sample" >> ${TMPPLIST}
 	${ECHO} "@sample ${ETCDIR}/log4j2.properties.sample" >> ${TMPPLIST}
 	${ECHO} "@sample ${ETCDIR}/jvm.options.sample" >> ${TMPPLIST}
-	${ECHO} "@sample ${ETCDIR}/roles.yml.sample" >> ${TMPPLIST}
-	${ECHO} "@sample ${ETCDIR}/role_mapping.yml.sample" >> ${TMPPLIST}
 	${FIND} -s ${STAGEDIR}${PREFIX}/lib/elasticsearch -not -type d | ${SORT} | \
 		${SED} -e 's#^${STAGEDIR}${PREFIX}/##' >> ${TMPPLIST}
 	${ECHO} "@dir lib/elasticsearch/plugins" >> ${TMPPLIST}

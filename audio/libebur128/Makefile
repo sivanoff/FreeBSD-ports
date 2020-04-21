@@ -12,9 +12,12 @@ COMMENT=	Implementation of the EBU R128 loudness standard
 LICENSE=	MIT
 LICENSE_FILE=	${WRKSRC}/COPYING
 
-USES=		cmake pkgconfig
+LIB_DEPENDS=	libspeexdsp.so:audio/speexdsp
+
 USE_GITHUB=	yes
 GH_ACCOUNT=	jiixyj
+
+USES=		cmake localbase:ldflags pkgconfig
 USE_LDCONFIG=	yes
 
 .include <bsd.port.mk>

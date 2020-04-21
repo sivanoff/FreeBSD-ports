@@ -6,7 +6,7 @@ CATEGORIES=	textproc perl5
 MASTER_SITES=	SF/${PORTNAME}/${PORTNAME}/v${PORTVERSION}
 PKGNAMEPREFIX=	p5-
 
-MAINTAINER=	pkubaj@FreeBSD.org
+MAINTAINER=	pkubaj@anongoth.pl
 COMMENT=	Utility to convert Docx documents to equivalent Text documents
 
 LICENSE=	GPLv3

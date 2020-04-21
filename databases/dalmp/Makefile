@@ -2,7 +2,9 @@
 # $FreeBSD$
 
 PORTNAME=	dalmp
-PORTVERSION=	3.1.0
+PORTVERSION=	3.0.3
+DISTVERSIONPREFIX=	v
+PORTREVISION=	2
 CATEGORIES=	databases
 
 MAINTAINER=	nbari@tequila.io
@@ -19,7 +21,7 @@ USES=		php
 
 NO_BUILD=	yes
 NO_ARCH=	yes
-USE_PHP=	pcre mysqli session memcache sqlite3 curl redis
+USE_PHP=	pcre mysqli session memcache sqlite3 curl
 
 do-install:
 	@${MKDIR} ${STAGEDIR}${DATADIR}

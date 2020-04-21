@@ -1,6 +1,6 @@
---- base/file_test.cpp.orig	2020-02-11 20:44:45 UTC
+--- base/file_test.cpp.orig	2017-06-20 10:50:27 UTC
 +++ base/file_test.cpp
-@@ -61,12 +61,20 @@ TEST(file, ReadFileToString_WriteStringToFile_symlink)
+@@ -52,12 +52,20 @@ TEST(file, ReadFileToString_WriteStringToFile_symlink)
    ASSERT_EQ(0, unlink(link.path));
    ASSERT_EQ(0, symlink(target.path, link.path));
    ASSERT_FALSE(android::base::WriteStringToFile("foo", link.path, false));
@@ -21,16 +21,7 @@
    ASSERT_TRUE(android::base::ReadFileToString(link.path, &s, true));
    ASSERT_EQ("foo", s);
  }
-@@ -235,7 +243,7 @@ TEST(file, RemoveFileIfExists_EACCES) {
-   // EACCES -- one of the directories in the path has no search permission
-   // root can bypass permission restrictions, so drop root.
-   if (getuid() == 0) {
--    passwd* shell = getpwnam("shell");
-+    passwd* shell = getpwnam("nobody");
-     setgid(shell->pw_gid);
-     setuid(shell->pw_uid);
-   }
-@@ -257,6 +265,7 @@ TEST(file, RemoveFileIfExists_EACCES) {
+@@ -131,6 +139,7 @@ TEST(file, RemoveFileIfExist) {
  
  TEST(file, Readlink) {
  #if !defined(_WIN32)
@@ -38,7 +29,7 @@
    // Linux doesn't allow empty symbolic links.
    std::string min("x");
    // ext2 and ext4 both have PAGE_SIZE limits.
-@@ -265,6 +274,10 @@ TEST(file, Readlink) {
+@@ -139,6 +148,10 @@ TEST(file, Readlink) {
    // in current kernels (and marlin/sailfish where we're seeing this
    // failure are still on 3.18, far from current). http://b/33306057.
    std::string max(static_cast<size_t>(4096 - 2 - 1 - 1), 'x');

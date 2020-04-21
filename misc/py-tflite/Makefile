@@ -1,8 +1,7 @@
 # $FreeBSD$
 
 PORTNAME=	tflite
-DISTVERSIONPREFIX=	v
-DISTVERSION=	2.1.0
+DISTVERSION=	g20191030
 CATEGORIES=	misc python # machine-learning
 PKGNAMEPREFIX=	${PYTHON_PKGNAMEPREFIX}
 
@@ -18,6 +17,7 @@ USES=		python
 USE_PYTHON=	distutils autoplist
 USE_GITHUB=	yes
 GH_ACCOUNT=	jackwish
+GH_TAGNAME=	7814b03
 
 NO_ARCH=	yes
 

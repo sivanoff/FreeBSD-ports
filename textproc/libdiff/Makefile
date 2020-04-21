@@ -8,7 +8,7 @@ MASTER_SITES=	http://kristaps.bsd.lv/libdiff/snapshots/
 MAINTAINER=	bapt@FreeBSD.org
 COMMENT=	Library to generate arbitrary sequence diffs
 
-LICENSE=	MIT
+LICENSE=	ISCL
 
 PLIST_FILES=	lib/libdiff.a \
 		include/diff.h \

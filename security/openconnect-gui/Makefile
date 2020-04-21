@@ -1,4 +1,4 @@
-# Created by: Piotr Kubaj <pkubaj@FreeBSD.org>
+# Created by: Piotr Kubaj <pkubaj@anongoth.pl>
 # $FreeBSD$
 
 PORTNAME=	openconnect-gui
@@ -7,7 +7,7 @@ DISTVERSIONPREFIX=v
 PORTREVISION=	3
 CATEGORIES=	security net-vpn
 
-MAINTAINER=	pkubaj@FreeBSD.org
+MAINTAINER=	pkubaj@anongoth.pl
 COMMENT=	Graphical OpenConnect client
 
 BROKEN=		unfetchable

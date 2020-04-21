@@ -9,7 +9,6 @@ include/reflex/error.h
 include/reflex/flexlexer.h
 include/reflex/input.h
 include/reflex/matcher.h
-include/reflex/pcre2matcher.h
 include/reflex/pattern.h
 include/reflex/posix.h
 include/reflex/ranges.h
@@ -21,5 +20,4 @@ include/reflex/unicode.h
 include/reflex/utf8.h
 lib/libreflex.a
 lib/libreflexmin.a
-%%DATADIR%%/lex.vim
 man/man1/reflex.1.gz

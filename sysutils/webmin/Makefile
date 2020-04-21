@@ -2,12 +2,11 @@
 # $FreeBSD$
 
 PORTNAME=	webmin
-PORTVERSION=	1.941
+PORTVERSION=	1.930
 CATEGORIES=	sysutils
 MASTER_SITES=	http://download.webmin.com/updates/:up \
 		SF/webadmin/${PORTNAME}/${PORTVERSION}:sf
-DISTFILES=	${DISTNAME}${EXTRACT_SUFX}:sf \
-		${WEBMIN_MODULES:S/gz$/gz:up/}
+DISTFILES=	${DISTNAME}${EXTRACT_SUFX}:sf ${WEBMIN_MODULES:S/gz$/gz:up/}
 EXTRACT_ONLY=	${DISTNAME}${EXTRACT_SUFX}
 
 MAINTAINER=	olgeni@FreeBSD.org
@@ -15,9 +14,9 @@ COMMENT=	Web-based interface for system administration for Unix
 
 LICENSE=	BSD3CLAUSE
 
-RUN_DEPENDS=	p5-Authen-PAM>=0:security/p5-Authen-PAM \
+RUN_DEPENDS=	p5-Net-SSLeay>=0:security/p5-Net-SSLeay \
 		p5-IO-Tty>=0:devel/p5-IO-Tty \
-		p5-Net-SSLeay>=0:security/p5-Net-SSLeay
+		p5-Authen-PAM>=0:security/p5-Authen-PAM
 
 USES=		cpe perl5 python shebangfix
 USE_PYTHON=	py3kplist
@@ -25,8 +24,7 @@ USE_RC_SUBR=	webmin
 SUB_LIST=	PERL=${PERL}
 SUB_FILES=	pkg-message
 SHEBANG_FILES=	${WRKSRC}/ajaxterm/ajaxterm/ajaxterm.py \
-		${WRKSRC}/ajaxterm/ajaxterm/configure \
-		${WRKSRC}/webmin/acme_tiny.py
+		${WRKSRC}/ajaxterm/ajaxterm/configure
 
 WEBMIN_MODULES=
 

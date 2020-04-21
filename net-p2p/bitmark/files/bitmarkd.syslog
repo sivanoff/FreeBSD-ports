@@ -1,3 +1,0 @@
-# bitmarkd syslog
-!+bitmarkd
-daemon.info			/var/lib/bitmarkd/log/bitmarkd.syslog

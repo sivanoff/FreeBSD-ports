@@ -1,7 +1,7 @@
 # $FreeBSD$
 
 PORTNAME=	ghostscript
-PORTVERSION=	9.52
+PORTVERSION=	9.50
 CATEGORIES=	print
 MASTER_SITES=	https://github.com/ArtifexSoftware/ghostpdl-downloads/releases/download/gs${PORTVERSION:S/.//}/
 PKGNAMESUFFIX=	9-agpl-x11
@@ -10,16 +10,8 @@ MAINTAINER=	doceng@FreeBSD.org
 COMMENT=	PostScript and PDF interpreter, X11 support
 
 LICENSE=	AGPLv3
-LICENSE_FILE=	${WRKSRC}/LICENSE
 
-BUILD_DEPENDS=  jbig2dec>=0.17:graphics/jbig2dec
-LIB_DEPENDS=	libfontconfig.so:x11-fonts/fontconfig \
-		libfreetype.so:print/freetype2 \
-		libidn.so:dns/libidn \
-		libjbig2dec.so:graphics/jbig2dec \
-		libpaper.so:print/libpaper \
-		libpng.so:graphics/png \
-		libtiff.so:graphics/tiff
+BUILD_DEPENDS=	ghostscript9-agpl-base>=${PORTVERSION}:print/ghostscript9-agpl-base
 RUN_DEPENDS=	ghostscript9-agpl-base>=${PORTVERSION}:print/ghostscript9-agpl-base
 
 USES=		cpe gmake iconv localbase pkgconfig tar:xz xorg
@@ -35,14 +27,6 @@ CONFLICTS_INSTALL= \
 DISTINFO_FILE=	${.CURDIR:H}/ghostscript9-agpl-base/distinfo
 PATCHDIR=	${.CURDIR:H}/ghostscript9-agpl-base/files
 CPE_VENDOR=	artifex
-EXTRACT_AFTER_ARGS= \
-	--exclude freetype \
-	--exclude ijs \
-	--exclude jbig2dec \
-	--exclude jpeg \
-	--exclude libpng \
-	--exclude openjpeg \
-	--exclude zlib
 GNU_CONFIGURE=	yes
 CONFIGURE_ARGS=	--disable-compile-inits \
 		--disable-cups \
@@ -65,7 +49,12 @@ CONFIGURE_ARGS=	--disable-compile-inits \
 ALL_TARGET=	./obj/X11.so
 INSTALL_TARGET=	install-shared
 PLIST_FILES=	lib/${PORTNAME}/${PORTVERSION}/X11.so
-	
+
+post-patch:
+	@${RM} -r ${WRKSRC}/freetype ${WRKSRC}/ijs ${WRKSRC}/jbig2dec \
+		${WRKSRC}/jpeg ${WRKSRC}/libpng ${WRKSRC}/openjpeg \
+		${WRKSRC}/zlib
+
 post-install:
 	${STRIP_CMD} ${STAGEDIR}${PREFIX}/lib/${PORTNAME}/${PORTVERSION}/X11.so
 

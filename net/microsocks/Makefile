@@ -3,9 +3,9 @@
 PORTNAME=	microsocks
 PORTVERSION=	1.0.1
 CATEGORIES=	net
-MASTER_SITES=	https://ftp.barfooze.de/pub/sabotage/tarballs/
+MASTER_SITES=	http://ftp.barfooze.de/pub/sabotage/tarballs/
 
-MAINTAINER=	sunpoet@FreeBSD.org
+MAINTAINER=	neel@neelc.org
 COMMENT=	Multithreaded, small, efficient SOCKS5 server
 
 LICENSE=	MIT
@@ -13,9 +13,9 @@ LICENSE_FILE=	${WRKSRC}/COPYING
 
 USES=		tar:xz
 
-PLIST_FILES=	bin/microsocks
+PLIST_FILES=	bin/${PORTNAME}
 
 do-install:
-	${INSTALL_PROGRAM} ${WRKSRC}/microsocks ${STAGEDIR}${PREFIX}/bin
+	${INSTALL_PROGRAM} ${WRKSRC}/${PORTNAME} ${STAGEDIR}${PREFIX}/bin
 
 .include <bsd.port.mk>

@@ -1,4 +1,4 @@
-# Created by: loïc bartoletti <lbartoletti@FreeBSD.org>
+# Created by: loïc bartoletti <lbartoletti@tuxfamily.org>
 # $FreeBSD$
 
 PORTNAME=	sqlitebrowser
@@ -7,7 +7,7 @@ PORTREVISION=	1
 DISTVERSIONPREFIX=	v
 CATEGORIES=	databases
 
-MAINTAINER=	lbartoletti@FreeBSD.org
+MAINTAINER=	lbartoletti@tuxfamily.org
 COMMENT=	Visual tool to manage SQLite databases
 
 LICENSE=	MPL20 GPLv3

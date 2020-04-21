@@ -4,7 +4,7 @@
 PORTNAME=	fribidi
 PORTVERSION=	0.19.7
 CATEGORIES=	converters
-MASTER_SITES=	https://github.com/fribidi/fribidi/releases/download/${PORTVERSION}/
+MASTER_SITES=	http://fribidi.org/download/
 
 MAINTAINER=	gnome@FreeBSD.org
 COMMENT=	Free Implementation of the Unicode Bidirectional Algorithm

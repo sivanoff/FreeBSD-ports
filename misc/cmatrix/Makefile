@@ -2,24 +2,21 @@
 # $FreeBSD$
 
 PORTNAME=	cmatrix
-PORTVERSION=	2.0
-DISTVERSIONPREFIX=	v
+PORTVERSION=	1.2a
+PORTREVISION=	1
 CATEGORIES=	misc
+MASTER_SITES=	SF
 
-MAINTAINER=	ed.arrakis@gmail.com
+MAINTAINER=	ports@FreeBSD.org
 COMMENT=	Show a scrolling 'Matrix' like screen
 
-LICENSE=	GPLv3+
+LICENSE=	GPLv1+ # though COPYING is GPLv2
 
-USES=		autoreconf ncurses
-USE_GITHUB=	yes
-GH_ACCOUNT=	abishekvashok
-
+USES=		gmake ncurses
 GNU_CONFIGURE=	yes
 
-PORTDOCS=	README
-PLIST_FILES=	bin/cmatrix \
-		man/man1/cmatrix.1.gz
+PORTDOCS=	ChangeLog README TODO
+PLIST_FILES=	bin/cmatrix man/man1/cmatrix.1.gz
 
 OPTIONS_DEFINE=	DOCS
 

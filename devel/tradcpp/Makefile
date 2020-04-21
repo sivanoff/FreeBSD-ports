@@ -13,9 +13,9 @@ LICENSE=	BSD2CLAUSE
 
 USES=		uidfix
 
-MAKE_ARGS=	BINDIR=${PREFIX}/bin MANDIR=${PREFIX}/share/man/man
+MAKE_ARGS=	BINDIR=${PREFIX}/bin MANDIR=${MANPREFIX}/man/man
 
 PLIST_FILES=	bin/tradcpp \
-		share/man/man1/tradcpp.1.gz
+		man/man1/tradcpp.1.gz
 
 .include <bsd.port.mk>

@@ -2,7 +2,7 @@
 # $FreeBSD$
 
 PORTNAME=	nsscache
-PORTVERSION=	0.39
+PORTVERSION=	0.37
 DISTVERSIONPREFIX=	version/
 CATEGORIES=	net python
 
@@ -12,17 +12,13 @@ COMMENT=	Python utility to create a local cache of directory services
 LICENSE=	GPLv2
 LICENSE_FILE=	${WRKSRC}/COPYING
 
-BUILD_DEPENDS=	${PYTHON_PKGNAMEPREFIX}pytest-runner>=0:devel/py-pytest-runner@${PY_FLAVOR}
-RUN_DEPENDS=	${PYTHON_PKGNAMEPREFIX}boto3>0:www/py-boto3@${PY_FLAVOR} \
-		${PYTHON_PKGNAMEPREFIX}bsddb3>0:databases/py-bsddb3@${PY_FLAVOR} \
+RUN_DEPENDS=	${PYTHON_PKGNAMEPREFIX}bsddb>0:databases/py-bsddb@${PY_FLAVOR} \
 		${PYTHON_SITELIBDIR}/pycurl.so:ftp/py-pycurl@${PY_FLAVOR} \
 		${PYTHON_PKGNAMEPREFIX}ldap>0:net/py-ldap@${PY_FLAVOR}
-TEST_DEPENDS=	${PYTHON_PKGNAMEPREFIX}pytest>0:devel/py-pytest@${PY_FLAVOR} \
-		${PYTHON_PKGNAMEPREFIX}pytest-cov>0:devel/py-pytest-cov@${PY_FLAVOR} \
-		${PYTHON_PKGNAMEPREFIX}mox3>0:devel/py-mox3@${PY_FLAVOR}
+TEST_DEPENDS=	${PYTHON_PKGNAMEPREFIX}mox>0:devel/py-mox@${PY_FLAVOR}
 
-USES=		python:3.4+
-USE_PYTHON=	autoplist distutils noflavors
+USES=		python:2.7
+USE_PYTHON=	autoplist distutils
 USE_GITHUB=	yes
 GH_ACCOUNT=	google
 
@@ -43,7 +39,6 @@ post-install:
 	@${MKDIR} ${STAGEDIR}/var/db/nsscache
 
 do-test:
-	cd ${WRKSRC} && ${PYTHON_CMD} setup.py test
-
+	${PYTHON_CMD} ${WRKSRC}/runtests.py
 
 .include <bsd.port.mk>

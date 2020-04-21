@@ -4,10 +4,10 @@
 PORTNAME=	gnustep-base
 DISTVERSIONPREFIX=	base-
 DISTVERSION=	1_26_0
-PORTREVISION=	4
+PORTREVISION=	3
 CATEGORIES=	lang devel gnustep
 
-MAINTAINER=	ports@FreeBSD.org
+MAINTAINER=	theraven@FreeBSD.org
 COMMENT=	GNUstep Foundation library
 
 LICENSE=	GPLv3 LGPL3

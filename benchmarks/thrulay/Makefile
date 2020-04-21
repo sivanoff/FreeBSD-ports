@@ -5,13 +5,11 @@ PORTNAME=	thrulay
 PORTVERSION=	0.9
 PORTREVISION=	1
 CATEGORIES=	benchmarks net
-MASTER_SITES=	SF
+MASTER_SITES=	SF \
+		http://www.internet2.edu/~shalunov/thrulay/
 
 MAINTAINER=	shalunov@shlang.com
 COMMENT=	Network capacity tester
-
-LICENSE=	BSD3CLAUSE
-LICENSE_FILE=	${WRKSRC}/LICENSE
 
 GNU_CONFIGURE=	yes
 USES=		gmake libtool
@@ -30,7 +28,7 @@ post-patch:
 post-extract:
 	@${CP} ${WRKSRC}/doc/*.[ht]* ${WRKSRC}/
 
-post-install-DOCS-on:
+post-install:
 	@${MKDIR} ${STAGEDIR}${DOCSDIR}
 .for docs in ${PORTDOCS}
 	${INSTALL_DATA} ${WRKSRC}/${docs} ${STAGEDIR}${DOCSDIR}

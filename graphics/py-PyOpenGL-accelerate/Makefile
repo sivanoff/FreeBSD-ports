@@ -1,7 +1,8 @@
 # $FreeBSD$
 
 PORTNAME=	PyOpenGL
-PORTVERSION=	3.1.5
+PORTVERSION=	3.1.0
+PORTREVISION=	3
 CATEGORIES=	graphics python
 MASTER_SITES=	CHEESESHOP
 PKGNAMEPREFIX=	${PYTHON_PKGNAMEPREFIX}
@@ -17,6 +18,6 @@ BUILD_DEPENDS=	${PYNUMPY}
 RUN_DEPENDS=	${PYNUMPY}
 
 USE_PYTHON=	autoplist distutils cython
-USES=		python:2.7+
+USES=		python:-3.6
 
 .include <bsd.port.mk>

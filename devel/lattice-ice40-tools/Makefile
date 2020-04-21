@@ -5,13 +5,13 @@ PORTNAME=	lattice-ice40-tools
 PORTVERSION=	g20181021
 CATEGORIES=	devel
 
-MAINTAINER=	ports@FreeBSD.org
+MAINTAINER=	jsorocil@gmail.com
 COMMENT=	Open source tools for Lattice iCE40 FPGAs
 
 RUN_DEPENDS=	abc:cad/abc \
 		arachne-pnr:devel/arachne-pnr \
 		icepack:devel/icestorm \
-		yosys:cad/yosys
+		yosys:devel/yosys
 
 USES=		metaport
 

@@ -2,7 +2,8 @@
 # $FreeBSD$
 
 PORTNAME=	cln
-PORTVERSION=	1.3.6
+PORTVERSION=	1.3.4
+PORTREVISION=	1
 CATEGORIES=	math devel
 MASTER_SITES=	http://www.ginac.de/CLN/ \
 		http://www.mirrors.wiretapped.net/security/cryptography/libraries/math/cln/ \
@@ -16,7 +17,7 @@ LIB_DEPENDS=	libgmp.so:math/gmp
 GNU_CONFIGURE=	yes
 CONFIGURE_ARGS=	--with-gmp=${LOCALBASE}
 INSTALL_TARGET=	install-strip
-USES=		compiler:c11 gmake libtool pathfix pkgconfig tar:bzip2
+USES=		gmake libtool pathfix pkgconfig tar:bzip2
 USE_LDCONFIG=	yes
 
 INFO=		cln

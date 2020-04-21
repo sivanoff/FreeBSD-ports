@@ -1,11 +1,11 @@
---- setup.py.orig	2020-01-29 13:22:11 UTC
+--- setup.py.orig
 +++ setup.py
-@@ -34,12 +34,5 @@ use.''',
+@@ -30,12 +30,5 @@
+         'Topic :: Software Development :: Libraries :: Python Modules',
        ],
        packages = ['iniparse'],
-       install_requires=['six'],
 -      data_files = [
--        ('share/doc/iniparse-%s' % VERSION, ['README.md', 'LICENSE-PSF',
+-        ('share/doc/iniparse-%s' % VERSION, ['README', 'LICENSE-PSF',
 -                                             'LICENSE', 'Changelog',
 -                                             'html/index.html',
 -                                             'html/style.css',

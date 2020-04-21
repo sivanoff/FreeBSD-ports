@@ -17,7 +17,7 @@
        self._print(self._fmt_title % _('Extraction'))
        if kargs.get('external')!=None:
           self._call_external(**kargs)
-@@ -518,6 +521,81 @@ class SETUP:
+@@ -518,6 +521,78 @@ class SETUP:
        if iextr_as:
           self.Clean(to_delete=path)
  
@@ -81,11 +81,8 @@
 +               ligne =ligne.replace("getopt ", "getopts ")
 +            sys.stdout.write(ligne)
 +      self._print('FreeBSD patches: waf.engine and data/post_install in %s' % os.path.join(self.workdir, self.content))
-+      os.system('cd ' + os.path.join(self.workdir, self.content) + ' && patch -p0 < %%WRKDIR%%/post_patches/post-patch-waf.engine')
-+      os.system('cd ' + os.path.join(self.workdir, self.content) + ' && patch -p0 < %%WRKDIR%%/post_patches/post-patch-data__post_install')
-+      self._print('FreeBSD patches: memory detection in bibc/utilitai/mempid.c in %s' % os.path.join(self.workdir, self.content))
-+      os.system('cd ' + os.path.join(self.workdir, self.content) + ' && patch -p0 < %%WRKDIR%%/post_patches/post-patch-bibc__utilitai__mempid.c')
-+      os.system('cd ' + os.path.join(self.workdir, self.content) + ' && patch -p0 < %%WRKDIR%%/post_patches/post-patch-bibfor__jeveux__jedebu.F90')
++      os.system('cd ' + os.path.join(self.workdir, self.content) + ' && patch -p0 < /usr/ports/french/aster/work/post_patches/post-patch-waf.engine')
++      os.system('cd ' + os.path.join(self.workdir, self.content) + ' && patch -p0 < /usr/ports/french/aster/work/post_patches/post-patch-data__post_install')
 +      file2patch = os.path.join(self.workdir, self.content, 'waftools/mathematics.py')
 +      self._print('FreeBSD patch: nproc => gnproc ' + file2patch)
 +      for ligne in fileinput.input(file2patch, inplace=1):
@@ -99,7 +96,7 @@
  #-------------------------------------------------------------------------------
     def Configure(self, **kargs):
        """Configuration of the product.
-@@ -1454,7 +1532,7 @@ class SYSTEM:
+@@ -1454,7 +1529,7 @@ class SYSTEM:
        if type(profile) is str:
           ftmp = osp.join(self._tmpdir, 'temp.opt_env')
           open(ftmp, 'w').write(profile)

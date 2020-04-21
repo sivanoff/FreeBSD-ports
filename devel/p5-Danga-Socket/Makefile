@@ -2,7 +2,8 @@
 # $FreeBSD$
 
 PORTNAME=	Danga-Socket
-PORTVERSION=	1.62
+PORTVERSION=	1.61
+PORTREVISION=	1
 CATEGORIES=	devel net perl5
 MASTER_SITES=	CPAN
 PKGNAMEPREFIX=	p5-
@@ -14,12 +15,11 @@ LICENSE=	ART10 GPLv1+
 LICENSE_COMB=	dual
 
 BUILD_DEPENDS=	${RUN_DEPENDS}
-RUN_DEPENDS=	p5-Sys-Syscall>=0:devel/p5-Sys-Syscall
-TEST_DEPENDS=	p5-Test-TCP>=0:devel/p5-Test-TCP
-
-USES=		perl5
-USE_PERL5=	configure
+RUN_DEPENDS=	p5-IO-KQueue>=0:devel/p5-IO-KQueue \
+		p5-Sys-Syscall>=0:devel/p5-Sys-Syscall
 
 NO_ARCH=	yes
+USES=		perl5
+USE_PERL5=	configure
 
 .include <bsd.port.mk>

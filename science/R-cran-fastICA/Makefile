@@ -7,7 +7,7 @@ PORTREVISION=	3
 CATEGORIES=	science math
 DISTNAME=	${PORTNAME}_${DISTVERSION}
 
-MAINTAINER=	ports@FreeBSD.org
+MAINTAINER=	dbn@FreeBSD.org
 COMMENT=	FastICA Algorithms to Perform ICA and Projection Pursuit
 
 LICENSE=	GPLv2 GPLv3

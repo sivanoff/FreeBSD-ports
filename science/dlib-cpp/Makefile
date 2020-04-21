@@ -1,7 +1,8 @@
 # $FreeBSD$
 
 PORTNAME=	dlib
-DISTVERSION=	19.19
+DISTVERSION=	19.17
+PORTREVISION=	2
 CATEGORIES=	science devel math
 MASTER_SITES=	http://dlib.net/files/
 PKGNAMESUFFIX=	-cpp

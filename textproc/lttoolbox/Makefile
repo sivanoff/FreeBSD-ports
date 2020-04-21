@@ -3,25 +3,22 @@
 
 PORTNAME=	lttoolbox
 PORTVERSION=	${APVER}.${APREV}
-DISTVERSIONPREFIX=	v
 CATEGORIES=	textproc
+MASTER_SITES=	SF/apertium/${PORTNAME}/${APVER}
 
-MAINTAINER=	bofh@FreeBSD.org
+MAINTAINER=	i@levsha.me
 COMMENT=	Tool for lexical, morphological analysis and generation of words
 
 LICENSE=	GPLv2
 
 LIB_DEPENDS=	libxml2.so:textproc/libxml2
 
-USES=		autoreconf compiler:c++14-lang libtool pathfix pkgconfig
-USE_GITHUB=	yes
-USE_LDCONFIG=	yes
-
-APVER=	3.5
-APREV=	1
-GH_ACCOUNT=	apertium
+APVER=	3.3
+APREV=	3
 
 GNU_CONFIGURE=	yes
+USES=		libtool pathfix pkgconfig
+USE_LDCONFIG=	yes
 INSTALL_TARGET=	install-strip
 
 PLIST_SUB+=	APVER="${APVER}"

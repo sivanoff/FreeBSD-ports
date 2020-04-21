@@ -7,7 +7,7 @@ DISTVERSION=	1.3.0
 CATEGORIES=	sysutils
 PKGNAMESUFFIX=	-utils
 
-MAINTAINER=	samm@FreeBSD.org
+MAINTAINER=	samm@freebsd.org
 COMMENT=	Utilities to create, check, label and dump exFAT filesystem
 
 LICENSE=	GPLv2+ MSPAT

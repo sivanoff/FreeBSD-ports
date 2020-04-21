@@ -2,7 +2,6 @@
 
 PORTNAME=	kimagemapeditor
 DISTVERSION=	${KDE_APPLICATIONS_VERSION}
-PORTREVISION=	1
 CATEGORIES=	graphics kde kde-applications
 
 MAINTAINER=	kde@FreeBSD.org
@@ -14,8 +13,8 @@ USE_KDE=	auth bookmarks codecs completion config configwidgets \
 		jobwidgets js kdelibs4support khtml kio notifications \
 		parts service solid sonnet textwidgets unitconversion \
 		widgetsaddons windowsystem xmlgui
-USE_QT=		concurrent core dbus declarative gui location network printsupport \
-		webchannel webengine widgets xml \
+USE_QT=		concurrent core dbus gui network printsupport webengine \
+		widgets xml \
 		buildtools_build qmake_build
 
 OPTIONS_DEFINE=	DOCS

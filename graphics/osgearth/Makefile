@@ -1,13 +1,13 @@
-# Created by: lbartoletti <lbartoletti@FreeBSD.org>
+# Created by: lbartoletti <coder@tuxfamily.org>
 # $FreeBSD$
 
 PORTNAME=	osgearth
 PORTVERSION=	2.10.1
 DISTVERSIONPREFIX=	${PORTNAME}-
-PORTREVISION=	6
+PORTREVISION=	4
 CATEGORIES=	graphics geography
 
-MAINTAINER=	lbartoletti@FreeBSD.org
+MAINTAINER=	lbartoletti@tuxfamily.org
 COMMENT=	C++ terrain rendering toolkit for OpenSceneGraph
 
 LICENSE=	LGPL3

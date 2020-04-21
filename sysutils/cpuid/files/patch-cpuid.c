@@ -1,6 +1,6 @@
---- cpuid.c.orig	2020-01-22 16:55:23 UTC
+--- cpuid.c.orig	2018-04-19 14:15:07 UTC
 +++ cpuid.c
-@@ -33,12 +33,15 @@
+@@ -21,17 +21,19 @@
  #ifdef __linux__
  #define USE_CPUID_MODULE
  #define USE_KERNEL_SCHED_SETAFFINITY
@@ -13,10 +13,7 @@
  
 +#define CPUID_MAJOR 0
 +
- #if defined(__GNUC__)
- #define UNUSED __attribute((unused))
- #else
-@@ -49,7 +52,6 @@
+ #define _GNU_SOURCE
  #include <stdio.h>
  #include <sys/types.h>
  #include <sys/stat.h>
@@ -24,18 +21,26 @@
  #include <fcntl.h>
  #include <errno.h>
  #include <unistd.h>
-@@ -57,6 +59,8 @@
+@@ -39,6 +41,8 @@
  #include <string.h>
  #include <regex.h>
  #include <getopt.h>
 +#include <pthread.h>
 +#include <pthread_np.h>
  
- #if defined(__sun)
- #include <sys/processor.h>
-@@ -8123,12 +8127,17 @@ real_setup(unsigned int  cpu,
-          pthread_t thread = pthread_self();
-          int status = processor_bind(P_LWPID, thread, cpu, NULL);
+ #ifdef USE_CPUID_MODULE
+ #include <linux/major.h>
+@@ -67,6 +71,7 @@ typedef const char* const  ccstring;
+ #define XSTR(x)  STR(x)
+ 
+ 
++#undef MAX
+ #define MAX(l,r)            ((l) > (r) ? (l) : (r))
+ 
+ #define LENGTH(array, type) (sizeof(array) / sizeof(type))
+@@ -6622,11 +6627,16 @@ real_setup(unsigned int  cpu,
+          int  status;
+          status = syscall(__NR_sched_setaffinity, 0, sizeof(mask), &mask);
  #else
 -         cpu_set_t  cpuset;
 +         cpuset_t  cpuset;
@@ -48,12 +53,11 @@
 +	    -1, sizeof(cpuset_t), &cpuset);
 +#else
 +         status = sched_setaffinity(0, sizeof(cpuset_t), &cpuset);
- #endif
 +#endif
+ #endif
           if (status == -1) {
              if (cpu > 0) {
-                if (errno == EINVAL) return -1;
-@@ -8250,11 +8259,14 @@ static int real_get (int           cpuid_fd,
+@@ -6749,11 +6759,14 @@ static int real_get (int           cpuid
              "c" (ecx));
  #endif
     } else {
@@ -71,7 +75,7 @@
        if (result == -1) {
           if (quiet) {
              return FALSE;
-@@ -8819,7 +8831,7 @@ main(int     argc,
+@@ -7307,7 +7320,7 @@ main(int     argc,
     };
  
     boolean        opt_one_cpu     = FALSE;
@@ -80,7 +84,7 @@
     boolean        opt_kernel      = FALSE;
     boolean        opt_raw         = FALSE;
     boolean        opt_debug       = FALSE;
-@@ -8950,7 +8962,8 @@ main(int     argc,
+@@ -7437,7 +7450,8 @@ main(int     argc,
     }
  
     // Default to -i.  So use inst unless -k is specified.

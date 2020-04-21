@@ -3,7 +3,7 @@
 PORTNAME=	mxnet
 DISTVERSION=	1.6.0
 DISTVERSIONSUFFIX=	.rc0
-PORTREVISION=	5
+PORTREVISION=	2
 CATEGORIES=	misc # machine-learning
 
 PATCH_SITES=	https://github.com/${GH_ACCOUNT}/${GH_PROJECT}/commit/
@@ -16,12 +16,14 @@ COMMENT=	Apache MXNet: Ultra-scalable deep learning framework
 LICENSE=	APACHE20
 
 BUILD_DEPENDS=	googletest>0:devel/googletest \
+		${LOCALBASE}/include/cblas.h:math/cblas \
 		${LOCALBASE}/include/dnnl.h:math/mkl-dnn
 LIB_DEPENDS=	libdmlc.so:devel/dmlc-core \
 		liblapack.so:math/lapack \
+		libomp.so:devel/openmp \
 		libopenblas.so:math/openblas
 
-USES=		cmake compiler:c++11-lang localbase:ldflags
+USES=		cmake localbase:ldflags
 USE_GITHUB=	yes
 GH_ACCOUNT=	apache
 GH_PROJECT=	incubator-mxnet

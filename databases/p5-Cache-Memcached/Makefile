@@ -15,12 +15,10 @@ COMMENT=	Perl API for memcached, a distributed memory cache daemon
 LICENSE=	ART10 GPLv1+
 LICENSE_COMB=	dual
 
-BUILD_DEPENDS=	${RUN_DEPENDS}
+BUILD_DEPENDS=	p5-String-CRC32>0:devel/p5-String-CRC32
 RUN_DEPENDS=	p5-String-CRC32>0:devel/p5-String-CRC32
 
 USES=		perl5
 USE_PERL5=	configure
-
-NO_ARCH=	yes
 
 .include <bsd.port.mk>

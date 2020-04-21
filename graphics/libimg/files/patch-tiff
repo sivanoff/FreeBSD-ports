@@ -7,8 +7,8 @@
 +    vars="tiff.c"
      for i in $vars; do
  	case $i in
---- tiff/tiff.c	2019-03-02 16:33:00.000000000 -0500
-+++ tiff/tiff.c	2020-01-20 21:20:18.135776000 -0500
+--- tiff/tiff.c	2013-11-21 17:03:14.000000000 -0500
++++ tiff/tiff.c	2014-06-09 14:16:39.000000000 -0400
 @@ -19,11 +19,15 @@
  #endif
  #include "tkimg.h"
@@ -28,7 +28,7 @@
 +#include <jpeglib.h>
  
  
-@@ -35,7 +39,4 @@
+@@ -35,7 +39,4 @@ static int SetupTiffLibrary(Tcl_Interp *
  #include "init.c"
  
 -#include "tiffInt.h"
@@ -36,7 +36,7 @@
 -
  extern DLLIMPORT int unlink(const char *);
  
-@@ -88,52 +89,11 @@
+@@ -88,10 +89,4 @@ SetupTiffLibrary (interp)
      Tcl_Interp *interp;
  {
 -    static int initialized = 0;
@@ -47,15 +47,9 @@
 -
      if (errorMessage) {
  	ckfree(errorMessage);
- 	errorMessage = NULL;
+@@ -105,35 +100,4 @@ SetupTiffLibrary (interp)
      }
--    if (TIFFSetErrorHandler != NULL) {
--        TIFFSetErrorHandler(_TIFFerr);
--    }
--    if (TIFFSetWarningHandler != NULL) {
--	TIFFSetWarningHandler(_TIFFwarn);
--    }
--
+ 
 -    /*
 -     * Initialize jpeg and zlib too, for use by the CODEC's we register
 -     * with the base TIFF library in this package.
@@ -79,9 +73,7 @@
 -	  }
 -	  TIFFRegisterCODEC (COMPRESSION_DEFLATE,  "Deflate",  TkimgTIFFInitZip);
 -	  TIFFRegisterCODEC (COMPRESSION_ADOBE_DEFLATE, "AdobeDeflate", TkimgTIFFInitZip);
-+    TIFFSetErrorHandler(_TIFFerr);
-+    TIFFSetWarningHandler(_TIFFwarn);
- 
+-
 -	  if (Jpegtcl_InitStubs(interp, JPEGTCL_VERSION, 0) == NULL) {
 -	    return TCL_ERROR;
 -	  }
@@ -91,23 +83,23 @@
 -    }
      return TCL_OK;
  }
-@@ -451,9 +411,6 @@
+@@ -451,8 +415,6 @@ ObjRead(interp, data, format, imageHandl
  {
      TIFF *tif;
 -    char *tempFileName = NULL, tempFileNameBuffer[256];
--    size_t count;
-     int result;
+-    int count, result;
++    int result;
      tkimg_MFile handle;
 -    char buffer[1024];
      char *dataPtr = NULL;
  
-@@ -462,35 +419,13 @@
+@@ -461,35 +423,13 @@ ObjRead(interp, data, format, imageHandl
      }
  
 -    if (TIFFClientOpen) {
 -	if (handle.state != IMG_STRING) {
 -	    dataPtr = ckalloc((handle.length*3)/4 + 2);
--	    handle.length = tkimg_Read2(&handle, dataPtr, handle.length);
+-	    handle.length = tkimg_Read(&handle, dataPtr, handle.length);
 -	    handle.data = dataPtr;
 -	}
 -	handle.state = 0;
@@ -122,12 +114,12 @@
 -	    return TCL_ERROR;
 -	}
 -
--	count = (size_t)tkimg_Read2(&handle, buffer, 1024);
+-	count = tkimg_Read(&handle, buffer, 1024);
 -	while (count == 1024) {
 -	    Tcl_Write(outchan, buffer, count);
--	    count = (size_t)tkimg_Read2(&handle, buffer, 1024);
+-	    count = tkimg_Read(&handle, buffer, 1024);
 -	}
--	if (count + 1 > 1){
+-	if (count>0){
 -	    Tcl_Write(outchan, buffer, count);
 -	}
 -	if (Tcl_Close(interp, outchan) == TCL_ERROR) {
@@ -136,17 +128,17 @@
 -	tif = TIFFOpen(tempFileName, "r");
 -    }
 +    if (handle.state != IMG_STRING) {
-+       dataPtr = ckalloc((handle.length*3)/4 + 2);
-+       handle.length = tkimg_Read(&handle, dataPtr, handle.length);
-+       handle.data = dataPtr;
++	dataPtr = ckalloc((handle.length*3)/4 + 2);
++	handle.length = tkimg_Read(&handle, dataPtr, handle.length);
++	handle.data = dataPtr;
 +    }
 +    handle.state = 0;
 +    tif = TIFFClientOpen("inline data", "r", (thandle_t) &handle,
-+       readString, writeString, seekString, closeDummy,
-+       sizeString, mapDummy, unMapDummy);
++	readString, writeString, seekString, closeDummy,
++	sizeString, mapDummy, unMapDummy);
  
      if (tif != NULL) {
-@@ -500,7 +435,4 @@
+@@ -499,7 +439,4 @@ ObjRead(interp, data, format, imageHandl
  	result = TCL_ERROR;
      }
 -    if (tempFileName) {
@@ -154,12 +146,11 @@
 -    }
      if (result == TCL_ERROR) {
  	Tcl_AppendResult(interp, errorMessage, (char *) NULL);
-@@ -527,38 +459,12 @@
+@@ -526,37 +463,12 @@ ChnRead(interp, chan, fileName, format, 
  {
      TIFF *tif;
 -    char *tempFileName = NULL, tempFileNameBuffer[256];
--    size_t count;
--    int result;
+-    int count, result;
 -    char buffer[1024];
 -
 -    if (TIFFClientOpen) {
@@ -176,31 +167,31 @@
 -	if (!outchan) {
 -	    return TCL_ERROR;
 -	}
-+    int	result;
-+    tkimg_MFile	handle;
- 
--	count = (size_t)Tcl_Read(chan, buffer, 1024);
+-
+-	count = Tcl_Read(chan, buffer, 1024);
 -	while (count == 1024) {
 -	    Tcl_Write(outchan, buffer, count);
--	    count = (size_t)Tcl_Read(chan, buffer, 1024);
+-	    count = Tcl_Read(chan, buffer, 1024);
 -	}
--	if (count + 1 > 1){
+-	if (count>0){
 -	    Tcl_Write(outchan, buffer, count);
 -	}
 -	if (Tcl_Close(interp, outchan) == TCL_ERROR) {
 -	    return TCL_ERROR;
 -	}
--
++    int result;
++    tkimg_MFile handle;
+ 
 -	tif = TIFFOpen(tempFileName, "r");
 -    }
 +    handle.data = (char *) chan;
 +    handle.state = IMG_CHAN;
 +    tif = TIFFClientOpen(fileName, "r", (thandle_t) &handle,
-+       readMFile, writeDummy, seekMFile, closeDummy,
-+       sizeMFile, mapDummy, unMapDummy);
++	readMFile, writeDummy, seekMFile, closeDummy,
++	sizeMFile, mapDummy, unMapDummy);
      if (tif) {
  	result = CommonRead(interp, tif, format, imageHandle,
-@@ -567,7 +473,4 @@
+@@ -565,7 +477,4 @@ ChnRead(interp, chan, fileName, format, 
  	result = TCL_ERROR;
      }
 -    if (tempFileName) {
@@ -208,28 +199,28 @@
 -    }
      if (result == TCL_ERROR) {
  	Tcl_AppendResult(interp, errorMessage, (char *) NULL);
-@@ -637,5 +540,5 @@
+@@ -635,5 +544,5 @@ CommonRead(interp, tif, format, imageHan
      npixels = w * h;
  
 -    raster = (uint32*) TkimgTIFFmalloc(npixels * sizeof (uint32));
 +    raster = (uint32*) _TIFFmalloc(npixels * sizeof (uint32));
      block.width = w;
      block.height = h;
-@@ -648,5 +551,5 @@
+@@ -646,5 +555,5 @@ CommonRead(interp, tif, format, imageHan
  
      if (!TIFFReadRGBAImage(tif, w, h, raster, 0) || errorMessage) {
 -        TkimgTIFFfree (raster);
 +        _TIFFfree (raster);
  	if (errorMessage) {
  	    Tcl_AppendResult(interp, errorMessage, (char *) NULL);
-@@ -665,5 +568,5 @@
+@@ -663,5 +572,5 @@ CommonRead(interp, tif, format, imageHan
      }
  
 -    TkimgTIFFfree (raster);
 +    _TIFFfree (raster);
      TIFFClose(tif);
      return result;
-@@ -676,7 +579,6 @@
+@@ -674,7 +583,6 @@ static int StringWrite(
  ) {
      TIFF *tif;
 -    int result, comp;
@@ -238,7 +229,7 @@
 -    char *tempFileName = NULL, tempFileNameBuffer[256];
      Tcl_DString dstring;
      const char *mode;
-@@ -688,14 +590,9 @@
+@@ -686,14 +594,9 @@ static int StringWrite(
      }
  
 -    if (TIFFClientOpen) {
@@ -258,7 +249,7 @@
 +	sizeString, mapDummy, unMapDummy);
  
      result = CommonWrite(interp, tif, comp, blockPtr);
-@@ -703,7 +600,4 @@
+@@ -701,7 +604,4 @@ static int StringWrite(
  
      if (result != TCL_OK) {
 -	if (tempFileName) {
@@ -266,7 +257,7 @@
 -	}
  	Tcl_AppendResult(interp, errorMessage, (char *) NULL);
  	ckfree(errorMessage);
-@@ -712,29 +606,8 @@
+@@ -710,29 +610,8 @@ static int StringWrite(
      }
  
 -    if (tempFileName) {
@@ -280,18 +271,18 @@
 -
 -	result = Tcl_Read(inchan, buffer, 1024);
 -	while ((result == TCL_OK) && !Tcl_Eof(inchan)) {
--	    tkimg_Write2(&handle, buffer, result);
+-	    tkimg_Write(&handle, buffer, result);
 -	    result = Tcl_Read(inchan, buffer, 1024);
 -	}
 -	if (result == TCL_OK) {
--	    tkimg_Write2(&handle, buffer, result);
+-	    tkimg_Write(&handle, buffer, result);
 -	    result = Tcl_Close(interp, inchan);
 -	}
 -	unlink(tempFileName);
 -    } else {
 -	int length = handle.length;
 -	tkimg_WriteInit(&data, &handle);
--	tkimg_Write2(&handle, Tcl_DStringValue(&dstring), length);
+-	tkimg_Write(&handle, Tcl_DStringValue(&dstring), length);
 -	Tcl_DStringFree(&dstring);
 -    }
 +    length = handle.length;
@@ -300,7 +291,7 @@
 +    Tcl_DStringFree(&dstring);
      tkimg_Putc(IMG_DONE, &handle);
      if (result == TCL_OK) {
-@@ -956,36 +829,2 @@
+@@ -954,36 +833,2 @@ CommonWrite(interp, tif, comp, blockPtr)
      return TCL_OK;
  }
 -
@@ -337,33 +328,3 @@
 -	return ckrealloc(data, size);
 -    }
 -}
---- tests/tiff.test	2016-07-30 10:31:08.000000000 -0400
-+++ tests/tiff.test	2020-01-20 21:44:30.430340000 -0500
-@@ -22,5 +22,5 @@
-     source $file.base64
- 
--    test tiff-1.1 {} -setup {
-+    test tiff-1.1 {} -constraints nonPortable -setup {
-         catch {image delete i}
-     } -body {
-@@ -31,5 +31,5 @@
-     } -result $imgdata
- 
--    test tiff-1.2 {} -setup {
-+    test tiff-1.2 {} -constraints nonPortable -setup {
-         catch {image delete i}
-     } -body {
-@@ -40,5 +40,5 @@
-     } -result $imgdata
- 
--    test tiff-1.3 {} -setup {
-+    test tiff-1.3 {} -constraints nonPortable -setup {
-         catch {image delete i}
-     } -body {
-@@ -50,5 +50,5 @@
-     } -result $imgdata
- 
--    test tiff-1.4 {} -setup {
-+    test tiff-1.4 {} -constraints nonPortable -setup {
-         catch {image delete i}
-     } -body {

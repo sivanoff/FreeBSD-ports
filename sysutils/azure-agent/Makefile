@@ -3,11 +3,7 @@
 PORTNAME=	azure-agent
 PORTVERSION=	2.2.45
 DISTVERSIONPREFIX=	v
-PORTREVISION=	1
 CATEGORIES=	sysutils
-
-PATCH_SITES=	https://github.com/Azure/WALinuxAgent/commit/
-PATCHFILES=	14236c2c13e4f8986588b38477812b22240bdbac.patch:-p1
 
 MAINTAINER=	weh@microsoft.com
 COMMENT=	Microsoft Azure Linux Agent
@@ -29,7 +25,7 @@ SHEBANG_FILES=	bin/waagent bin/waagent2.0
 USE_GITHUB=	yes
 GH_ACCOUNT=	Azure
 GH_PROJECT=	WALinuxAgent
-USE_PYTHON=	autoplist distutils noflavors
+USE_PYTHON=	autoplist distutils
 
 post-patch:
 	${REINPLACE_CMD} -e "s,/etc/waagent,${PREFIX}/etc/waagent,g" \

@@ -8,7 +8,7 @@ CATEGORIES=	lang
 MASTER_SITES=	GNU/gnucobol
 DISTNAME=	gnucobol-${PORTVERSION}
 
-MAINTAINER=	wen@FreeBSD.org
+MAINTAINER=	ports@FreeBSD.org
 COMMENT=	Open-source COBOL compiler
 
 LICENSE=	GPLv3 LGPL3
@@ -31,7 +31,7 @@ LDFLAGS+=	-L${LOCALBASE}/lib
 OPTIONS_DEFINE=	NLS
 OPTIONS_SUB=	yes
 NLS_USES=	gettext
-NLS_CONFIGURE_ENABLE=nls
+CONFIGURE_ENABLE=nls
 
 post-patch:
 	@${REINPLACE_CMD} -e 's|__gmp_randinit|__gmpz_init|g ; \

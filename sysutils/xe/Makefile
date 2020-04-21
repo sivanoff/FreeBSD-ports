@@ -12,7 +12,7 @@ COMMENT=	Simple xargs and apply replacement
 LICENSE=	CC0-1.0
 
 USE_GITHUB=	yes
-GH_ACCOUNT=	leahneukirchen
+GH_ACCOUNT=	chneukirchen
 
 USES=		perl5
 USE_PERL5=	test

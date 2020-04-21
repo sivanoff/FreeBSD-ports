@@ -3,7 +3,7 @@
 
 PORTNAME?=	libpurple
 PORTVERSION=	2.13.0
-PORTREVISION=	3
+PORTREVISION=	2
 CATEGORIES?=	net-im
 MASTER_SITES=	SF/pidgin/Pidgin/${PORTVERSION}
 DISTNAME=	pidgin-${PORTVERSION}
@@ -76,8 +76,8 @@ PLIST_SUB+=	GTKUI="@comment not installed: "
 .endif
 
 .if defined(WITH_CONSOLEUI)
-USES+=		ncurses
-CONFIGURE_ARGS+=--with-ncurses-headers=${NCURSESINC}
+OPTIONS_DEFINE+=NCURSES
+NCURSES_DESC=	Build with ncurses from ports
 PLIST_SUB+=	CONSOLEUI=""
 .else
 PLIST_SUB+=	CONSOLEUI="@comment not installed: "
@@ -96,6 +96,13 @@ PLIST_SUB+=		TCL:=""
 .else
 CONFIGURE_ARGS+=	--disable-tcl
 PLIST_SUB+=		TCL:="@comment not installed: "
+.endif
+
+.if ${PORT_OPTIONS:MNCURSES}
+USES+=		ncurses:port
+CONFIGURE_ARGS+=--with-ncurses-headers=${LOCALBASE}/include/ncurses/
+.else
+USES+=		ncurses
 .endif
 
 .if ${PORT_OPTIONS:MPERL}
@@ -171,8 +178,8 @@ LIB_DEPENDS+=		libnss3.so:security/nss
 CONFIGURE_ARGS+=	--enable-nss=yes \
 			--with-nspr-includes=${LOCALBASE}/include/nspr \
 			--with-nspr-libs=${LOCALBASE}/lib \
-			--with-nss-includes=${LOCALBASE}/include/nss \
-			--with-nss-libs=${LOCALBASE}/lib
+			--with-nss-includes=${LOCALBASE}/include/nss/nss \
+			--with-nss-libs=${LOCALBASE}/lib/nss
 PLIST_SUB+=		NSS=""
 .else
 CONFIGURE_ARGS+=	--enable-nss=no

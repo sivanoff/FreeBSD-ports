@@ -3,7 +3,7 @@
 
 PORTNAME=	mailman
 DISTVERSION=	2.1.29
-PORTREVISION=	7
+PORTREVISION=	6
 CATEGORIES=	mail
 MASTER_SITES=	GNU \
 		SF/${PORTNAME}/Mailman%202.1%20%28stable%29/${PORTVERSION} \
@@ -189,6 +189,7 @@ post-patch-HTDIG-on:
 	${REINPLACE_CMD} -E \
 		-e 's#/opt/www/htdig/bin#${LOCALBASE}/bin#' \
 		${WRKSRC}/Mailman/Cgi/remote?mmsearch
+
 
 .if ${PORT_OPTIONS:MPOSTFIX}
 pre-configure:

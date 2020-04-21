@@ -11,9 +11,6 @@ MASTER_SITES=	http://people.redhat.com/dmalcolm/evolution-gconf-tools/
 MAINTAINER=	gnome@FreeBSD.org
 COMMENT=	Scripts to make it easier to work with Evolution's configuration
 
-DEPRECATED=	Uses deprecated version of python
-EXPIRATION_DATE=	2020-09-15
-
 RUN_DEPENDS=	evolution:mail/evolution
 
 GNU_CONFIGURE=	yes

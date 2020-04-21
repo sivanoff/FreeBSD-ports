@@ -9,7 +9,7 @@ MASTER_SITES=	GNU
 PKGNAMESUFFIX=	-${PAPERSIZE}
 DISTNAME=	enscript-${PORTVERSION}
 
-MAINTAINER?=	mbeis@xs4all.nl
+MAINTAINER?=	ports@FreeBSD.org
 COMMENT=	ASCII to PostScript filter
 
 USES=		cpe shebangfix perl5

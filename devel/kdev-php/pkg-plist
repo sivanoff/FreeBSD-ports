@@ -1,3 +1,4 @@
+etc/xdg/kdevphpsupport.categories
 include/kdev-php/kdevphpversion.h
 include/kdev-php/parser/parsesession.h
 include/kdev-php/parser/phplexer.h
@@ -66,4 +67,3 @@ share/locale/uk/LC_MESSAGES/kdevphp.mo
 share/locale/zh_CN/LC_MESSAGES/kdevphp.mo
 share/locale/zh_TW/LC_MESSAGES/kdevphp.mo
 share/metainfo/org.kde.kdev-php.metainfo.xml
-share/qlogging-categories5/kdevphpsupport.categories

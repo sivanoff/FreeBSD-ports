@@ -2,21 +2,18 @@
 # $FreeBSD$
 
 PORTNAME=	arp-scan
-PORTVERSION=	1.9.7
+PORTVERSION=	1.9
 CATEGORIES=	net
+MASTER_SITES=	http://www.nta-monitor.com/files/${PORTNAME}/
 
-MAINTAINER=	sunpoet@FreeBSD.org
+MAINTAINER=	ports@FreeBSD.org
 COMMENT=	ARP scanning and fingerprinting tool
 
-LICENSE=	GPLv3
-LICENSE_FILE=	${WRKSRC}/COPYING
+BROKEN=		unfetchable
 
-USES=		autoreconf
+LICENSE=	GPLv3
 
 GNU_CONFIGURE=	yes
 USE_LDCONFIG=	yes
-
-USE_GITHUB=	yes
-GH_ACCOUNT=	royhills
 
 .include <bsd.port.mk>

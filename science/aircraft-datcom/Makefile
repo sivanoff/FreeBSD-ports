@@ -5,7 +5,7 @@ DISTVERSION=	0.0.20120723
 PORTREVISION=	5
 CATEGORIES=	science
 
-MAINTAINER=	ports@FreeBSD.org
+MAINTAINER=	mike.d.ft402@gmail.com
 COMMENT=	Modified USAF Aircraft Stability and Control Data Compendium
 
 LICENSE=	GPLv3

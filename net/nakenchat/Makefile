@@ -2,11 +2,11 @@
 # $FreeBSD$
 
 PORTNAME=	nakenchat
-DISTVERSION=	3.00b1
+PORTVERSION=	2.22
 CATEGORIES=	net
 MASTER_SITES=	http://downloads.mikekohn.net/nakenchat/
 
-MAINTAINER=	portmaster@BSDforge.com
+MAINTAINER=	neel@neelc.org
 COMMENT=	Small (under 50k) chat server with many features
 
 LICENSE=	GPLv2

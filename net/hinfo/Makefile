@@ -13,8 +13,6 @@ MASTER_SITES=	http://www.lonesome.com/FreeBSD/distfiles/
 MAINTAINER=	ports@FreeBSD.org
 COMMENT=	Utility primarily designed to find the owner of an IP block
 
-BROKEN=		unfetchable
-
 RUN_DEPENDS=	p5-Net-DNS>=0:dns/p5-Net-DNS \
 		wget:ftp/wget
 

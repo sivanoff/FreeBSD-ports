@@ -15,6 +15,8 @@ LICENSE_FILE=	${WRKSRC}/LICENSE
 
 LIB_DEPENDS=	libleveldb.so:databases/leveldb
 
+PORTSCOUT=	skipv:0.194
+
 USES=		compiler:c11 localbase python
 USE_PYTHON=	autoplist concurrent distutils
 

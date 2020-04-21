@@ -1,4 +1,4 @@
---- base/debug/stack_trace_posix.cc.orig	2020-03-16 18:39:41 UTC
+--- base/debug/stack_trace_posix.cc.orig	2019-09-09 21:55:05 UTC
 +++ base/debug/stack_trace_posix.cc
 @@ -35,7 +35,7 @@
  #include <AvailabilityMacros.h>
@@ -9,15 +9,23 @@
  #include "base/debug/proc_maps_linux.h"
  #endif
  
-@@ -697,7 +697,11 @@ class SandboxSymbolizeHelper {
-           // Skip regions with empty file names.
-           continue;
-         }
+@@ -657,6 +657,11 @@ class SandboxSymbolizeHelper {
+   // for the modules that are loaded in the current process.
+   // Returns true on success.
+   bool CacheMemoryRegions() {
 +#if defined(OS_BSD)
-+	if (region.path[0] == '-') {
-+#else	
-         if (region.path[0] == '[') {
++    // TODO (rene) avoid link error, implement something?
++    NOTIMPLEMENTED();
++    return false;
++#else
+     // Reads /proc/self/maps.
+     std::string contents;
+     if (!ReadProcMaps(&contents)) {
+@@ -674,6 +679,7 @@ class SandboxSymbolizeHelper {
+ 
+     is_initialized_ = true;
+     return true;
 +#endif
-           // Skip pseudo-paths, like [stack], [vdso], [heap], etc ...
-           continue;
-         }
+   }
+ 
+   // Opens all object files and caches their file descriptors.

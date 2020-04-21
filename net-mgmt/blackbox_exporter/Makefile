@@ -4,7 +4,6 @@
 PORTNAME=	blackbox_exporter
 PORTVERSION=	0.16.0
 DISTVERSIONPREFIX=v
-PORTREVISION=	1
 CATEGORIES=	net-mgmt
 
 MAINTAINER=	bsam@FreeBSD.org
@@ -17,7 +16,6 @@ USES=		go:modules
 
 USE_GITHUB=	yes
 GH_ACCOUNT=	prometheus
-GH_TUPLE=	golang:net:83d349e8ac1a:golang_net/vendor/golang.org/x/net_83d349e8ac1a
 USE_RC_SUBR=	blackbox_exporter
 
 USERS=		prometheus
@@ -32,10 +30,6 @@ SUB_LIST=	GH_TAGNAME=${GH_TAGNAME}
 PLIST_FILES=	bin/blackbox_exporter \
 		${EXAMPLESDIR}/blackbox.yml \
 		${EXAMPLESDIR}/example.yml
-
-post-extract:
-	${RM} -r ${WRKSRC}/vendor/golang.org/x/net
-	${MV} ${WRKSRC}/vendor/golang.org/x/net_83d349e8ac1a ${WRKSRC}/vendor/golang.org/x/net
 
 post-install:
 	@${MKDIR} ${STAGEDIR}${EXAMPLESDIR}

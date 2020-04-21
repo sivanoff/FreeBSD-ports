@@ -2,30 +2,22 @@
 # $FreeBSD$
 
 PORTNAME=	tenacity
-PORTVERSION=	6.1.0
+PORTVERSION=	3.4.0
 CATEGORIES=	devel python
 MASTER_SITES=	CHEESESHOP
 PKGNAMEPREFIX=	${PYTHON_PKGNAMEPREFIX}
 
-MAINTAINER=	sunpoet@FreeBSD.org
-COMMENT=	Retry code until it succeeds
+MAINTAINER=	ports@FreeBSD.org
+COMMENT=	Task retrying for python library
 
 LICENSE=	APACHE20
-LICENSE_FILE=	${WRKSRC}/LICENSE
 
-BUILD_DEPENDS=	${PYTHON_PKGNAMEPREFIX}setuptools_scm>=0:devel/py-setuptools_scm@${PY_FLAVOR}
-RUN_DEPENDS=	${PY_FUTURES} \
-		${PYTHON_PKGNAMEPREFIX}six>=1.9.0:devel/py-six@${PY_FLAVOR}
-
-USES=		python
-USE_PYTHON=	autoplist concurrent distutils
+BUILD_DEPENDS=  ${PYTHON_PKGNAMEPREFIX}pbr>=1.6:devel/py-pbr@${PY_FLAVOR}
+RUN_DEPENDS:=	${BUILD_DEPENDS}
 
 NO_ARCH=	yes
 
-.include <bsd.port.pre.mk>
+USES=		python
+USE_PYTHON=	autoplist distutils
 
-.if ${PYTHON_REL} < 3000
-RUN_DEPENDS+=	${PYTHON_PKGNAMEPREFIX}monotonic>=0.6:devel/py-monotonic@${PY_FLAVOR}
-.endif
-
-.include <bsd.port.post.mk>
+.include <bsd.port.mk>

@@ -2,11 +2,11 @@
 # $FreeBSD$
 
 PORTNAME=	python-distutils-extra
-PORTVERSION=	2.44
+PORTVERSION=	2.39
 CATEGORIES=	devel python
-MASTER_SITES=	DEBIAN
+MASTER_SITES=	https://launchpad.net/${PORTNAME}/trunk/${PORTVERSION}/+download/ \
+		LOCAL/sunpoet
 PKGNAMEPREFIX=	${PYTHON_PKGNAMEPREFIX}
-DISTNAME=	${PORTNAME}_${PORTVERSION}
 
 MAINTAINER=	sunpoet@FreeBSD.org
 COMMENT=	Add support for i18n, documentation, and icons to distutils
@@ -14,10 +14,9 @@ COMMENT=	Add support for i18n, documentation, and icons to distutils
 LICENSE=	GPLv2
 LICENSE_FILE=	${WRKSRC}/LICENSE
 
-USES=		python tar:xz
+USES=		python
 USE_PYTHON=	autoplist concurrent distutils
 
 NO_ARCH=	yes
-WRKSRC=		${WRKDIR}/${PORTNAME}-${PORTVERSION}
 
 .include <bsd.port.mk>

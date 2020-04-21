@@ -1,7 +1,7 @@
 # $FreeBSD$
 
 PORTNAME=	peek
-DISTVERSION=	1.5.1
+DISTVERSION=	1.4.0
 CATEGORIES=	multimedia
 
 MAINTAINER=	yuri@FreeBSD.org

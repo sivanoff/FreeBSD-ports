@@ -3,17 +3,15 @@
 
 PORTNAME=	hypre
 DISTVERSIONPREFIX=	v
-DISTVERSION=	2.18.2
+DISTVERSION=	2.16.0
 PORTREVISION=	1
 CATEGORIES=	science
 
 MAINTAINER=	yuri@FreeBSD.org
 COMMENT=	Scalable Linear Solvers and Multigrid Methods
 
-LICENSE=	APACHE20 MIT
-LICENSE_COMB=	dual
-LICENSE_FILE_APACHE20=	${WRKSRC}/../LICENSE-APACHE
-LICENSE_FILE_MIT=	${WRKSRC}/../LICENSE-MIT
+LICENSE=	LGPL21
+LICENSE_FILE=	${WRKSRC}/../COPYING.LESSER
 
 BROKEN_powerpc64=	fails to compile: ./DistributedMatrixPilutSolver.h:97:20: expected ')' before '->' token
 

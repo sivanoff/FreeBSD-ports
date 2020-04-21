@@ -2,7 +2,8 @@
 # $FreeBSD$
 
 PORTNAME=	guacamole-client
-DISTVERSION=	1.1.0
+DISTVERSION=	1.0.0
+PORTREVISION=	2
 CATEGORIES=	www java
 MASTER_SITES+=	https://sourceforge.net/projects/distfiles/files/${PORTNAME}/:repo \
 		http://sourceforge.net/projects/distfiles/files/${PORTNAME}/:repo

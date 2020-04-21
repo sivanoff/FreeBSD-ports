@@ -1,8 +1,6 @@
 bin/vmafossexec
-include/libvmaf/libvmaf.h
-include/libvmaf/version.h
+include/libvmaf.h
 lib/libvmaf.a
-lib/libvmaf.so
 libdata/pkgconfig/libvmaf.pc
 share/model/other_models/model_V8a.model
 share/model/other_models/nflx_v1.pkl

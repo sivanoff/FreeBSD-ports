@@ -3,9 +3,11 @@
 
 PORTNAME=	irrd
 PORTVERSION=	2.3.10
-DISTVERSIONPREFIX=	v
 PORTREVISION=	3
 CATEGORIES=	net
+MASTER_SITES=	https://github.com/irrdnet/irrd-legacy/archive/
+DISTNAME=	v${PORTVERSION}
+DIST_SUBDIR=	${PORTNAME}
 
 MAINTAINER=	ume@FreeBSD.org
 COMMENT=	Internet Routing Registry database server
@@ -15,16 +17,12 @@ LICENSE_FILE=	${WRKDIR}/${PORTNAME}-legacy-${PORTVERSION}/COPYRIGHT
 
 RUN_DEPENDS=	wget:ftp/wget
 
-WRKSRC_SUBDIR=	src
+WRKSRC=		${WRKDIR}/${PORTNAME}-legacy-${PORTVERSION}/src
 
 IRRD_CONFDIR=	${PREFIX}/etc
 
 USES=		shebangfix
 USE_RC_SUBR=	irrd
-USE_GITHUB=	yes
-GH_ACCOUNT=	irrdnet
-GH_PROJECT=	irrd-legacy
-
 GNU_CONFIGURE=	yes
 CONFIGURE_ENV=	YACC="${YACC}"
 MAKE_JOBS_UNSAFE=	yes

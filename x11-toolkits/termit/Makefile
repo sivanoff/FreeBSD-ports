@@ -1,8 +1,9 @@
 # $FreeBSD$
 
 PORTNAME=	termit
-PORTVERSION=	3.1
+PORTVERSION=	3.0
 DISTVERSIONPREFIX=	${PORTNAME}-
+PORTREVISION=	2
 CATEGORIES=	x11-toolkits gnome
 
 MAINTAINER=	bob@eager.cx
@@ -14,15 +15,12 @@ LICENSE_FILE=	${WRKSRC}/COPYING
 LIB_DEPENDS=	libpcre2-8.so:devel/pcre2 \
 		libgnutls.so:security/gnutls
 
-USES=		cmake gnome lua:53+ pkgconfig xorg
-USE_CSTD=	c99
-USE_XORG=	x11
-USE_GNOME=	cairo gdkpixbuf2 gtk30 vte3
-
 USE_GITHUB=	yes
 GH_ACCOUNT=	nonstop
 
-SUB_FILES=	pkg-message
+USES=		cmake gnome lua pkgconfig xorg
+USE_XORG=	x11
+USE_GNOME=	cairo gdkpixbuf2 gtk30 vte3
 
 CPPFLAGS+=	-I${LOCALBASE}/include/vte-0.0
 

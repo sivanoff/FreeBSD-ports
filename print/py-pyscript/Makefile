@@ -13,9 +13,6 @@ COMMENT=	Python module for producing high quality PostScript graphics
 
 LICENSE=	GPLv2
 
-DEPRECATED=	Uses deprecated version of python
-EXPIRATION_DATE=	2020-08-15
-
 OPTIONS_DEFINE=	DOCS EXAMPLES
 
 PYSCRIPT_MANUAL=doc/manual/pyscript.pdf

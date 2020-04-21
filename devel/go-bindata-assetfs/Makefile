@@ -1,7 +1,8 @@
 # $FreeBSD$
 
 PORTNAME=	go-bindata-assetfs
-PORTVERSION=	g20191027
+PORTVERSION=	g20180223
+PORTREVISION=	1
 CATEGORIES=	devel www
 
 MAINTAINER=	egypcio@FreeBSD.org
@@ -15,9 +16,9 @@ USES=		go
 USE_GITHUB=	yes
 
 GH_ACCOUNT=	elazarl
-GH_TAGNAME=	d0111fe
-GH_TUPLE=	golang:net:1617124:golang_net/golang.org/x/net \
-		golang:sys:d101bd2:golang_sys/golang.org/x/sys
+GH_TAGNAME=	38087fe
+GH_TUPLE=	golang:net:ca1201d:golang_net/golang.org/x/net \
+		golang:sys:51ab0e2:golang_sys/golang.org/x/sys
 
 GO_TARGET=	./${PORTNAME}
 

@@ -5,16 +5,17 @@ PORTNAME=	cursor-jimmac-theme
 PORTVERSION=	0.1
 PORTREVISION=	3
 CATEGORIES=	x11-themes
-MASTER_SITES=	http://smyrak.com/freebsd/dists/
-DISTNAME=	Jimmac
+MASTER_SITES=	http://www.gnome-look.org/CONTENT/content-files/
+DISTNAME=	6550-Jimmac
 
 MAINTAINER=	ps.ports@smyrak.com
-COMMENT=	Beautiful Jimmac X cursor themes.
+COMMENT=	The beautiful Jimmac X cursor themes
 
-LICENSE=	GPLv2
-LICENSE_FILE=	${WRKSRC}/COPYING
+BROKEN=		unfetchable
 
 NO_BUILD=	yes
+
+WRKSRC=		${WRKDIR}/Jimmac
 
 do-install:
 	${MKDIR} ${STAGEDIR}${PREFIX}/share/icons/Jimmac/cursors

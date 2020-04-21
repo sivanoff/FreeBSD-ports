@@ -23,7 +23,7 @@ USE_SDL=	image2
 USE_GL=		glu glew
 MAKEFILE=	GNUmakefile
 ALL_TARGET=	build
-LDFLAGS_i386=	-Wl,-znotext
+LLD_UNSAFE=	yes
 INSTALLS_ICONS=	yes
 
 WRKSRC_SUBDIR=	src

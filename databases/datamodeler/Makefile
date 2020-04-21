@@ -32,9 +32,6 @@ NO_BUILD=	yes
 RESTRICTED=	Packaging prohibited by Oracle license
 NO_CDROM=	Packaging prohibited by Oracle license
 
-DEPRECATED=	depends on expiring java/openjfx8-devel
-EXPIRATION_DATE=	2020-11-30
-
 DATADIR=	${JAVASHAREDIR}/${PORTNAME}
 WRKSRC=		${WRKDIR}/opt/${PORTNAME}
 SUB_FILES=	${PORTNAME}.script.sh

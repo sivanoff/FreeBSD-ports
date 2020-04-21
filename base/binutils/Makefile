@@ -3,7 +3,6 @@
 PORTNAME=	binutils
 PORTVERSION=	2.33.1
 PORTEPOCH=	0
-PORTREVISION=	1
 CATEGORIES=	base
 MASTER_SITES=	SOURCEWARE/binutils/releases
 PKGNAMEPREFIX=	${OPSYS:tl}-
@@ -36,7 +35,6 @@ CONFIGURE_ARGS+=	--disable-host-shared \
 			--disable-shared \
 			--disable-nls \
 			--with-system-zlib \
-			--with-sysroot="/" \
 			--enable-relro=no \
 			--enable-x86-relax-relocations=no \
 			--target=${BUTARGET}
@@ -119,7 +117,5 @@ post-install:
 	    ${STAGEDIR}${MANPREFIX}/man/man1/${tool}.1 \
 	    ${STAGEDIR}${PREFIX}/${BUTARGET}/bin/${tool}
 .endfor
-	@${MKDIR} ${STAGEDIR}${PREFIX}/share/toolchains
-	${INSTALL_DATA} ${.CURDIR}/files/freebsd-binutils.mk ${STAGEDIR}${PREFIX}/share/toolchains/
 
 .include <bsd.port.post.mk>

@@ -5,7 +5,7 @@ PORTVERSION=	0.2.2
 DISTVERSIONPREFIX=	v
 CATEGORIES=	sysutils
 
-MAINTAINER=	ports@FreeBSD.org
+MAINTAINER=	neel@neelc.org
 COMMENT=	Atomic odometer for the command line
 
 LICENSE=	ISCL

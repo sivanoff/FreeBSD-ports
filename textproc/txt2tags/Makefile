@@ -2,17 +2,18 @@
 # $FreeBSD$
 
 PORTNAME=	txt2tags
-PORTVERSION=	3.6
+PORTVERSION=	2.6
+PORTREVISION=	3
 CATEGORIES=	textproc
 
-MAINTAINER=	lbartoletti@FreeBSD.org
+MAINTAINER=	lbartoletti@tuxfamily.org
 COMMENT=	Convert simply formatted text into markup (e.g., HTML)
 
 LICENSE=	GPLv2
 LICENSE_FILE=	${WRKSRC}/COPYING
 
-USES=		python:3.6+ shebangfix
-SHEBANG_FILES=	txt2tags.py
+USES=		python:2.7 shebangfix
+SHEBANG_FILES=	extras/html-update.sh txt2tags
 USE_GITHUB=	yes
 NO_BUILD=	yes
 NO_ARCH=	yes
@@ -24,7 +25,7 @@ PORTEXAMPLES=	*
 OPTIONS_DEFINE=	DOCS EXAMPLES
 
 do-install:
-	${INSTALL_SCRIPT} ${WRKSRC}/txt2tags.py ${STAGEDIR}${PREFIX}/bin/txt2tags
+	${INSTALL_SCRIPT} ${WRKSRC}/txt2tags ${STAGEDIR}${PREFIX}/bin
 
 do-install-EXAMPLES-on:
 	@cd ${WRKSRC}/samples && ${COPYTREE_SHARE} . ${STAGEDIR}${EXAMPLESDIR}
@@ -32,10 +33,7 @@ do-install-EXAMPLES-on:
 
 do-install-DOCS-on:
 	@${MKDIR} ${STAGEDIR}${DOCSDIR}
-	${INSTALL_DATA} ${WRKSRC}/CHANGELOG.md ${WRKSRC}/README.md ${STAGEDIR}${DOCSDIR}
-.for doc in markup rules userguide
-	@cd ${WRKSRC}/docs/${doc} && ${WRKSRC}/txt2tags.py ${doc}.t2t
-	${INSTALL_DATA} ${WRKSRC}/docs/${doc}/${doc}.html ${STAGEDIR}${DOCSDIR}
-.endfor
+	${INSTALL_DATA} ${WRKSRC}/ChangeLog ${WRKSRC}/README ${STAGEDIR}${DOCSDIR}
+	${INSTALL_DATA} ${WRKSRC}/doc/*/*.pdf ${STAGEDIR}${DOCSDIR}
 
 .include <bsd.port.mk>

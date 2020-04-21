@@ -4,7 +4,7 @@ PORTNAME=	go-for-it
 DISTVERSION=	1.7.3
 CATEGORIES=	deskutils
 
-MAINTAINER=	ports@FreeBSD.org
+MAINTAINER=	neel@neelc.org
 COMMENT=	Stylish to-do list with built-in productivity timer
 
 LICENSE=	GPLv3+

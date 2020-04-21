@@ -1,7 +1,8 @@
 # $FreeBSD$
 
 PORTNAME=	mgba
-DISTVERSION=	0.7.3
+DISTVERSION=	0.7.0
+PORTREVISION=	2
 CATEGORIES=	emulators
 
 MAINTAINER=	greg@unrelenting.technology
@@ -18,8 +19,6 @@ LIB_DEPENDS=	libepoxy.so:graphics/libepoxy \
 
 USES=		cmake compiler:c++11-lang gl gnome localbase:ldflags pkgconfig \
 		sdl sqlite:3
-
-USE_LDCONFIG=	yes
 
 USE_GITHUB=	yes
 GH_ACCOUNT=	mgba-emu

@@ -1,7 +1,9 @@
 # $FreeBSD$
 
 PORTNAME=	waifu2x-ncnn-vulkan
-DISTVERSION=	20200224
+DISTVERSION=	20190712-6
+DISTVERSIONSUFFIX=	-gb373ce2
+PORTREVISION=	1
 CATEGORIES=	graphics
 
 MAINTAINER=	jbeich@FreeBSD.org
@@ -24,7 +26,7 @@ PLIST_FILES=	bin/${PORTNAME}
 PORTDATA=	*
 
 .if !exists(/usr/include/omp.h)
-# XXX ports/199603: LLVM openmp in base doesn't support aarch64, armv6, armv7 yet
+# XXX ports/199603 + ports/210337
 OPENMP=		gcc-
 .endif
 

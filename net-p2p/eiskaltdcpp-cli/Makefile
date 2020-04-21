@@ -2,12 +2,12 @@
 # $FreeBSD$
 
 PORTNAME=	eiskaltdcpp
-PORTREVISION=	20
+PORTREVISION=	0
 CATEGORIES=	net-p2p
 PKGNAMESUFFIX=	-cli
 
 MAINTAINER=	ports@FreeBSD.org
-COMMENT=	EiskaltDC++ client command-line interface
+COMMENT=	EiskaltDC++ Direct Connect command-line interface
 
 LICENSE=	GPLv3
 

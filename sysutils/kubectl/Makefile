@@ -2,8 +2,9 @@
 # $FreeBSD$
 
 PORTNAME=	kubectl
-PORTVERSION=	1.18.0
+PORTVERSION=	1.17.0
 DISTVERSIONPREFIX=	v
+PORTREVISION=	1
 CATEGORIES=	sysutils
 
 MAINTAINER=	danilo@FreeBSD.org
@@ -17,9 +18,7 @@ USE_GITHUB=	yes
 GH_ACCOUNT=	kubernetes
 GH_PROJECT=	kubernetes
 
-# The vendored golang/sys fails to build on aarch64
-GOLANG_SYS_V=	9fbb57f87de9
-GH_TUPLE=	golang:sys:${GOLANG_SYS_V}:golang_sys/vendor/golang.org/x/sys_${GOLANG_SYS_V}
+GH_TUPLE=	golang:sys:fead79001313:golang_sys/vendor/golang.org/x/sys_fead79001313
 
 GO_PKGNAME=	k8s.io/kubernetes
 GO_TARGET=	${GO_PKGNAME}/cmd/${PORTNAME}
@@ -34,6 +33,6 @@ PLIST_FILES=	bin/${PORTNAME}
 
 post-extract:
 	${RM} -r ${WRKSRC}/vendor/golang.org/x/sys
-	${MV} ${WRKSRC}/vendor/golang.org/x/sys_${GOLANG_SYS_V} ${WRKSRC}/vendor/golang.org/x/sys
+	${MV} ${WRKSRC}/vendor/golang.org/x/sys_fead79001313 ${WRKSRC}/vendor/golang.org/x/sys
 
 .include <bsd.port.mk>

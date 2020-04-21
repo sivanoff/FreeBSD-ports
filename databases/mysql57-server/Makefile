@@ -3,13 +3,13 @@
 
 PORTNAME?=	mysql
 PORTVERSION=	5.7.29
-PORTREVISION=	1
+PORTREVISION=	0
 CATEGORIES=	databases
 MASTER_SITES=	MYSQL/MySQL-5.7
 PKGNAMESUFFIX?=	57-server
 DISTNAME=	${PORTNAME}-boost-${PORTVERSION}
 
-MAINTAINER=	joneum@FreeBSD.org
+MAINTAINER=	mmokhi@FreeBSD.org
 COMMENT?=	Multithreaded SQL database (server)
 
 LICENSE=	GPLv2
@@ -18,7 +18,7 @@ WRKSRC=		${WRKDIR}/${PORTNAME}-${PORTVERSION}
 
 SLAVEDIRS=	databases/mysql57-client
 USES=		bison:build cmake:noninja compiler:c11 compiler:c++11-lib \
-		cpe groff:run libedit localbase perl5 shebangfix ssl
+		cpe libedit localbase perl5 shebangfix ssl
 
 USE_PERL5=	run
 

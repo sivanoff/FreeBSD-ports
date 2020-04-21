@@ -2,20 +2,17 @@
 # $FreeBSD$
 
 PORTNAME=	python-editor
-PORTVERSION=	1.0.4
+PORTVERSION=	1.0.3
 CATEGORIES=	devel python
 MASTER_SITES=	CHEESESHOP
 PKGNAMEPREFIX=	${PYTHON_PKGNAMEPREFIX}
 
-MAINTAINER=	sunpoet@FreeBSD.org
+MAINTAINER=	ports@FreeBSD.org
 COMMENT=	Programmatically open an editor, capture the result
 
-LICENSE=	APACHE20
-LICENSE_FILE=	${WRKSRC}/LICENSE
+NO_ARCH=	yes
 
 USES=		python
-USE_PYTHON=	autoplist concurrent distutils
-
-NO_ARCH=	yes
+USE_PYTHON=	autoplist distutils
 
 .include <bsd.port.mk>

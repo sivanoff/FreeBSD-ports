@@ -3,7 +3,7 @@
 
 PORTNAME=	lightdm
 PORTVERSION=	1.30.0
-PORTREVISION=	2
+PORTREVISION=	1
 CATEGORIES=	x11
 MASTER_SITES=	https://github.com/CanonicalLtd/${PORTNAME}/releases/download/${DISTVERSIONPREFIX}${DISTVERSION}/
 
@@ -35,7 +35,7 @@ GNU_CONFIGURE=	yes
 CONFIGURE_ARGS=	--disable-tests # PAM errors
 INSTALL_TARGET=	install-strip
 USERS=		lightdm
-GROUPS=		lightdm video
+GROUPS=		lightdm
 PORTSCOUT=	limitw:1,even
 SUB_FILES=	Xsession
 

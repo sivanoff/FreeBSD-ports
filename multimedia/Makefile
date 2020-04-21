@@ -19,7 +19,6 @@
     SUBDIR += avidemux
     SUBDIR += avidemux-cli
     SUBDIR += avidemux-plugins
-    SUBDIR += avidemux-qt5
     SUBDIR += avinfo
     SUBDIR += baka-mplayer
     SUBDIR += bcmatroska2
@@ -34,6 +33,7 @@
     SUBDIR += celluloid
     SUBDIR += cheese
     SUBDIR += chilitags
+    SUBDIR += cinelerra-gg
     SUBDIR += clipgrab
     SUBDIR += clive
     SUBDIR += clutter-gst
@@ -43,6 +43,7 @@
     SUBDIR += cx88
     SUBDIR += dav1d
     SUBDIR += deforaos-player
+    SUBDIR += devede
     SUBDIR += din
     SUBDIR += dirac
     SUBDIR += dragon
@@ -75,6 +76,7 @@
     SUBDIR += gaupol
     SUBDIR += gavl
     SUBDIR += gdialog
+    SUBDIR += gdvrecv
     SUBDIR += gmerlin
     SUBDIR += gmimms
     SUBDIR += gmmlib
@@ -155,6 +157,7 @@
     SUBDIR += gstreamer1-vaapi
     SUBDIR += gstreamer1-validate
     SUBDIR += gstreamermm
+    SUBDIR += gtk-recordmydesktop
     SUBDIR += gtk-youtube-viewer
     SUBDIR += gxine
     SUBDIR += handbrake
@@ -256,6 +259,7 @@
     SUBDIR += mkxvcd
     SUBDIR += mlt
     SUBDIR += mlt-qt5
+    SUBDIR += mmpython
     SUBDIR += mmsclient
     SUBDIR += mmsrip
     SUBDIR += motion
@@ -311,10 +315,10 @@
     SUBDIR += phonon-vlc
     SUBDIR += photofilmstrip
     SUBDIR += php-pHash
-    SUBDIR += pipewire
     SUBDIR += pitivi
     SUBDIR += plexmediaserver
     SUBDIR += plexmediaserver-plexpass
+    SUBDIR += plexwatch
     SUBDIR += podcastdl
     SUBDIR += poe
     SUBDIR += ppm2fli
@@ -347,6 +351,7 @@
     SUBDIR += py-soco
     SUBDIR += py-subliminal
     SUBDIR += py-tvnamer
+    SUBDIR += pymp
     SUBDIR += qmmp-plugin-pack-qt5
     SUBDIR += qmmp-qt5
     SUBDIR += qt-faststart
@@ -359,6 +364,7 @@
     SUBDIR += recmpeg
     SUBDIR += recordmydesktop
     SUBDIR += replex
+    SUBDIR += rox-videothumbnail
     SUBDIR += rtmpdump
     SUBDIR += rubygem-av
     SUBDIR += rubygem-clutter-gstreamer

@@ -74,7 +74,7 @@ TLS_CONFIGURE_ON=	--with-security-modules=tsm --with-transports=TLSTCP,DTLSUDP
 
 .include <bsd.port.options.mk>
 
-.if (${OPSYS} == FreeBSD && ${OSVERSION} >= 1200085) || ${SSL_DEFAULT:Mopenssl}
+.if (${OSVERSION} >= 1200085 || ${SSL_DEFAULT:Mopenssl111*})
 EXTRA_PATCHES=	${PATCHDIR}/extra-patch-openssl11
 .endif
 
@@ -249,7 +249,7 @@ post-patch:
 	    ${WRKSRC}/agent/mibgroup/host/hr_system.c
 	@${REINPLACE_CMD} -E -e 's|return pci_lookup_name|disabled broken|g' \
 		${WRKSRC}/configure
-.if (${OPSYS} == FreeBSD && ${OSVERSION} >= 1200085) || ${SSL_DEFAULT:Mopenssl}
+.if (${OSVERSION} >= 1200085 || ${SSL_DEFAULT:Mopenssl111*})
 	@${REINPLACE_CMD} -E -e 's|SSL_library_init|OPENSSL_init_ssl|g' \
 		${WRKSRC}/configure
 .endif

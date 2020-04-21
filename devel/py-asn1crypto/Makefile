@@ -1,12 +1,12 @@
 # $FreeBSD$
 
 PORTNAME=	asn1crypto
-PORTVERSION=	1.3.0
+PORTVERSION=	0.24.0
 CATEGORIES=	devel python
 MASTER_SITES=	CHEESESHOP
 PKGNAMEPREFIX=	${PYTHON_PKGNAMEPREFIX}
 
-MAINTAINER=	mikael@FreeBSD.org
+MAINTAINER=	mikael.urankar@gmail.com
 COMMENT=	ASN.1 library with a focus on performance and a pythonic API
 
 LICENSE=	MIT

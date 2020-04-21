@@ -13,7 +13,7 @@ DISTFILES=	${VMD_DIST} \
 		${TACHYON_DIST}:tachyon \
 		${STRIDE_DIST}:stride
 
-MAINTAINER=	ports@FreeBSD.org
+MAINTAINER=	dbn@FreeBSD.org
 COMMENT=	Molecular visualization program
 
 LICENSE=	VMD BSD3CLAUSE STRIDE

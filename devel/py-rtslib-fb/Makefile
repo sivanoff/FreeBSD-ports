@@ -2,22 +2,19 @@
 # $FreeBSD$
 
 PORTNAME=	rtslib-fb
-PORTVERSION=	2.1.71
+PORTVERSION=	2.1.62
 CATEGORIES=	devel python
 MASTER_SITES=	CHEESESHOP
 PKGNAMEPREFIX=	${PYTHON_PKGNAMEPREFIX}
 
-MAINTAINER=	sunpoet@FreeBSD.org
-COMMENT=	API for Linux kernel SCSI target (aka LIO)
+MAINTAINER=	ports@FreeBSD.org
+COMMENT=	API for Linux kernel SCSI target (aka lio)
 
 LICENSE=	APACHE20
 
-RUN_DEPENDS=	${PYTHON_PKGNAMEPREFIX}pyudev>=0.16.1:devel/py-pyudev@${PY_FLAVOR} \
-		${PYTHON_PKGNAMEPREFIX}six>=0:devel/py-six@${PY_FLAVOR}
+NO_ARCH=	yes
 
 USES=		python
-USE_PYTHON=	autoplist concurrent distutils
-
-NO_ARCH=	yes
+USE_PYTHON=	autoplist distutils
 
 .include <bsd.port.mk>

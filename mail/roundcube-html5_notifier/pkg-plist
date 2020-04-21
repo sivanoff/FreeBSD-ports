@@ -1,5 +1,4 @@
 %%WWWDIR%%/.gitignore
-%%WWWDIR%%/LICENSE
 %%WWWDIR%%/README.md
 %%WWWDIR%%/changelog.txt
 %%WWWDIR%%/composer.json

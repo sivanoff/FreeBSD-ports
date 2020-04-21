@@ -19,7 +19,4 @@ USE_GITHUB=	yes
 GH_ACCOUNT=	roberthawdon
 GNU_CONFIGURE=	yes
 
-post-patch:
-	@${REINPLACE_CMD} 's/-lncursesw/-l${NCURSES_IMPL}/g' ${WRKSRC}/Makefile.am
-
 .include <bsd.port.mk>

@@ -2,9 +2,11 @@
 # $FreeBSD$
 
 PORTNAME=	ResourcePool-Resource-Net-LDAP
-PORTVERSION=	1.0003
+PORTVERSION=	1.0002
+PORTREVISION=	1
 CATEGORIES=	net perl5
-MASTER_SITES=	CPAN
+MASTER_SITES=	CPAN \
+		http://www.fatalmind.com/projects/ResourcePool/
 MASTER_SITE_SUBDIR=	CPAN:MWS
 PKGNAMEPREFIX=	p5-
 
@@ -17,7 +19,5 @@ RUN_DEPENDS=	p5-ResourcePool>=0:devel/p5-ResourcePool \
 
 USES=		perl5
 USE_PERL5=	configure
-
-NO_ARCH=	yes
 
 .include <bsd.port.mk>

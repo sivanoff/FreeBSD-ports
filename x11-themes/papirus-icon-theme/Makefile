@@ -1,7 +1,7 @@
 # $FreeBSD$
 
 PORTNAME=	papirus-icon-theme
-PORTVERSION=	20200301
+PORTVERSION=	20191201
 CATEGORIES=	x11-themes
 
 MAINTAINER=	tagattie@yandex.com
@@ -11,7 +11,6 @@ LICENSE=	GPLv3
 LICENSE_FILE=	${WRKSRC}/LICENSE
 
 USES=		gmake gnome
-INSTALLS_ICONS=	yes
 
 USE_GITHUB=	yes
 GH_ACCOUNT=	PapirusDevelopmentTeam
@@ -19,6 +18,7 @@ GH_ACCOUNT=	PapirusDevelopmentTeam
 NO_ARCH=	yes
 NO_BUILD=	yes
 
+INSTALLS_ICONS=	yes
 PORTDOCS=	AUTHORS README.md
 
 OPTIONS_DEFINE=	DOCS

@@ -17,8 +17,6 @@ GH_ACCOUNT=	mpereira
 
 USES=		gmake ncurses
 
-MAKE_ARGS=	NCURSES=-l${NCURSES_IMPL}
-
 PORTDOCS=	*
 PLIST_FILES=	bin/ttysolitaire
 

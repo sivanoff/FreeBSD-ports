@@ -2,12 +2,12 @@
 
 PORTNAME=	riot
 DISTVERSIONPREFIX=	v
-DISTVERSION=	1.5.12
+DISTVERSION=	1.5.6
 CATEGORIES=	www
 MASTER_SITES=	https://github.com/vector-im/riot-web/releases/download/${DISTVERSIONFULL}/
 PKGNAMESUFFIX=	-web
 
-MAINTAINER=	ports@xanderio.de
+MAINTAINER=	alex@xanderio.de
 COMMENT=	Glossy Matrix collaboration client for the web
 
 LICENSE=	APACHE20

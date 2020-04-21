@@ -447,10 +447,7 @@ function syslogng_build_cert() {
 	}
 
 	if ($ca != false) {
-		$ca_content = base64_decode($ca['crt']);
-		$ca_details = openssl_x509_parse($ca_content);
-
-		file_put_contents(SYSLOGNG_DIR . "/ca.d/" . $ca_details['hash'] . ".0", $ca_content);
+		file_put_contents(SYSLOGNG_DIR . "/ca.d/cacert.pem", base64_decode($ca['crt']));
 	}
 }
 ?>

@@ -2,7 +2,7 @@
 # $FreeBSD$
 
 PORTNAME=	iniparse
-PORTVERSION=	1.5.0
+PORTVERSION=	1.4.4
 CATEGORIES=	devel rubygems
 MASTER_SITES=	RG
 

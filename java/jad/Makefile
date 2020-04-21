@@ -4,11 +4,13 @@
 PORTNAME=	jad
 PORTVERSION=	1.5.8c
 CATEGORIES=	java devel
-MASTER_SITES=	https://varaneckas.com/jad/
+MASTER_SITES=	http://www.varaneckas.com/sites/default/files/jad/
 DISTNAME=	jad158c.freebsd
 
 MAINTAINER=	ale@FreeBSD.org
 COMMENT=	Java Decompiler
+
+BROKEN=		unfetchable
 
 USES=		zip
 NO_WRKSUBDIR=	yes

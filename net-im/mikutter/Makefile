@@ -2,7 +2,7 @@
 # $FreeBSD$
 
 PORTNAME=	mikutter
-PORTVERSION=	4.0.4
+PORTVERSION=	3.9.8
 CATEGORIES=	net-im ruby
 MASTER_SITES=	https://mikutter.hachune.net/bin/ \
 		LOCAL/meta/${PORTNAME}
@@ -42,7 +42,7 @@ USE_RUBY=	yes
 NO_ARCH=	yes
 NO_BUILD=	yes
 
-NO_WRKSUBDIR=	yes
+WRKSRC=	${WRKDIR}/${PORTNAME}
 
 SHEBANG_FILES=	mikutter.rb \
 		core/miku/miku.rb
@@ -59,9 +59,7 @@ OPTIONS_DEFAULT=	${OPTIONS_DEFINE}
 NOTIFY_RUN_DEPENDS=	notify-send:devel/libnotify
 
 post-patch:
-	@${REINPLACE_CMD} \
-		-e "s|%%RUBY_SITELIBDIR%%|${RUBY_SITELIBDIR}|" \
-		-e "s|%%RUBY_WITH_SUFFIX%%|${RUBY_WITH_SUFFIX}|" \
+	@${REINPLACE_CMD} -e "s|%%RUBY_SITELIBDIR%%|${RUBY_SITELIBDIR}|" \
 		${WRKSRC}/mikutter.rb
 	@${RM} -r ${WRKSRC}/vendor
 

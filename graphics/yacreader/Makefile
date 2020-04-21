@@ -2,7 +2,6 @@
 
 PORTNAME=	yacreader
 DISTVERSION=	9.6.2
-PORTREVISION=	3
 CATEGORIES=	graphics
 
 PATCH_SITES=	https://github.com/${GH_ACCOUNT}/${GH_PROJECT}/commit/
@@ -30,5 +29,10 @@ OPENGL_QMAKE_OFF=	CONFIG+=no_opengl
 
 POPPLER_LIB_DEPENDS=	libpoppler-qt5.so:graphics/poppler-qt5
 POPPLER_QMAKE_OFF=	CONFIG+=no_pdf
+
+post-patch:
+	@${REINPLACE_CMD} -e '/manpage.path/s/DATADIR/PREFIX/' \
+		${WRKSRC}/YACReader/YACReader.pro \
+		${WRKSRC}/YACReaderLibrary/YACReaderLibrary.pro
 
 .include <bsd.port.mk>

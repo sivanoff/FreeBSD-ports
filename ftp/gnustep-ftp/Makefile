@@ -7,7 +7,7 @@ MASTER_SITES=	SAVANNAH/gap
 PKGNAMEPREFIX=	gnustep-
 DISTNAME=	FTP-${PORTVERSION}
 
-MAINTAINER=	ports@FreeBSD.org
+MAINTAINER=	theraven@FreeBSD.org
 COMMENT=	Compact and handy FTP client for GNUstep
 
 LICENSE=	GPLv2

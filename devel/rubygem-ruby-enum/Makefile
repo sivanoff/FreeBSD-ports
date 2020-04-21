@@ -2,7 +2,7 @@
 # $FreeBSD$
 
 PORTNAME=	ruby-enum
-PORTVERSION=	0.8.0
+PORTVERSION=	0.7.2
 CATEGORIES=	devel rubygems
 MASTER_SITES=	RG
 

@@ -7,7 +7,7 @@ DISTVERSION=	1.3.0
 CATEGORIES=	sysutils
 PKGNAMEPREFIX=	fusefs-
 
-MAINTAINER=	samm@FreeBSD.org
+MAINTAINER=	samm@freebsd.org
 COMMENT=	Full-featured exFAT FS implementation as a FUSE module
 
 LICENSE=	GPLv2+ MSPAT

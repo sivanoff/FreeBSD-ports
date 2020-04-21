@@ -5,8 +5,7 @@ PORTNAME=	popt
 PORTVERSION=	1.16
 PORTREVISION=	2
 CATEGORIES=	devel
-MASTER_SITES=	http://ftp.rpm.org/mirror/popt/ \
-		GENTOO
+MASTER_SITES=	http://rpm5.org/files/popt/
 
 MAINTAINER=	jpaetzel@FreeBSD.org
 COMMENT=	Getopt(3) like library with a number of enhancements, from Redhat

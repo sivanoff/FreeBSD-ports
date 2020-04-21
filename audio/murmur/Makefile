@@ -3,7 +3,7 @@
 
 PORTNAME=	murmur
 PORTVERSION=	1.3.0
-PORTREVISION=	3
+PORTREVISION=	2
 CATEGORIES=	audio net
 
 MAINTAINER=	feld@FreeBSD.org
@@ -73,7 +73,8 @@ pre-install:
 do-install:
 	${INSTALL_PROGRAM} ${WRKSRC}/release/murmurd ${STAGEDIR}${PREFIX}/sbin
 	${INSTALL_DATA} ${WRKSRC}/scripts/murmur.ini ${STAGEDIR}${PREFIX}/etc/murmur.ini.sample
-	${CP} ${WRKSRC}/man/murmurd.1 ${STAGEDIR}${PREFIX}/share/man/man1
+	${MKDIR} ${STAGEDIR}${MAN1PREFIX}/man/man1
+	${CP} ${WRKSRC}/man/murmurd.1 ${STAGEDIR}${MAN1PREFIX}/man/man1
 
 do-install-DOCS-on:
 	@${MKDIR} ${STAGEDIR}${DOCSDIR}

@@ -1,7 +1,7 @@
 # $FreeBSD$
 
 PORTNAME=	samurai
-DISTVERSION=	1.1
+DISTVERSION=	1.0
 CATEGORIES=	devel
 MASTER_SITES=	https://github.com/michaelforney/samurai/releases/download/${DISTVERSION}/
 

@@ -1,10 +1,10 @@
 # $FreeBSD$
 
 PORTNAME=	storcli
-DISTVERSION=	7.1211
+DISTVERSION=	7.1017
 CATEGORIES=	sysutils
 MASTER_SITES=	https://docs.broadcom.com/docs-and-downloads/raid-controllers/raid-controllers-common-files/
-DISTNAME=	007.1211.0000.0000_Unified_StorCLI
+DISTNAME=	MR_SAS_Unified_StorCLI_007.1017.0000.0000
 
 MAINTAINER=	takefu@airport.fm
 COMMENT=	SAS MegaRAID FreeBSD StorCLI
@@ -25,7 +25,7 @@ NO_WRKSUBDIR=	yes
 
 PLIST_FILES=	sbin/storcli
 PKGMESSAGE=	${WRKDIR}/pkg-message
-BINSRC=		${WRKSRC}/Unified_storcli_all_os/FreeBSD
+BINSRC=		${WRKSRC}/FreeBSD
 
 .include <bsd.port.pre.mk>
 
@@ -41,13 +41,7 @@ post-extract:
 	@${TAR} xf ${BINSRC}/storcli${ARCH:S/i386//:S/amd64/64/}.tar -C${WRKSRC}
 	@${REINPLACE_CMD} 's#\(StorCli\).*StorCli64#\1#'\
 		${BINSRC}/FreeBSD_readme.txt
-	@${ECHO} "[" > ${WRKDIR}/pkg-message
-	@${ECHO} "{" >> ${WRKDIR}/pkg-message
-	@${ECHO} "  message: <<EOM" >> ${WRKDIR}/pkg-message
-	@${FMT} 75 79 ${BINSRC}/FreeBSD_readme.txt >> ${WRKDIR}/pkg-message
-	@${ECHO} "EOM">>  ${WRKDIR}/pkg-message
-	@${ECHO} "}" >> ${WRKDIR}/pkg-message
-	@${ECHO} "]" >> ${WRKDIR}/pkg-message
+	@${FMT} 75 79 ${BINSRC}/FreeBSD_readme.txt > ${WRKDIR}/pkg-message
 
 do-install:
 	${INSTALL_SCRIPT} ${WRKSRC}/storcli${ARCH:S/i386//:S/amd64/64/}\

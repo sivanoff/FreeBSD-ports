@@ -4,10 +4,9 @@
 PORTNAME=	radcli
 PORTVERSION=	1.2.11
 PORTREVISION=	1
-MASTER_SITES=	https://github.com/radcli/radcli/releases/download/${PORTVERSION}/
 CATEGORIES=	net
 
-MAINTAINER=	sunpoet@FreeBSD.org
+MAINTAINER=	neel@neelc.org
 COMMENT=	Simple RADIUS client library
 
 LICENSE=	BSD2CLAUSE
@@ -16,15 +15,20 @@ LICENSE_FILE=	${WRKSRC}/COPYRIGHT
 LIB_DEPENDS=	libgnutls.so:security/gnutls \
 		libnettle.so:security/nettle
 
-USES=		libtool pathfix pkgconfig
-
+USES=		autoreconf libtool localbase pathfix pkgconfig
 GNU_CONFIGURE=	yes
-INSTALL_TARGET=	install-strip
 USE_LDCONFIG=	yes
+INSTALL_TARGET=	install-strip
+
+USE_GITHUB=	yes
+
+pre-configure:
+	@${TOUCH} ${WRKSRC}/config.rpath
 
 post-install:
-.for file in radiusclient.conf radiusclient-tls.conf servers servers-tls
-	${INSTALL_DATA} ${WRKSRC}/etc/${file} ${STAGEDIR}${PREFIX}/etc/radcli/${file}.sample
+.for f in radiusclient.conf radiusclient-tls.conf servers servers-tls
+	${INSTALL_DATA} ${WRKSRC}/etc/${f} \
+		${STAGEDIR}${PREFIX}/etc/radcli/${f}.sample
 .endfor
 
 .include <bsd.port.mk>

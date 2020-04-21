@@ -2,16 +2,10 @@
 # $FreeBSD$
 
 PORTNAME=	wayland
-PORTVERSION=	1.18.0
-PORTREVISION=	3
+PORTVERSION=	1.16.0
+PORTREVISION=	1
 CATEGORIES=	graphics wayland
 MASTER_SITES=	https://wayland.freedesktop.org/releases/
-
-PATCH_SITES=	https://gitlab.freedesktop.org/${PORTNAME}/${PORTNAME}/commit/
-PATCHFILES+=	0fc00fff3015.patch:-p1 # https://gitlab.freedesktop.org/wayland/wayland/merge_requests/60
-PATCHFILES+=	1283d54dac97.patch:-p1 # https://gitlab.freedesktop.org/wayland/wayland/merge_requests/61
-PATCHFILES+=	3a3dd0820de3.patch:-p1 # https://gitlab.freedesktop.org/wayland/wayland/merge_requests/61
-PATCHFILES+=	230885ebb40b.patch:-p1 # https://gitlab.freedesktop.org/wayland/wayland/merge_requests/61
 
 MAINTAINER=	x11@FreeBSD.org
 COMMENT=	Wayland composite "server"
@@ -25,9 +19,12 @@ LIB_DEPENDS=	libexpat.so:textproc/expat2 \
 
 CFLAGS+=	"-I${LOCALBASE}/include/libepoll-shim"
 
-USES=		meson pkgconfig tar:xz
+USES=		autoreconf gmake gnome libtool localbase pathfix pkgconfig tar:xz
 USE_GNOME=	libxslt:build
 USE_LDCONFIG=	yes
-MESON_ARGS=	-Ddocumentation=false
+GNU_CONFIGURE=	yes
+CONFIGURE_ARGS=	--disable-documentation
+CONFIGURE_ENV=	ac_cv_func_posix_fallocate=no # EINVAL for many FS on 12.0
+INSTALL_TARGET=	install-strip
 
 .include <bsd.port.mk>

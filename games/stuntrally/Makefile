@@ -22,8 +22,7 @@ USE_CXXSTD=	gnu++11
 DOS2UNIX_FILES=	source/ogre/BaseApp_Create.cpp
 CMAKE_ARGS=	-DSHARE_INSTALL="${DATADIR_REL}" \
 		-DBULLET_ROOT="${LOCALBASE}"
-
-LDFLAGS_i386=	-Wl,-znotext
+LLD_UNSAFE=	yes
 
 PORTDOCS=	Readme.txt
 PORTDATA=	*

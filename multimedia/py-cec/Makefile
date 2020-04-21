@@ -2,23 +2,22 @@
 
 PORTNAME=	cec
 PORTVERSION=	0.2.7
-PORTREVISION=	1
 CATEGORIES=	multimedia python
 MASTER_SITES=	CHEESESHOP
 PKGNAMEPREFIX=	${PYTHON_PKGNAMEPREFIX}
 
-MAINTAINER=	sunpoet@FreeBSD.org
+MAINTAINER=	ports@FreeBSD.org
 COMMENT=	Python bindings for libcec
+
+DEPRECATED=	Unmaintained, uses EOLed python27
+EXPIRATION_DATE=	2020-01-27
 
 LICENSE=	GPLv2
 LICENSE_FILE=	${WRKSRC}/COPYING
 
 LIB_DEPENDS=	libcec.so:multimedia/libcec
 
-USES=		compiler:c++11-lang localbase python
-USE_PYTHON=	autoplist concurrent distutils
-
-post-install:
-	${STRIP_CMD} ${STAGEDIR}${PYTHON_SITELIBDIR}/cec.so
+USES=		compiler:c++11-lang localbase python:2.7
+USE_PYTHON=	distutils autoplist
 
 .include <bsd.port.mk>

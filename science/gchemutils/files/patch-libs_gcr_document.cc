@@ -1,10 +1,10 @@
---- libs/gcr/document.cc.orig	2016-11-23 13:05:34 UTC
-+++ libs/gcr/document.cc
-@@ -1794,7 +1794,6 @@ void Document::Save() const
+--- libs/gcr/document.cc.orig	2013-12-03 21:16:21.000000000 +0100
++++ libs/gcr/document.cc	2013-12-03 21:22:51.000000000 +0100
+@@ -1521,7 +1521,6 @@
  		if (error) {
- 			g_message ("GIO error: %s", error->message);
+ 			cerr << "gio error: " << error->message << endl;
  			g_error_free (error);
 -			g_object_unref (file);
  			throw (int) 1;
  		}
- 		buf->context = output;
+ 		std::map<std::string, sAtom>AtomsMap;

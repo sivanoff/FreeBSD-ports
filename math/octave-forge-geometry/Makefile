@@ -2,7 +2,8 @@
 # $FreeBSD$
 
 PORTNAME=	octave-forge-geometry
-PORTVERSION=	4.0.0
+PORTVERSION=	3.0.0
+PORTREVISION=	10
 CATEGORIES=	math
 
 MAINTAINER=	stephen@FreeBSD.org
@@ -18,7 +19,6 @@ OCTSRC=		${DISTNAME}
 WRKSRC=		${WRKDIR}/${OCTSRC}/src
 
 RUN_DEPENDS+=	py*-lxml>=0:devel/py-lxml
-RUN_DEPENDS+=	${TARBALLS_DIR}/matgeom.tar.gz:math/octave-forge-matgeom
 
 .include "${.CURDIR}/../../Mk/bsd.octave.mk"
 
