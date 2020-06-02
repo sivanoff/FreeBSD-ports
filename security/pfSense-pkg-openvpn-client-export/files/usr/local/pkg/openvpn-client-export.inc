@@ -28,8 +28,8 @@ require_once("util.inc");
 require_once("pfsense-utils.inc");
 
 global $current_openvpn_version, $current_openvpn_version_rev, $legacy_openvpn_version, $legacy_openvpn_version_rev;
-$current_openvpn_version = "2.4.8";
-$current_openvpn_version_rev = "02";
+$current_openvpn_version = "2.4.9";
+$current_openvpn_version_rev = "01";
 $legacy_openvpn_version = "2.3.18";
 $legacy_openvpn_version_rev = "02";
 
@@ -181,7 +181,7 @@ EOF;
 	}
 	
 	// determine basic variables
-	$remotes = openvpn_client_export_build_remote_lines($settings, $useaddr, $interface, $expformat, $nl);
+	$remotes = openvpn_client_export_build_remote_lines($settings, $useaddr, $interface, $expformat, $nl, $legacy);
 	$cipher = $settings['crypto'];
 	$digest = !empty($settings['digest']) ? $settings['digest'] : "SHA1";
 
@@ -944,7 +944,7 @@ function openvpn_client_export_sharedkey_config($srvid, $useaddr, $proxy, $nokey
 	}
 }
 
-function openvpn_client_export_build_remote_lines($settings, $useaddr, $interface, $expformat, $nl) {
+function openvpn_client_export_build_remote_lines($settings, $useaddr, $interface, $expformat, $nl, $legacy=false) {
 	global $config;
 	$remotes = array();
 	if (($useaddr == "serveraddr") || ($useaddr == "servermagic") || ($useaddr == "servermagichost")) {
@@ -983,7 +983,7 @@ function openvpn_client_export_build_remote_lines($settings, $useaddr, $interfac
 			$remotes[] = "remote {$dest['host']} {$dest['port']} {$dest['proto']}";
 		}
 	} else {
-		$remoteproto = strtolower($settings['protocol']);
+		$remoteproto = $legacy ? $proto : strtolower($settings['protocol']);
 		$remotes[] = "remote {$server_host} {$settings['local_port']} {$remoteproto}";
 	}
 

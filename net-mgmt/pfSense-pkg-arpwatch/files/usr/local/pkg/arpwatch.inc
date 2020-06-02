@@ -37,14 +37,9 @@ function arpwatch_install_command() {
 	$disable_bogons = ($arpwatch_config['disable_bogons'] == 'on') ? '-N' : '';
 	$disable_zero = ($arpwatch_config['disable_zero'] == 'on') ? '-z' : '';
 	$update_vendors = ($arpwatch_config['update_vendors'] == 'on');
-	$clear_database = ($arpwatch_config['clear_database'] == 'on');
 
 	if ($update_vendors) {
 		arpwatch_update_vendors($enable_zeropad);
-	}
-
-	if ($clear_database) {
-		arpwatch_clear_database();
 	}
 
 	$rc = array();
@@ -88,7 +83,12 @@ function arpwatch_install_command() {
 }
 
 function arpwatch_deinstall_command() {
-	arpwatch_clear_database();
+	global $config;
+
+	init_config_arr(array('installedpackages', 'arpwatch', 'config', 0));
+	if ($config['installedpackages']['arpwatch']['config'][0]['clear_database'] == 'on') {
+		arpwatch_clear_database();
+	}
 	arpwatch_uninstall_sendmail_proxy();
 }
 
@@ -110,6 +110,12 @@ function arpwatch_validate_input($post, &$input_errors) {
 
 	if (filter_var($post['notifications_recipient'], FILTER_VALIDATE_EMAIL) === false) {
 		$input_errors[] = gettext("{$post['notifications_recipient']} is not a valid email address.");
+	}
+
+	for ($i = 0; $i < 30; $i++) {
+		if (!empty($post["mac{$i}"]) && !is_macaddr($post["mac{$i}"])) {
+			$input_errors[] = "{$post["mac{$i}"]} is not valid MAC address.";
+		}
 	}
 }
 
@@ -215,6 +221,7 @@ function arpwatch_install_sendmail_proxy() {
 #!/usr/bin/env php
 <?php
 
+global $config;
 require_once("notices.inc");
 
 $fd = fopen('php://stdin','r');
@@ -224,6 +231,15 @@ fclose($fd);
 if (false !== $message) {
 	$subject = array();
 	preg_match('/^Subject: (.*)$/m', $message, $subject);
+	init_config_arr(array('installedpackages', 'arpwatch', 'config', 0, 'row'));
+	foreach ($config['installedpackages']['arpwatch']['config'][0]['row'] as $sup) {
+		if (!empty($sup['mac'])) {
+			if (strpos($message, $sup['mac']) && (($sup['notification_type'] == 'all') ||
+			    ($sup['notification_type'] == $subject[1]))) {
+				return;
+			}
+		}
+	}
 	$message = preg_replace('/^From: .*$/m', '', $message);
 	$message = preg_replace('/^To: .*$/m', '', $message);
 	$message = preg_replace('/^Subject: .*$/m', '', $message);

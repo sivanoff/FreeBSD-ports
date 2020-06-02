@@ -78,6 +78,7 @@ function freeradius_get_libdir() {
 }
 
 function freeradius_deinstall_command() {
+	global $config;
 	$pidFile = "/var/run/radiusd.pid";
 	$i = 0;
 
@@ -87,7 +88,22 @@ function freeradius_deinstall_command() {
 		sleep(1);
 		$i++;
 	}
-	return;
+
+	/* Remove package settings from config if 'Keep Settings' is disabled */
+	init_config_arr(array('installedpackages', 'freeradiussettings', 'config', 0));
+	if (isset($config['installedpackages']['freeradiussettings']['config'][0]['keep_settings']) &&
+	    empty($config['installedpackages']['freeradiussettings']['config'][0]['keep_settings'])) {
+		log_error("[freeRADIUS] Removing all FreeRADIUS settings since 'Keep Settings/Data' is disabled...");
+		$uninstall = array('freeradius', 'freeradiusauthorizedmacs', 'freeradiusclients', 'freeradiusinterfaces',
+		'freeradiussettings', 'freeradiuseapconf', 'freeradiussqlconf', 'freeradiusmodulesldap', 'freeradiussync');
+		foreach ($uninstall as $unin) {
+			if (is_array($config['installedpackages'][$unin])) {
+				unset($config['installedpackages'][$unin]);
+			}
+		}
+		rmdir_recursive(FREERADIUS_RADDB, false);
+		write_config("[freeRADIUS] Package uninstalled.");
+	}
 }
 
 function freeradius_chown_recursive($dir, $user = "root", $group = "wheel") {

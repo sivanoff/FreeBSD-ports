@@ -261,6 +261,15 @@ $acme_domain_validation_method['dns_nsupdate'] = array('name' => "DNS-NSupdate /
 			'description' => "(Optional) Explicitly set the zone name for updates."
 		)
 	));
+$acme_domain_validation_method['dns_1984hosting'] = array('name' => "DNS-1984Hosting",
+	'fields' => array(
+		'One984HOSTING_Username' => array('name' => "one984hosting_username", 'columnheader' => "Username", 'type' => "textbox",
+			'description' => "1984Hosting Username"
+		),
+		'One984HOSTING_Password' => array('name' => "one984hosting_password", 'columnheader' => "Password", 'type' => "password",
+			'description' => "1984Hosting Password"
+		),
+	));
 $acme_domain_validation_method['dns_acmeproxy'] = array('name' => "DNS-Acmeproxy",
 	'fields' => array(
 		'ACMEPROXY_ENDPOINT' => array('name' => "acmeproxy_endpoint", 'columnheader' => "Endpoint URL", 'type' => "textbox",
@@ -319,6 +328,12 @@ $acme_domain_validation_method['dns_ad'] = array('name' => "DNS-Alwaysdata",
 	'fields' => array(
 		'AD_API_KEY' => array('name' => "ad_api_key", 'columnheader' => "API Key", 'type' => "textbox",
 			'description' => "Alwaysdata API Key"
+		)
+	));
+$acme_domain_validation_method['dns_arvan'] = array('name' => "DNS-Arvan",
+	'fields' => array(
+		'Arvan_Token' => array('name' => "arvan_token", 'columnheader' => "API Token", 'type' => "textbox",
+			'description' => "Arvan API Token"
 		)
 	));
 $acme_domain_validation_method['dns_autodns'] = array('name' => "DNS-autoDNS from InternetX",
@@ -729,6 +744,15 @@ $acme_domain_validation_method['dns_jd'] = array('name' => "DNS-jdcloud.com",
 		'JD_REGION' => array('name' => "jd_region", 'columnheader' => "Region", 'type' => "textbox",
 			'description' => "jdcloud Region"
 		),
+	));
+$acme_domain_validation_method['dns_joker'] = array('name' => "DNS-Joker.com",
+	'fields' => array(
+		'JOKER_USERNAME' => array('name' => "joker_username", 'columnheader' => "Username", 'type' => "textbox",
+			'description' => "Joker.com Username"
+		),
+		'JOKER_PASSWORD' => array('name' => "joker_password", 'columnheader' => "Password", 'type' => "password",
+			'description' => "Joker.com Password"
+		)
 	));
 $acme_domain_validation_method['dns_kinghost'] = array('name' => "DNS-Kinghost API",
 	'fields' => array(
@@ -1202,9 +1226,26 @@ function acme_custom_php_install_command() {
 	/* Remove old cron job (if present), see #9279 */
 	install_cron_job('/usr/local/pkg/acme/acme_command.sh "renewall"', false);
 	set_cronjob();
+	/* convert <desc> to <descr> to allow IDN characters, #10442 */
+	acme_convert_desc_to_descr();
 	$static_output .= "Acme, running acme_custom_php_install_command() DONE\n";
 	update_output_window($static_output);
 	acme_write_all_certificates();
+}
+
+function acme_convert_desc_to_descr() {
+	global $config;
+	init_config_arr(array('installedpackages', 'acme', 'accountkeys', 'item'));
+	init_config_arr(array('installedpackages', 'acme', 'certificates', 'item'));
+
+	foreach (array('accountkeys', 'certificates') as $a_array) {
+		foreach ($config['installedpackages']['acme'][$a_array]['item'] as & $item) {
+			if (isset($item['desc'])) {
+				$item['descr'] = $item['desc'];
+				unset($item['desc']);
+			}
+		}
+	}
 }
 
 function get_itembyname($a_array, $name) {
