@@ -180,10 +180,15 @@ function frr_bgp_generate_router() {
 		}
 		$bgpconf .= "\n";
 	}
-
-	/* (Re)distribute */
+	/* Address-family options */
 	foreach (array('ipv4', 'ipv6') as $ipfamily) {
 		$familyconf = '';
+		if (is_array($config['installedpackages']['frrbgpadvanced']['config'])) {
+			$frr_bgpadv_conf = &$config['installedpackages']['frrbgpadvanced']['config'][0];
+		} else {
+			$frr_bgpadv_conf = false;
+		}
+		/* (Re)distribute */
 		foreach (array('connected', 'static', 'kernel', 'ospf') as $redist) {
 			if ($redist == 'connected') {
 				$source = 'connectedsubnets';
@@ -208,6 +213,43 @@ function frr_bgp_generate_router() {
 					}
 					$familyconf .= "\n";
 				}
+			}
+		}
+		if ($frr_bgpadv_conf) {
+			/* Aggregate Behavior */
+			foreach ($frr_bgpadv_conf['row'] as $aggr) {
+				if ((is_subnetv4($aggr['aggregateaddr']) && ($ipfamily == 'ipv4')) ||
+				    (is_subnetv6($aggr['aggregateaddr']) && ($ipfamily == 'ipv6'))) {
+					$familyconf .= "   aggregate-address {$aggr['aggregateaddr']}";
+					if (!empty($aggr['aggregateasset'])) {
+						$familyconf .= " as-set";
+					}
+					if (!empty($aggr['aggregatesummaryonly'])) {
+						$familyconf .= " summary-only";
+					}
+					$familyconf .= "\n";
+				}
+			}
+			/* Admin distance requires both a distance value and a subnet/prefix */
+			if (frr_validate_intrange($frr_bgpadv_conf['distanceadmin'], 1, 255) &&
+			    (is_subnetv4($frr_bgpadv_conf['distanceadminprefix']) && ($ipfamily == 'ipv4')) ||
+			    (is_subnetv6($frr_bgpadv_conf['distanceadminprefix']) && ($ipfamily == 'ipv6'))) {
+				$familyconf .= "   distance {$frr_bgpadv_conf['distanceadmin']} {$frr_bgpadv_conf['distanceadminprefix']}";
+				if (in_array($frr_bgpadv_conf['distanceadminacl'], frr_get_list_values(frr_get_accesslist_list())) &&
+				    ($frr_bgpadv_conf['distanceadminacl'] != "none")) {
+					$familyconf .= " {$frr_bgpadv_conf['distanceadminacl']}";
+				}
+				$familyconf .= "\n";
+			}
+			/* For BGP distance, all three values must be set. */
+			if (frr_validate_intrange($frr_bgpadv_conf['bgpdistanceext'], 1, 255) &&
+			    frr_validate_intrange($frr_bgpadv_conf['bgpdistanceint'], 1, 255) &&
+			    frr_validate_intrange($frr_bgpadv_conf['bgpdistancelocal'], 1, 255)) {
+				$familyconf .= "   distance bgp {$frr_bgpadv_conf['bgpdistanceext']} {$frr_bgpadv_conf['bgpdistanceint']} {$frr_bgpadv_conf['bgpdistancelocal']}\n";
+			}
+			if (in_array($frr_bgpadv_conf['tablemap'], frr_get_list_values(frr_get_routemap_list())) &&
+			    ($frr_bgpadv_conf['tablemap'] != "none")) {
+				$familyconf .= "   table-map {$frr_bgpadv_conf['tablemap']}\n";
 			}
 		}
 		if (!empty($familyconf)) {
@@ -235,12 +277,6 @@ function frr_bgp_generate_routeradvanced() {
 	if (frr_validate_ulong($frr_bgpadv_conf['default_localpref'])) {
 		$advconf .= "  bgp default local-preference {$frr_bgpadv_conf['default_localpref']}\n";
 	}
-	/* TODO: Candidate for moving to address-family */
-	if (in_array($frr_bgpadv_conf['tablemap'], frr_get_list_values(frr_get_routemap_list())) &&
-	    ($frr_bgpadv_conf['tablemap'] != "none")) {
-		$advconf .= "  table-map {$frr_bgpadv_conf['tablemap']}\n";
-	}
-
 	/* Advanced Timers */
 	if (frr_validate_ulong($frr_bgpadv_conf['timers_coalesce'], 1)) {
 		$advconf .= "  coalesce-time {$frr_bgpadv_conf['timers_coalesce']}\n";
@@ -281,20 +317,6 @@ function frr_bgp_generate_routeradvanced() {
 		$advconf .= "  no bgp client-to-client reflection\n";
 	}
 
-	/* Aggregate Behavior -- Candidate for moving to address-family */
-	foreach ($frr_bgpadv_conf['row'] as $aggr) {
-		if (is_subnetv4($aggr['aggregateaddr'])) {
-			$advconf .= "  aggregate-address {$aggr['aggregateaddr']}";
-			if (!empty($aggr['aggregateasset'])) {
-				$advconf .= " as-set";
-			}
-			if (!empty($aggr['aggregatesummaryonly'])) {
-				$advconf .= " summary-only";
-			}
-			$advconf .= "\n";
-		}
-	}
-
 	/* Multi-Exit Discriminator */
 	if (!empty($frr_bgpadv_conf['meddeterministic'])) {
 		$advconf .= "  bgp deterministic-med\n";
@@ -331,27 +353,6 @@ function frr_bgp_generate_routeradvanced() {
 	if ($add_confedpeers) {
 		$advconf .= "  bgp confederation peers {$frr_bgpadv_conf['confedpeers']}\n";
 	}
-
-	/* Distance -- Candidate for moving to address-family (both)*/
-
-	/* Admin distance requires both a distance value and a subnet/prefix */
-	if (frr_validate_intrange($frr_bgpadv_conf['distanceadmin'], 1, 255) &&
-	    is_subnetv4($frr_bgpadv_conf['distanceadminprefix'])) {
-		$advconf .= "  distance {$frr_bgpadv_conf['distanceadmin']} {$frr_bgpadv_conf['distanceadminprefix']}";
-		if (in_array($frr_bgpadv_conf['distanceadminacl'], frr_get_list_values(frr_get_accesslist_list())) &&
-		    ($frr_bgpadv_conf['distanceadminacl'] != "none")) {
-			$advconf .= " {$frr_bgpadv_conf['distanceadminacl']}";
-		}
-		$advconf .= "\n";
-	}
-
-	/* For BGP distance, all three values must be set. */
-	if (frr_validate_intrange($frr_bgpadv_conf['bgpdistanceext'], 1, 255) &&
-	    frr_validate_intrange($frr_bgpadv_conf['bgpdistanceint'], 1, 255) &&
-	    frr_validate_intrange($frr_bgpadv_conf['bgpdistancelocal'], 1, 255)) {
-		$advconf .= "  distance bgp {$frr_bgpadv_conf['bgpdistanceext']} {$frr_bgpadv_conf['bgpdistanceint']} {$frr_bgpadv_conf['bgpdistancelocal']}\n";
-	}
-
 	/* Best Path Selection */
 	if (!empty($frr_bgpadv_conf['bgpbestpathasconfed'])) {
 		$advconf .= "  bgp bestpath as-path confed\n";
@@ -433,14 +434,17 @@ function frr_bgp_generate_neighbors() {
 				$nconf .= "  neighbor {$neighbor['peer']} peer-group {$neighbor['peergroup']}\n";
 				$tconf .= "  neighbor {$neighbor['peer']} peer-group {$neighbor['peergroup']}\n";
 			}
-			$afconf .= "  address-family";
-			if (is_ipaddrv4($neighbor['peer'])) {
-				$afconf .= " ipv4";
-			} elseif (is_ipaddrv6($neighbor['peer'])) {
-				$afconf .= " ipv6";
+
+			/* Both cases may be required by a neighbor. */
+			if (is_ipaddrv4($neighbor['peer']) || !empty($neighbor['bothaf'])) {
+				$afconf .= "  address-family ipv4 unicast\n";
+				$afconf .= "    neighbor {$neighbor['peer']} activate\n";
 			}
-			$afconf .= " unicast\n";
-			$afconf .= "    neighbor {$neighbor['peer']} activate\n";
+			if (is_ipaddrv6($neighbor['peer']) || !empty($neighbor['bothaf'])) {
+				$afconf .= "  address-family ipv6 unicast\n";
+				$afconf .= "    neighbor {$neighbor['peer']} activate\n";
+			}
+
 		} else {
 			/* This is not a valid neighbor! */
 			continue;
@@ -608,15 +612,16 @@ function frr_bgp_generate_neighbors() {
 			$tconf .= "\n";
 		}
 
-		if (frr_validate_intrange($neighbor['bfd_multiplier'], 2, 255)) {
-			$nconf .= "  neighbor {$neighbor['peer']} bfd {$neighbor['bfd_multiplier']}";
-			if (frr_validate_intrange($neighbor['bfd_minrx'], 50, 60000)) {
-				$nconf .= " {$neighbor['bfd_minrx']}";
-				if (frr_validate_intrange($neighbor['bfd_mintx'], 50, 60000)) {
-					$nconf .= " {$neighbor['bfd_mintx']}";
-				}
+		if (!empty($neighbor['bfdenable'])) {
+			if (!empty($neighbor['bfd_peer']) && ($neighbor['bfd_peer'] <> 'default')) {
+				$bfd_peer = $neighbor['bfd_peer'];
+			} else {
+				$bfd_peer = $neighbor['peer'];
+			}			
+			$nconf .= "  neighbor {$bfd_peer} bfd\n";
+			if(!empty($neighbor['bfd_check_control_plane_failure'])) {
+				$nconf .= "  neighbor {$bfd_peer} bfd check-control-plane-failure\n";
 			}
-			$nconf .= "\n";
 		}
 
 		if (in_array($neighbor['capability'], array('dynamic', 'extended-nexthop', 'orf'))) {
@@ -727,7 +732,7 @@ function frr_bgp_generate_aspaths() {
 		frr_array_seq_sort($asp['row']);
 		foreach ($asp['row'] as $line) {
 
-			$aspconf .= "ip as-path access-list {$asp['name']} {$line['action']} {$line['regex']}\n";
+			$aspconf .= "bgp as-path access-list {$asp['name']} {$line['action']} {$line['regex']}\n";
 		}
 	}
 	return $aspconf;
@@ -826,6 +831,10 @@ function frr_generate_config_bgp() {
 		}
 		if ($frr_conf['logging']) {
 			$bgpdconffile .= "log syslog\n";
+		}
+		/* SNMP AgentX Support*/
+		if ($frr_bgp_conf['enablesnmpagentx']) {
+			$bgpdconffile .= "agentx\n";
 		}
 
 		/* BGP Router Config */

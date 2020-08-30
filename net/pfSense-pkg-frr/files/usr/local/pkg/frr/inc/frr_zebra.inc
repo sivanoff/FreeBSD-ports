@@ -590,7 +590,7 @@ function frr_zebra_generate_staticroutes() {
 /* Generate a convenience list of accept filters */
 function frr_zebra_generate_acceptfilters() {
 	global $config, $frr_config_base;
-	$noaccept = "\n# Accept Filters\n";
+
 	/* Check OSPF Interfaces for automatic accept filters */
 	if (is_array($config['installedpackages']['frrospfdinterfaces']['config'])) {
 		foreach ($config['installedpackages']['frrospfdinterfaces']['config'] as $conf) {
@@ -599,6 +599,7 @@ function frr_zebra_generate_acceptfilters() {
 				continue;
 			}
 			if (!empty($conf['acceptfilter']) && is_ipaddrv4($subnet) && is_numericint($interface_subnet)) {
+				$noaccept = $noaccept ?: "\n# Accept Filters\n";
 				$noaccept .= "ip prefix-list ACCEPTFILTER deny {$subnet}/{$interface_subnet}\n";
 				$noaccept .= "ip prefix-list ACCEPTFILTER deny {$interface_ip}/32\n";
 			}
@@ -609,6 +610,7 @@ function frr_zebra_generate_acceptfilters() {
 	if (is_array($config['installedpackages']['frr']['config'][0]['row'])) {
 		foreach ($config['installedpackages']['frr']['config'][0]['row'] as $redistr) {
 			if (isset($redistr['acceptfilter'])) {
+				$noaccept = $noaccept ?: "\n# Accept Filters\n";
 				$noaccept .= "ip prefix-list ACCEPTFILTER deny {$redistr['routevalue']}\n";
 			}
 		}
@@ -655,6 +657,10 @@ function frr_generate_config_zebra() {
 		if ($frr_conf['logging']) {
 			$zebraconffile .= "log syslog\n";
 		}
+		/* SNMP AgentX Support*/
+		if ($frr_conf['enablesnmpagentx']) {
+			$zebraconffile .= "agentx\n";
+		}
 
 		/* Access Lists */
 		$zebraconffile .= frr_zebra_generate_accesslists();
@@ -696,10 +702,10 @@ function frr_generate_config_zebra() {
 
 /* The following function checks for the presence of and writes the contents of "/var/etc/frr/$module.conf" into the $module . "running" field within the config.xml file  */
 function write_frr_running_config() {
-	global $config, $frr_config_base;
-	$modules = array('zebra', 'staticd', 'bgpd', 'ospfd', 'ospf6d');
+	global $config, $frr_config_base, $frr_modules;
+	$modules = array('zebra', 'staticd', 'bgpd', 'ospfd', 'ospf6d', 'bfdd');
 
-	foreach ($modules as $module) {
+	foreach ($frr_modules as $module) {
 		$moduleRunningFile = "{$frr_config_base}/{$module}.conf";
 		if (file_exists($moduleRunningFile) && (filesize($moduleRunningFile) > 0)) {
 			$moduleRunning = fopen("$moduleRunningFile", "r");

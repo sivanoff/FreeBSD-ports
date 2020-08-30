@@ -1032,6 +1032,7 @@ function convert_pfxml_to_sgxml() {
     $sgxml[F_LDAPENABLE]       = $pfxml['ldap_enable'];
     $sgxml[F_LDAPBINDDN]       = $pfxml['ldapbinddn'];
     $sgxml[F_LDAPBINDPASS]     = $pfxml['ldapbindpass'];
+    $sgxml[F_LDAPCACHETIME]    = $pfxml['ldapcachetime'];
     $sgxml[F_LDAPVERSION]      = $pfxml['ldapversion'];
     $sgxml[F_STRIPNTDOMAIN]    = $pfxml['stripntdomain'];
     $sgxml[F_STRIPREALM]       = $pfxml['striprealm'];
@@ -1047,6 +1048,11 @@ function convert_pfxml_to_sgxml() {
     $sgxml[F_TIMES]            = convert_pfxml_to_sgxml_time($config);
     $sgxml[F_ACLS]             = convert_pfxml_to_sgxml_acl($config);
     $sgxml[F_DEFAULT]          = convert_pfxml_to_sgxml_default($config);
+
+    # url_rewrite_children options
+    $sgxml[F_REWRITE_CH]		= $pfxml['rewrite_children'];
+    $sgxml[F_REWRITE_CH_STARTUP]	= $pfxml['rewrite_children_startup'];
+    $sgxml[F_REWRITE_CH_IDLE]		= $pfxml['rewrite_children_idle'];
 
     # log
     $sgxml[F_ENABLELOG]    = $pfxml['enable_log']    == 'on' ? 'on' : 'off';

@@ -172,14 +172,8 @@ $a_acmeserver = array();
 $a_acmeserver['letsencrypt-staging-2'] = array('name' => "Let's Encrypt Staging ACME v2 (for TESTING purposes)",
     'url' => 'https://acme-staging-v02.api.letsencrypt.org'
 );
-$a_acmeserver['letsencrypt-staging'] = array('name' => "Let's Encrypt Staging ACME v1 (for TESTING purposes)",
-    'url' => 'https://acme-staging.api.letsencrypt.org',
-);
 $a_acmeserver['letsencrypt-production-2'] = array('name' => "Let's Encrypt Production ACME v2 (Applies rate limits to certificate requests)",
     'url' => 'https://acme-v02.api.letsencrypt.org'
-);
-$a_acmeserver['letsencrypt-production'] = array('name' => "Let's Encrypt Production ACME v1 (Applies rate limits to certificate requests)",
-    'url' => 'https://acme-v01.api.letsencrypt.org',
 );
 $a_acmeserver['buypass-production'] = array('name' => "BuyPass Production ACME v1 (Applies rate limits to certificate requests)",
     'url' => 'https://api.buypass.com/acme'
@@ -1228,6 +1222,7 @@ function acme_custom_php_install_command() {
 	set_cronjob();
 	/* convert <desc> to <descr> to allow IDN characters, #10442 */
 	acme_convert_desc_to_descr();
+	acme_convert_letsencryptv1_to_letsencryptv2();
 	$static_output .= "Acme, running acme_custom_php_install_command() DONE\n";
 	update_output_window($static_output);
 	acme_write_all_certificates();
@@ -1244,6 +1239,19 @@ function acme_convert_desc_to_descr() {
 				$item['descr'] = $item['desc'];
 				unset($item['desc']);
 			}
+		}
+	}
+}
+
+function acme_convert_letsencryptv1_to_letsencryptv2() {
+	global $config;
+	init_config_arr(array('installedpackages', 'acme', 'accountkeys', 'item'));
+
+	foreach ($config['installedpackages']['acme']['accountkeys']['item'] as & $item) {
+		if ($item['acmeserver'] == 'letsencrypt-staging') {
+			$item['acmeserver'] = 'letsencrypt-staging-2';
+		} elseif ($item['acmeserver'] == 'letsencrypt-production') {
+			$item['acmeserver'] = 'letsencrypt-production-2';
 		}
 	}
 }
@@ -1370,10 +1378,31 @@ function & get_certificate($name) {
 			echo "\n{$cert['prv']}";
 			$desc = "Acme: Add new certificate & key.";
 			write_config($desc);
-		} elseif (   $certificate['keylength'] == 'custom'
-				  && $cert['prv'] != $certificate['keypaste']) {
+		} elseif (($certificate['keylength'] == 'custom') && ($cert['prv'] != $certificate['keypaste'])) {
 			echo "\n getCertificatePSK updating custom key";
 			$cert['prv'] = $certificate['keypaste']; // (already base64-encoded)
+		} elseif ($certificate['keylength'] != 'custom') {
+			$res_key = openssl_pkey_get_private(base64_decode($cert['prv']));
+			$key_details = openssl_pkey_get_details($res_key);
+			if ($key_details['type'] == OPENSSL_KEYTYPE_RSA) {
+				$keybits = $key_details['bits'];
+			} else {
+				$keybits = $key_details['ec']['curve_name'];
+			}
+			if (is_numeric($certificate['keylength'])) {
+				$newkeybits = $certificate['keylength'];
+			} else {
+				if ($certificate['keylength'] == 'ec-256') {
+					$newkeybits = 'prime256v1';
+				} else {
+					$newkeybits = 'secp384r1';
+				}
+			}
+			if ($keybits != $newkeybits) {
+				echo "\n getCertificatePSK updating key";
+				$privatekey = generateDomainKey($certificatename, $ca, $domain, $certificate['keylength']);
+				$cert['prv'] = base64_encode($privatekey);
+			}
 		}
 
 		return base64_decode($cert['prv']);

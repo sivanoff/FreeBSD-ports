@@ -124,7 +124,7 @@ function squid_resync_reverse() {
 	}
 
 	// Reverse Proxy HTTPS security settings
-	$options = "NO_SSLv2,NO_SSLv3,CIPHER_SERVER_PREFERENCE";
+	$options = "NO_SSLv3,CIPHER_SERVER_PREFERENCE";
 	if (empty($settings['reverse_compatibility_mode']) || ($settings['reverse_compatibility_mode'] == 'modern')) {
 		// Modern
 		$ciphers = "cipher=ECDHE-RSA-AES128-GCM-SHA256:ECDHE-ECDSA-AES128-GCM-SHA256:ECDHE-RSA-AES256-GCM-SHA384:ECDHE-ECDSA-AES256-GCM-SHA384:DHE-RSA-AES128-GCM-SHA256:DHE-DSS-AES128-GCM-SHA256:kEDH+AESGCM:ECDHE-RSA-AES128-SHA256:ECDHE-ECDSA-AES128-SHA256:ECDHE-RSA-AES128-SHA:ECDHE-ECDSA-AES128-SHA:ECDHE-RSA-AES256-SHA384:ECDHE-ECDSA-AES256-SHA384:ECDHE-RSA-AES256-SHA:ECDHE-ECDSA-AES256-SHA:DHE-RSA-AES128-SHA256:DHE-RSA-AES128-SHA:DHE-DSS-AES128-SHA256:DHE-RSA-AES256-SHA256:DHE-DSS-AES256-SHA:DHE-RSA-AES256-SHA:!aNULL:!eNULL:!EXPORT:!DES:!RC4:!3DES:!SHA1:!MD5:!PSK";
@@ -166,19 +166,32 @@ function squid_resync_reverse() {
 		}
 	}
 
+	if (empty($settings['reverse_listenproto'])) {
+		$listenproto = 'inet';
+	} else {
+		$listenproto = $settings['reverse_listenproto'];
+	}
+
 	foreach (explode(",", $ifaces) as $i => $iface) {
-		$real_ifaces[] = squid_get_real_interface_address($iface, 'inet');
-		if ($real_ifaces[$i][0]) {
-			//HTTP
-			if ((!empty($settings['reverse_http'])) || ($settings['reverse_owa_autodiscover'] == 'on')) {
-				$conf .= "http_port {$real_ifaces[$i][0][0]}:{$http_port} accel defaultsite={$http_defsite} vhost\n";
-			}
-			//HTTPS
-			if (!empty($settings['reverse_https'])) {
-				// Squid will fail when the line length exceeds 1024 characters, this can happen because of the long ciphersuite so break the line
-				$conf .= "https_port {$real_ifaces[$i][0][0]}:{$https_port} accel cert={$reverse_crt} key={$reverse_key} {$clientca_opts} {$sslflags_https_port_iface} {$dhparams} {$ciphers} \\\n";
-				$conf .= " options={$options} defaultsite={$https_defsite} vhost\n";
-				$conf .= "\n";
+		$ifaces_ips = squid_get_real_interface_address($iface, $listenproto);
+		foreach ($ifaces_ips as $iface_ip) {
+			if ($iface_ip[0]) {
+				//HTTP
+				if (is_ipaddrv4($iface_ip[0])) {
+					$listenip = "{$iface_ip[0]}";
+				} else {
+					$listenip = "[{$iface_ip[0]}]";
+				}
+				if ((!empty($settings['reverse_http'])) || ($settings['reverse_owa_autodiscover'] == 'on')) {
+					$conf .= "http_port {$listenip}:{$http_port} accel defaultsite={$http_defsite} vhost\n";
+				}
+				//HTTPS
+				if (!empty($settings['reverse_https'])) {
+					// Squid will fail when the line length exceeds 1024 characters, this can happen because of the long ciphersuite so break the line
+					$conf .= "https_port {$listenip}:{$https_port} accel cert={$reverse_crt} key={$reverse_key} {$clientca_opts} {$sslflags_https_port_iface} {$dhparams} {$ciphers} \\\n";
+					$conf .= " options={$options} defaultsite={$https_defsite} vhost\n";
+					$conf .= "\n";
+				}
 			}
 		}
 	}
@@ -478,7 +491,7 @@ function squid_validate_reverse($post, &$input_errors) {
 		squid_refresh_crl();
 	}
 
-	if ($post['reverse_http'] == 'on' || $post['reverse_https'] == 'on') {
+	if (($post['reverse_http'] == 'on') || ($post['reverse_https'] == 'on')) {
 		if (empty($post['reverse_interface'])) {
 			$input_errors[] = "You must select at least one interface under 'Reverse Proxy Interface(s)' to enable HTTP Reverse Proxy.";
 		}
@@ -487,6 +500,40 @@ function squid_validate_reverse($post, &$input_errors) {
 			$input_errors[] = "'External FQDN' field must contain a valid domain name.";
 		}
 		unset($fqdn);
+	}
+
+	if (!empty($post['reverse_listenproto'])) {
+		if ($post['reverse_listenproto'] == 'inet') {
+			foreach ($post['reverse_interface'] as $a_int) {
+				if (get_interface_ip($a_int)) {
+					$int_proto_ok = true;
+					break;
+				}
+			}
+			if (!$int_proto_ok) {
+				$input_errors[] = "At least one interface with IPv4 address must be selected.";
+			}
+		} elseif ($post['reverse_listenproto'] == 'inet6') {
+			foreach ($post['reverse_interface'] as $a_int) {
+				if (get_interface_ipv6($a_int)) {
+					$int_proto_ok = true;
+					break;
+				}
+			}
+			if (!$int_proto_ok) {
+				$input_errors[] = "At least one interface with IPv6 address must be selected.";
+			}
+		} else {
+			foreach ($post['reverse_interface'] as $a_int) {
+				if (get_interface_ip($a_int) || get_interface_ipv6($a_int)) {
+					$int_proto_ok = true;
+					break;
+				}
+			}
+			if (!$int_proto_ok) {
+				$input_errors[] = "At least one interface with IPv4 or IPv6 address must be selected.";
+			}
+		}
 	}
 
 	if (!empty($post['reverse_ip'])) {

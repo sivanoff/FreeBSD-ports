@@ -2,8 +2,7 @@
 # $FreeBSD$
 
 PORTNAME=	wine
-DISTVERSION=	5.0
-PORTREVISION=	1
+DISTVERSION=	5.0.1
 PORTEPOCH=	1
 CATEGORIES=	emulators
 MASTER_SITES=	SF/${PORTNAME}/Source \
@@ -44,7 +43,8 @@ CONFIGURE_ARGS+=--verbose \
 		--without-sdl \
 		--without-tiff \
 		--without-udev \
-		--without-unwind 
+		--without-unwind \
+		--without-usb
 CONFIGURE_ENV=	CPPBIN="${CPP}" FLEX="${LOCALBASE}/bin/flex"
 WINELIBDIR?=	${PREFIX}/lib
 .if !defined(USE_LDCONFIG32)
@@ -123,7 +123,7 @@ X11_LIB_DEPENDS=	libfontconfig.so:x11-fonts/fontconfig \
 
 # Include this only if it has not been already included by the
 # i386-wine slave port.
-.ifndef PKGNAMEPREFIX
+.ifndef WINE_SLAVE_BUILD
 .include <bsd.port.pre.mk>
 .endif
 
@@ -166,6 +166,6 @@ post-install:
 	${INSTALL_DATA} ${WRKSRC}/programs/winedbg/README ${STAGEDIR}${DOCSDIR}/README.winedbg
 	${INSTALL_DATA} ${WRKSRC}/tools/winedump/README ${STAGEDIR}${DOCSDIR}/README.winedump
 
-.ifndef PKGNAMEPREFIX
+.ifndef WINE_SLAVE_BUILD
 .include <bsd.port.post.mk>
 .endif
