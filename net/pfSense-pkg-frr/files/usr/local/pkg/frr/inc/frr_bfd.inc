@@ -3,7 +3,7 @@
  * frr_bfd.inc
  *
  * part of pfSense (https://www.pfsense.org)
- * Copyright (c) 2017-2020 Rubicon Communications, LLC (Netgate)
+ * Copyright (c) 2017-2021 Rubicon Communications, LLC (Netgate)
  * All rights reserved.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -26,7 +26,7 @@ function frr_get_bfd_peers($includedefault = true) {
 
 	if ($includedefault) {
 		$peers[] = array('name' => 'Default', 'value' => 'default');
-	}	
+	}
 	if (is_array($config['installedpackages']['frrbfdpeers']['config'])) {
 		foreach ($config['installedpackages']['frrbfdpeers']['config'] as $peer) {
 			$peer_name = $peer['peer'];
@@ -69,6 +69,76 @@ function frr_get_bfd_source_addresses($includedefault = true) {
 	return $addresses;
 }
 
+/* Fetch a list of BFD profiles for use in selection lists */
+function frr_get_bfd_profiles() {
+	global $config;
+
+	$list = array();
+	$list[] = PKG_FRR_LIST_NONE_VALUE;
+
+	if (is_array($config['installedpackages']['frrbfdprofiles']['config'])) {
+		$frr_bfd_profiles = &$config['installedpackages']['frrbfdprofiles']['config'];
+		foreach ($frr_bfd_profiles as $profile) {
+			$name = empty($profile['descr']) ? $profile['name'] : "{$profile['name']} - {$profile['descr']}";
+			$list[] = array("name" => $name, "value" => $profile['name']);
+			unset($name);
+		}
+	}
+
+	return ($list);
+}
+
+/* Generate BFD Profiles configuration lines */
+function frr_bfd_generate_profiles() {
+	global $config;
+
+	/* Populate FRR BFD profiles definitions */
+	if (is_array($config['installedpackages']['frrbfdprofiles']['config'])) {
+		$frr_bfd_profiles = &$config['installedpackages']['frrbfdprofiles']['config'];
+	} else {
+		/* No BFD profiles config, stop. */
+		return null;
+	}
+
+	$bfdprofileconf = "";
+	/* Loop through Profiles and process */
+	foreach ($frr_bfd_profiles as $profile) {
+		/* Profile Definition */
+		$bfdprofileconf .= " profile {$profile['name']}\n";
+
+		/* Profile Options */
+		if (frr_validate_intrange($profile['detectmultiplier'], 2, 255)) {
+			$bfdprofileconf .= "  detect-multiplier {$profile['detectmultiplier']}\n";
+		}
+		if (frr_validate_intrange($profile['receiveinterval'], 10, 60000)) {
+			$bfdprofileconf .= "  receive-interval {$profile['receiveinterval']}\n";
+		}
+		if (frr_validate_intrange($profile['transmitinterval'], 10, 60000)) {
+			$bfdprofileconf .= "  transmit-interval {$profile['transmitinterval']}\n";
+		}
+		if (frr_validate_intrange($profile['echointerval'], 10, 60000)) {
+			$bfdprofileconf .= "  echo-interval {$profile['echointerval']}\n";
+		}
+		if (!empty($profile['passive'])) {
+			$bfdprofileconf .= "  passive-mode\n";
+		}
+		if (!empty($profile['shutdown'])) {
+			$bfdprofileconf .= "  shutdown\n";
+		} else {
+			$bfdprofileconf .= "  no shutdown\n";
+		}
+		if (!empty($profile['echomode'])) {
+			$bfdprofileconf .= "  echo-mode\n";
+		}
+		if (frr_validate_intrange($profile['minimumttl'], 1, 254)) {
+			$bfdprofileconf .= "  minimum-ttl {$profile['minimumttl']}\n";
+		}
+		$bfdprofileconf .= " !\n";
+	}
+
+	return $bfdprofileconf;
+}
+
 /* Generate BFD Peers configuration lines */
 function frr_bfd_generate_peers() {
 	global $config;
@@ -80,9 +150,8 @@ function frr_bfd_generate_peers() {
 		/* No BFD peer config, stop. */
 		return null;
 	}
-	/* Section header */
-	$bfddconffile = "\n# Peers";
 
+	$bfdpeerconf = "";
 	/* Loop through Peers and process */
 	foreach ($frr_bfd_peers as $peer) {
 		if (is_ipaddr($peer['peer'])) {
@@ -91,37 +160,44 @@ function frr_bfd_generate_peers() {
 			if (!empty($peer['multihop'])) {
 				$bfdpeerconf .= " multihop";
 			}
-			if (!empty($peer['local_address']) && $peer['interface'] <> 'default') {
+			if (!empty($peer['local_address']) && ($peer['interface'] <> 'default')) {
 				$bfdpeerconf .= " local-address {$peer['local_address']}";
 			}
-			if (!empty($peer['interface']) && $peer['interface'] <> 'default') {
+			if (!empty($peer['interface']) && ($peer['interface'] <> 'default')) {
 				$realif = get_real_interface($peer['interface']);
 				$bfdpeerconf .= " interface {$realif}";
 			}
 			$bfdpeerconf .= "\n";
 
 			/* Peer Options */
-			if (!empty($peer['label'])) {
-				$bfdpeerconf .= "  label {$peer['label']}\n";
-			}
-			if (frr_validate_intrange($peer['detectmultiplier'], 2, 255)) {
-				$bfdpeerconf .= "  detect-multiplier {$peer['detectmultiplier']}\n";
-			}
-			if (frr_validate_intrange($peer['receiveinterval'], 10, 60000)) {
-				$bfdpeerconf .= "  receive-interval {$peer['receiveinterval']}\n";
-			}
-			if (frr_validate_intrange($peer['transmitinterval'], 10, 60000)) {
-				$bfdpeerconf .= "  transmit-interval {$peer['transmitinterval']}\n";
-			}
-			if (frr_validate_intrange($peer['echointerval'], 10, 60000)) {
-				$bfdpeerconf .= "  transmit-interval {$peer['echointerval']}\n";
-			}
-			if (!empty($peer['shutdown'])) {
-				$bfdpeerconf .= "  shutdown\n";
+			if ((empty($peer['profile'])) || ($peer['profile'] == 'none')) {
+				if (!empty($peer['label'])) {
+					$bfdpeerconf .= "  label {$peer['label']}\n";
+				}
+				if (frr_validate_intrange($peer['detectmultiplier'], 2, 255)) {
+					$bfdpeerconf .= "  detect-multiplier {$peer['detectmultiplier']}\n";
+				}
+				if (frr_validate_intrange($peer['receiveinterval'], 10, 60000)) {
+					$bfdpeerconf .= "  receive-interval {$peer['receiveinterval']}\n";
+				}
+				if (frr_validate_intrange($peer['transmitinterval'], 10, 60000)) {
+					$bfdpeerconf .= "  transmit-interval {$peer['transmitinterval']}\n";
+				}
+				if (frr_validate_intrange($peer['echointerval'], 10, 60000)) {
+					$bfdpeerconf .= "  echo-interval {$peer['echointerval']}\n";
+				}
+				if (!empty($peer['shutdown'])) {
+					$bfdpeerconf .= "  shutdown\n";
+				} else {
+					$bfdpeerconf .= "  no shutdown\n";
+				}
+				if (!empty($peer['echomode'])) {
+					$bfdpeerconf .= "  echo-mode\n";
+				}
 			} else {
-				$bfdpeerconf .= "  no shutdown\n";
+				$bfdpeerconf .= "  profile {$peer['profile']}\n";
 			}
-			$bfdpeerconf .= "\n";
+			$bfdpeerconf .= " !\n";
 		}
 	}
 
@@ -130,47 +206,47 @@ function frr_bfd_generate_peers() {
 
 /* Generate BFD configuration lines */
 function frr_generate_config_bfd() {
-	global $config, $frr_config_base, $frr_auto_config_warning;
-	unlink_if_exists("{$frr_config_base}/bfdd.conf");
+	global $config, $frr_config_base, $frr_integrated_config;
+
 	/* Make bfdd config */
 	if (is_array($config['installedpackages']['frr']['config'])) {
 		$frr_conf = &$config['installedpackages']['frr']['config'][0];
 	} else {
 		/* If FRR is not configured, stop. */
+		frr_package_log("FRR BFDd: No FRR global config data found.");
 		return null;
 	}
 	/* Populate FRR BFD Settings */
 	if (is_array($config['installedpackages']['frrbfd']['config'])) {
 		$frr_bfd_conf = &$config['installedpackages']['frrbfd']['config'][0];
-	} else {
-		/* No BFD config, stop. */
-		return null;
 	}
 
 	if (isset($config['installedpackages']['frrglobalraw']['config'][0]['bfdd']) &&
-	    !empty($config['installedpackages']['frrglobalraw']['config'][0]['bfdd'])) {
+		!empty($config['installedpackages']['frrglobalraw']['config'][0]['bfdd'])) {
 		// if there is a raw config specified in the config.xml use that instead of the assisted config
-		$bfddconffile = str_replace("\r","",base64_decode($config['installedpackages']['frrglobalraw']['config'][0]['bfdd']));
+		$frr_integrated_config['bfdd'] = str_replace("\r","",base64_decode($config['installedpackages']['frrglobalraw']['config'][0]['bfdd']));
 	} else {
 		/* If there is no raw configuration and no GUI configuration, stop. */
-		if (empty($frr_conf['enable']) || empty($frr_bfd_conf['enable'])) {
+		if (empty($frr_bfd_conf)) {
+			frr_package_log("FRR BFDd: No config data found.");
+			return;
+		} elseif (empty($frr_bfd_conf['enable'])) {
+			/* BFD Daemon is not enabled. */
+			frr_package_log("FRR BFDd: BFD disabled.");
+			return;
+		} elseif (empty($frr_conf['enable'])) {
 			/* FRR is disabled or BFD Daemon is not enabled. */
+			frr_package_log("FRR BFDd: FRR master disabled.");
 			return;
 		}
-		$bfddconffile = $frr_auto_config_warning;
 
-		/* Pull the password from the global settings */
-		if ($frr_conf['password']) {
-			$bfddconffile .= "password {$frr_conf['password']}\n";
-		}
-		if ($frr_conf['logging']) {
-			$bfddconffile .= "log syslog\n";
-		}
+		$frr_integrated_config['bfdd'] = "";
+		$frr_integrated_config['bfdd'] .= "bfd\n";
 
-		$bfddconffile .= "\nbfd\n";
+		/* BFD Profiles */
+		$frr_integrated_config['bfdd'] .= frr_bfd_generate_profiles();
 
 		/* BFD Peers */
-		$bfddconffile .= frr_bfd_generate_peers();
+		$frr_integrated_config['bfdd'] .= frr_bfd_generate_peers();
 	}
-	file_put_contents("{$frr_config_base}/bfdd.conf", $bfddconffile);
 }

@@ -3,7 +3,7 @@
  * lcdproc_screens.php
  *
  * part of pfSense (https://www.pfsense.org/)
- * Copyright (c) 2016-2020 Rubicon Communications, LLC (Netgate)
+ * Copyright (c) 2016-2021 Rubicon Communications, LLC (Netgate)
  * Copyright (c) 2016 Treer
  * Copyright (c) 2008 Mark J Crane
  * All rights reserved.
@@ -91,7 +91,7 @@ if ($_POST) {
 		$lcdproc_screens_config['scr_traffic_by_address_filter']       = $pconfig['scr_traffic_by_address_filter'];
 		$lcdproc_screens_config['scr_traffic_by_address_hostipformat'] = $pconfig['scr_traffic_by_address_hostipformat'];
 
-		write_config();
+		write_config("lcdproc: Screen settings saved");
 		sync_package_lcdproc();
 	}
 }

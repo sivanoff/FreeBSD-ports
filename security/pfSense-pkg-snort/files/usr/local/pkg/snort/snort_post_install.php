@@ -3,7 +3,7 @@
  * snort_post_install.php
  *
  * part of pfSense (https://www.pfsense.org)
- * Copyright (c) 2006-2020 Rubicon Communications, LLC (Netgate)
+ * Copyright (c) 2006-2021 Rubicon Communications, LLC (Netgate)
  * Copyright (c) 2009-2010 Robert Zelaya
  * Copyright (c) 2013-2020 Bill Meeks
  * All rights reserved.
@@ -162,12 +162,14 @@ if ($config['installedpackages']['snortglobal']['forcekeepsettings'] == 'on') {
 	/* End of duplicate UUID bug fix.                               */
 	/****************************************************************/
 
-	/* Do one-time settings migration for new multi-engine configurations */
+	/* Do any required settings migration for new configurations */
 	update_status(gettext("Migrating settings to new configuration..."));
 	include('/usr/local/pkg/snort/snort_migrate_config.php');
 	update_status(gettext(" done.") . "\n");
 	syslog(LOG_NOTICE, gettext("[Snort] Downloading and updating configured rule sets."));
+	update_status(gettext("Downloading configured rule sets. This may take some time...") . "\n");
 	include('/usr/local/pkg/snort/snort_check_for_rule_updates.php');
+	update_status(gettext("Finished downloading and installing configured rules.") . "\n");
 	update_status(gettext("Generating snort.conf configuration file from saved settings.") . "\n");
 	$rebuild_rules = true;
 

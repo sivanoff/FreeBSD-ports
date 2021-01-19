@@ -8,7 +8,7 @@
  * frr_bgp_aspaths.xml
  *
  * part of pfSense (https://www.pfsense.org)
- * Copyright (c) 2012-2020 Rubicon Communications, LLC (Netgate)
+ * Copyright (c) 2012-2021 Rubicon Communications, LLC (Netgate)
  * All rights reserved.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -50,6 +50,10 @@
 		<tab>
 			<text>Communities</text>
 			<url>pkg.php?xml=frr/frr_bgp_communities.xml</url>
+		</tab>
+		<tab>
+			<text>RPKI Cache Servers</text>
+			<url>pkg.php?xml=frr/frr_bgp_rpki_cache_servers.xml</url>
 		</tab>
 		<tab>
 			<text>[Global Settings]</text>
@@ -145,6 +149,9 @@
 			</rowhelper>
 		</field>
 	</fields>
+	<custom_delete_php_command>
+		frr_generate_config();
+	</custom_delete_php_command>
 	<custom_php_resync_config_command>
 		frr_generate_config();
 	</custom_php_resync_config_command>

@@ -3,7 +3,7 @@
  * freeradius.inc
  *
  * part of pfSense (https://www.pfsense.org)
- * Copyright (c) 2015-2020 Rubicon Communications, LLC (Netgate)
+ * Copyright (c) 2015-2021 Rubicon Communications, LLC (Netgate)
  * Copyright (c) 2013 Alexander Wilke <nachtfalkeaw@web.de>
  * Copyright (c) 2013 Marcello Coutinho
  * All rights reserved.
@@ -269,7 +269,12 @@ SERVICENAME="radiusd"
 	fi
 
 EOD;
-	$rcfile['stop'] = FREERADIUS_ETC . '/rc.d/radiusd onestop';
+
+	$rcfile['stop'] = <<<EOD
+	if [ ! -f "/tmp/radiusd_start.lock" ]; then
+		{$freeradius_etc_dir}/rc.d/radiusd onestop
+	fi
+EOD;
 	write_rcfile($rcfile);
 }
 
@@ -282,7 +287,7 @@ function freeradius_settings_resync($restart_svc = true) {
 
 	$frlib = freeradius_get_libdir();
 
-	// We do some checks of some folders which will be deleted after reboot on nanobsd systems
+	// We do some checks of some folders which will be deleted after reboot on ramdisk systems
 	safe_mkdir("/var/log/radacct/datacounter/daily");
 	safe_mkdir("/var/log/radacct/datacounter/weekly");
 	safe_mkdir("/var/log/radacct/datacounter/monthly");
@@ -1319,9 +1324,11 @@ EOD;
 			if (base64_decode($svr_cert['prv'])) {
 				file_put_contents(FREERADIUS_CERTS . "/server_key.pem", base64_decode($svr_cert['prv']));
 			}
-		}
-		if (base64_decode($svr_cert['crt'])) {
-			file_put_contents(FREERADIUS_CERTS . "/server_cert.pem", base64_decode($svr_cert['crt']));
+			if (base64_decode($svr_cert['crt'])) {
+				file_put_contents(FREERADIUS_CERTS . "/server_cert.pem", 
+					base64_decode($svr_cert['crt']) . "\n" .
+					ca_chain($svr_cert));
+			}
 		}
 	}
 
@@ -2054,6 +2061,10 @@ EOD;
 		sql1
 		{$varsqlconf2authorize}
 	}
+	dailycounter
+	monthlycounter
+	noresetcounter
+	expire_on_login
 
 EOD;
 	} else {
@@ -3739,6 +3750,7 @@ ATTRIBUTE 		MOTP-PIN 			901 	string
 ATTRIBUTE 		MOTP-Offset 			902 	string
 
 \$INCLUDE /usr/share/doc/radius/dictionary.pfsense
+\$INCLUDE /usr/local/pkg/dictionary.mpd
 
 EOD;
 
@@ -3762,6 +3774,9 @@ function freeradius_validate_users($post, &$input_errors) {
 	// Password
 	if (($post['varusersmotpenable'] == 'on') && ($post['varuserspassword'] != '')) {
 		$input_errors[] = "The 'Password' field must be left empty when 'Enable One-Time-Password for this user' is checked.";
+	}
+	if (!empty($post['varuserspassword']) && strpos($post['varuserspassword'], "\"")) {
+		$input_errors[] = "The '\"' character is not allowed in the Password field.";
 	}
 
 	// OTP method
@@ -3829,15 +3844,9 @@ function freeradius_validate_users($post, &$input_errors) {
 		$input_errors[] = "Do not use special characters in the 'Description' field; only /^[a-zA-Z0-9 _,.;:+=()-]*$/ allowed.";
 	}
 
-	// IP Address; may contain a single trailing '+' for simultaneous connections
-	if ($post['varusersframedipaddress']) {
-		$framedip = str_replace('+', '', $post['varusersframedipaddress'], $pluscnt);
-		if (!is_ipaddrv4($framedip)) {
-			$input_errors[] = "The 'IPv4 Address' field must contain a valid IPv4 address.";
-		}
-		if ($pluscnt > 1) {
-			$input_errors[] = "The 'IPv4 Address' field may optionally contain only a single trailing '+'.";
-		}
+	// IPv4 Address
+	if ($post['varusersframedipaddress'] && !is_ipaddrv4($post['varusersframedipaddress'])) {
+		$input_errors[] = "The 'IPv4 Address' field must contain a valid IPv4 address.";
 	}
 
 	// Subnet Mask
@@ -3989,15 +3998,9 @@ function freeradius_validate_macs($post, &$input_errors) {
 		$input_errors[] = "Do not use special characters in the 'Description' field; only /^[a-zA-Z0-9 _,.;:+=()-]*$/ allowed.";
 	}
 
-	// IP Address; may contain a single trailing '+' for simultaneous connections
-	if ($post['varmacsframedipaddress']) {
-		$framedip = str_replace('+', '', $post['varmacsframedipaddress'], $pluscnt);
-		if (!is_ipaddrv4($framedip)) {
-			$input_errors[] = "The 'IPv4 Address' field must contain a valid IPv4 address.";
-		}
-		if ($pluscnt > 1) {
-			$input_errors[] = "The 'IPv4 Address' field may optionally contain only a single trailing '+'.";
-		}
+	// IPv4 Address
+	if ($post['varusersframedipaddress'] && !is_ipaddrv4($post['varusersframedipaddress'])) {
+		$input_errors[] = "The 'IPv4 Address' field must contain a valid IPv4 address.";
 	}
 
 	// Subnet Mask

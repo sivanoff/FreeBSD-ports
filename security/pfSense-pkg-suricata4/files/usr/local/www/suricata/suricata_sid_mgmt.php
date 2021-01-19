@@ -3,7 +3,7 @@
  * suricata_sid_mgmt.php
  *
  * part of pfSense (https://www.pfsense.org)
- * Copyright (c) 2006-2020 Rubicon Communications, LLC (Netgate)
+ * Copyright (c) 2006-2021 Rubicon Communications, LLC (Netgate)
  * Copyright (c) 2003-2004 Manuel Kasper
  * Copyright (c) 2005 Bill Marquette
  * Copyright (c) 2009 Robert Zelaya Sr. Developer
@@ -372,10 +372,6 @@ $tab_array[] = array(gettext("SID Mgmt"), true, "/suricata/suricata_sid_mgmt.php
 $tab_array[] = array(gettext("Sync"), false, "/pkg_edit.php?xml=suricata/suricata_sync.xml");
 $tab_array[] = array(gettext("IP Lists"), false, "/suricata/suricata_ip_list_mgmt.php");
 display_top_tabs($tab_array, true);
-
-if ($g['platform'] == "nanobsd") {
-	$input_errors[] = gettext("SID auto-management is not supported on NanoBSD installs");
-}
 
 /* Display Alert message, under form tag or no refresh */
 if ($input_errors) {

@@ -11,7 +11,6 @@ COMMENT=	Convert HTML (or live webpages) to PDF or image
 LICENSE=	LGPL3
 LICENSE_FILE=	${WRKSRC}/LICENSE
 
-BROKEN_aarch64=		fails to build: error: cast from pointer to smaller type loses information
 BROKEN_armv6=		fails to build: error: Not supported ARM architecture
 BROKEN_armv7=		fails to build: error: invalid operand for instruction
 BROKEN_mips64=		fails to link: undefined reference to __sync_add_and_fetch_4
@@ -21,7 +20,7 @@ LIB_DEPENDS=	libfontconfig.so:x11-fonts/fontconfig \
 		libfreetype.so:print/freetype2 \
 		libpng.so:graphics/png
 
-USES=		compiler:c++11-lang gmake iconv jpeg perl5 pkgconfig ssl xorg
+USES=		gmake iconv jpeg perl5 pkgconfig ssl xorg
 USE_GCC=	8
 USE_XORG=	x11 xext xrender
 USE_PERL5=	build
@@ -66,7 +65,6 @@ post-patch:
 		-e 's|/usr/X11R6/lib|${LOCALBASE}/lib|g' \
 		${PATCH_WRKSRC}/mkspecs/freebsd-g++/qmake.conf
 	${REINPLACE_CMD} -e 's|%%LOCALBASE%%|${LOCALBASE}|g' \
-		-e 's|%%GCC_DEFAULT%%|${GCC_DEFAULT}|g' \
 		${PATCH_WRKSRC}/mkspecs/common/gcc-base.conf
 	${REINPLACE_CMD} -e "s|gcc|${CC}|g" -e "s|g++|${CXX}|g" \
 		${PATCH_WRKSRC}/mkspecs/common/g++-base.conf

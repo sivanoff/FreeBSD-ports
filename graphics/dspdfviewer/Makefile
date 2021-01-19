@@ -3,7 +3,7 @@
 PORTNAME=	dspdfviewer
 PORTVERSION=	1.15.1
 DISTVERSIONPREFIX=	v
-PORTREVISION=	30
+PORTREVISION=	36
 CATEGORIES=	graphics
 
 MAINTAINER=	fox@FreeBSD.org
@@ -42,12 +42,19 @@ CFLAGS+=	-Wno-error=undefined-func-template
 .endif
 
 .if ${OPSYS} == FreeBSD && ${OSVERSION} >= 1200039 && ${CHOSEN_COMPILER_TYPE} == clang
+# (rene) also related to issue #191 which is still open as of 2020-10-21
 CFLAGS+=	-Wno-error=zero-as-null-pointer-constant
 .endif
 
 # Fixes build failure for Clang 8.0.0
-.if ${OPSYS} == FreeBSD && (${OSVERSION} >= 1300014 || (${OSVERSION} >= 1103000 && ${OSVERSION} < 1200000) || ${OSVERSION} >= 1201000) && ${CHOSEN_COMPILER_TYPE} == clang
+.if ${OPSYS} == FreeBSD && ${CHOSEN_COMPILER_TYPE} == clang
 CFLAGS+=	-Wno-error=extra-semi-stmt
+.endif
+
+# Fixes build failure for Clang 11.0.0
+.if ${OPSYS} == FreeBSD && ${OSVERSION} >= 1300111 && ${CHOSEN_COMPILER_TYPE} == clang
+CFLAGS+=	-Wno-error=suggest-destructor-override
+CFLAGS+=	-Wno-error=suggest-override
 .endif
 
 # Prepare for Qt5-5.15

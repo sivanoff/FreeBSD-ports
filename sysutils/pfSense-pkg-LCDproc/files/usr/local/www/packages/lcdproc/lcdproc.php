@@ -3,7 +3,7 @@
  * lcdproc.php
  *
  * part of pfSense (https://www.pfsense.org/)
- * Copyright (c) 2016-2020 Rubicon Communications, LLC (Netgate)
+ * Copyright (c) 2016-2021 Rubicon Communications, LLC (Netgate)
  * Copyright (c) 2011 Michele Di Maria
  * Copyright (c) 2007-2009 Seth Mos <seth.mos@dds.nl>
  * Copyright (c) 2008 Mark J Crane
@@ -71,7 +71,7 @@ if ($_POST) {
 		$lcdproc_config['mtxorb_type']                 = $pconfig['mtxorb_type'];
 		$lcdproc_config['mtxorb_adjustable_backlight'] = $pconfig['mtxorb_adjustable_backlight'];
 
-		write_config();
+		write_config("lcdproc: Settings saved");
 		sync_package_lcdproc();
 	}
 }

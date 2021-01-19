@@ -3,6 +3,7 @@
 
 PORTNAME=	ffmpeg
 PORTVERSION=	4.3.1
+PORTREVISION=	9
 PORTEPOCH=	1
 CATEGORIES=	multimedia audio net
 MASTER_SITES=	https://ffmpeg.org/releases/
@@ -46,8 +47,8 @@ OPTIONS_DEFINE=	ALSA AMR_NB AMR_WB AOM ARIBB24 ASM ASS BS2B CACA CDIO CELT \
 		WAVPACK WEBP X264 X265 XAVS2 XCB XVID XVIDEO ZIMG ZMQ ZVBI
 
 OPTIONS_DEFAULT=	AOM ASM ASS DAV1D DRM FONTCONFIG FREETYPE FREI0R GMP GNUTLS ICONV \
-			LIBXML2 OPENCV OPTIMIZED_CFLAGS OPUS RTCPU THEORA V4L VAAPI VDPAU \
-			VORBIS VPX X264 X265 XCB XVID
+			LAME LIBXML2 OPENCV OPTIMIZED_CFLAGS OPUS RTCPU THEORA V4L VAAPI \
+			VDPAU VORBIS VPX X264 X265 XCB XVID
 
 .if !exists(${.CURDIR:H:H}/multimedia/aribb24)
 # https://git.ffmpeg.org/gitweb/ffmpeg.git/commitdiff/100bfac6d6ec
@@ -247,8 +248,8 @@ GCRYPT_LIB_DEPENDS=	libgcrypt.so:security/libgcrypt
 GCRYPT_CONFIGURE_ENABLE=	gcrypt
 
 # glslang
-GLSLANG_BUILD_DEPENDS=	glslang>0:devel/glslang \
-			spirv-tools>0:devel/spirv-tools
+GLSLANG_BUILD_DEPENDS=	glslang>0:graphics/glslang \
+			spirv-tools>0:graphics/spirv-tools
 GLSLANG_CONFIGURE_ENABLE=	libglslang
 GLSLANG_LDFLAGS=	-lm
 
@@ -466,7 +467,7 @@ SVTAV1_LDFLAGS=		-fuse-ld=lld
 # svt-hevc
 SVTHEVC_LIB_DEPENDS=	libSvtHevcEnc.so:multimedia/svt-hevc
 SVTHEVC_CONFIGURE_ON=	--enable-libsvthevc
-SVTHEVC_PATCH_SITES=	https://github.com/Intel/SVT-HEVC/raw/v1.4.3/ffmpeg_plugin/:svthevc
+SVTHEVC_PATCH_SITES=	https://github.com/Intel/SVT-HEVC/raw/v1.5.0/ffmpeg_plugin/:svthevc
 SVTHEVC_PATCHFILES=	0001-lavc-svt_hevc-add-libsvt-hevc-encoder-wrapper.patch:-p1:svthevc \
 			0002-doc-Add-libsvt_hevc-encoder-docs.patch:-p1:svthevc
 .if exists(/usr/bin/ld.lld) && (${/usr/bin/ld:L:tA} != /usr/bin/ld.lld)
@@ -479,8 +480,8 @@ SVTHEVC_LDFLAGS=	-fuse-ld=lld
 # svt-vp9
 SVTVP9_LIB_DEPENDS=	libSvtVp9Enc.so:multimedia/svt-vp9
 SVTVP9_CONFIGURE_ON=	--enable-libsvtvp9
-SVTVP9_PATCH_SITES=	https://github.com/OpenVisualCloud/SVT-VP9/raw/v0.2.2/ffmpeg_plugin/:svtvp9
-SVTVP9_PATCHFILES=	master-0001-Add-ability-for-ffmpeg-to-run-svt-vp9.patch:-p1:svtvp9
+SVTVP9_PATCH_SITES=	https://github.com/OpenVisualCloud/SVT-VP9/raw/v0.3.0/ffmpeg_plugin/:svtvp9
+SVTVP9_PATCHFILES=	n4.3.1-0001-Add-ability-for-ffmpeg-to-run-svt-vp9.patch:-p1:svtvp9
 .if exists(/usr/bin/ld.lld) && (${/usr/bin/ld:L:tA} != /usr/bin/ld.lld)
 SVTVP9_LDFLAGS=		-fuse-ld=lld
 .endif
@@ -540,7 +541,7 @@ VPX_LIB_DEPENDS=	libvpx.so:multimedia/libvpx
 VPX_CONFIGURE_ENABLE=	libvpx
 
 # vulkan
-VULKAN_BUILD_DEPENDS=	vulkan-headers>0:devel/vulkan-headers
+VULKAN_BUILD_DEPENDS=	vulkan-headers>0:graphics/vulkan-headers
 VULKAN_LIB_DEPENDS=	libvulkan.so:graphics/vulkan-loader
 VULKAN_CONFIGURE_ENABLE=	vulkan
 VULKAN_IMPLIES=		GLSLANG
@@ -628,6 +629,12 @@ DOC_FILES=	Changelog CREDITS INSTALL.md LICENSE.md MAINTAINERS \
 # under doc subdirectory
 DOC_DOCFILES=	APIchanges *.txt
 PORTDOCS=	*
+
+.include <bsd.port.options.mk>
+
+.if ${ARCH} == powerpc64 && ${PORT_OPTIONS:MLTO}
+USE_GCC=	yes
+.endif
 
 post-patch:
 # {C,LD}FLAGS safeness

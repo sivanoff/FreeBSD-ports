@@ -3,7 +3,7 @@
  * squidguard_configurator.inc
  *
  * part of pfSense (https://www.pfsense.org)
- * Copyright (c) 2015-2020 Rubicon Communications, LLC (Netgate)
+ * Copyright (c) 2015-2021 Rubicon Communications, LLC (Netgate)
  * Copyright (c) 2006-2011 Serg Dvoriancev
  * All rights reserved.
  *
@@ -517,83 +517,89 @@ function sg_check_system()
 # ==============================================================================
 # sg_reconfigure_user_db - reconfigure(update) db user entries
 # ------------------------------------------------------------------------------
-function sg_reconfigure_user_db()
-{
-    global $squidguard_config;
-    $dbhome = $squidguard_config[F_DBHOME];
+function sg_reconfigure_user_db() {
+	global $squidguard_config;
+	$dbhome = $squidguard_config[F_DBHOME];
 
-    sg_addlog("sg_reconfigure_user_db", "Begin with '$dbhome'", SQUIDGUARD_INFO);
+	sg_addlog("sg_reconfigure_user_db", "Begin with '$dbhome'", SQUIDGUARD_INFO);
 
-    # create user DB catalog, if not extsts
-    if (!file_exists($dbhome)) {
-        if (!mkdir($dbhome, 0755)) {
-            sg_addlog("sg_reconfigure_user_db", "Can't create user DB directory '$dbhome'.", SQUIDGUARD_ERROR);
-            return;
-        }
-        set_file_access($dbhome, OWNER_NAME, 0755);
-        sg_addlog("sg_reconfigure_user_db", "Create user DB directory '$dbhome'.", SQUIDGUARD_INFO);
-    }
+	# create user DB catalog, if not extsts
+	if (!file_exists($dbhome)) {
+		if (!mkdir($dbhome, 0755)) {
+			sg_addlog("sg_reconfigure_user_db", "Can't create user DB directory '$dbhome'.", SQUIDGUARD_ERROR);
+			return;
+		}
+		set_file_access($dbhome, OWNER_NAME, 0755);
+		sg_addlog("sg_reconfigure_user_db", "Create user DB directory '$dbhome'.", SQUIDGUARD_INFO);
+	}
 
-    # update destinations to db
-    $dests = $squidguard_config[F_DESTINATIONS];
-    if(!empty($dests)){
-        $dst_names = Array();
-        $dst_list  = Array();
+	# update destinations to db
+	$dests = $squidguard_config[F_DESTINATIONS];
+	if (!empty($dests)) {
+		$dst_names = Array();
+		$dst_list  = Array();
 
-        sg_addlog("sg_reconfigure_user_db", "Add user entries", SQUIDGUARD_INFO);
-        foreach($dests[F_ITEM] as $dst) {
-            $path = "$dbhome/" . $dst[F_NAME];
-            $dst_names[] = $path;
-            $dst_list["usr_{$dst[F_NAME]}"] = $dst[F_NAME];
+		sg_addlog("sg_reconfigure_user_db", "Add user entries", SQUIDGUARD_INFO);
+		foreach ($dests[F_ITEM] as $dst) {
+			$path = "$dbhome/" . $dst[F_NAME];
+			$dst_names[] = $path;
+			$dst_list["usr_{$dst[F_NAME]}"] = $dst[F_NAME];
 
-            # 1. check destination catalog and create them, if need
-            if (!file_exists($path)) {
-                if (!mkdir ($path, 0755)) {
-                    sg_addlog("sg_reconfigure_user_db", "Can't create dir '$path'.", SQUIDGUARD_ERROR);
-                    return;
-                }
-                sg_addlog("sg_reconfigure_user_db", "Create dir '$path'.", SQUIDGUARD_INFO);
-            }
+			# 1. check destination catalog and create them, if need
+			if (!file_exists($path)) {
+				if (!mkdir ($path, 0755)) {
+					sg_addlog("sg_reconfigure_user_db", "Can't create dir '$path'.", SQUIDGUARD_ERROR);
+					return;
+				}
+				sg_addlog("sg_reconfigure_user_db", "Create dir '$path'.", SQUIDGUARD_INFO);
+			}
 
-            # 2. build domains file
-            $domains = $dst[F_DOMAINS];
-            if (!empty($domains)) {
-                $content = trim(str_replace(" ", "\n", $domains));
-                file_put_contents($path . '/domains', $content);
-                sg_addlog("sg_reconfigure_user_db", "Add {$dst[F_NAME]} domains '$domains';", SQUIDGUARD_INFO);
-            }
-            unset($domains);
+			# 2. build domains file
+			$domains = $dst[F_DOMAINS];
+			if (!empty($domains)) {
+				$content = trim(str_replace(" ", "\n", $domains));
+				file_put_contents($path . '/domains', $content);
+				sg_addlog("sg_reconfigure_user_db", "Add {$dst[F_NAME]} domains '$domains';", SQUIDGUARD_INFO);
+			} else {
+				unlink_if_exists($path . '/domains*');
+			}
+			unset($domains);
 
-            # 3. build urls file
-            $urls = $dst[F_URLS];
-            if (!empty($urls)) {
-                $content = trim(str_replace(" ", "\n", $urls));
-                file_put_contents($path . '/urls', $content);
-                    sg_addlog("sg_reconfigure_user_db", "Add {$dst[F_NAME]} urls '$content';", SQUIDGUARD_INFO);
-            }
-            unset($urls);
+			# 3. build urls file
+			$urls = $dst[F_URLS];
+			if (!empty($urls)) {
+				$content = trim(str_replace(" ", "\n", $urls));
+				file_put_contents($path . '/urls', $content);
+				sg_addlog("sg_reconfigure_user_db", "Add {$dst[F_NAME]} urls '$content';", SQUIDGUARD_INFO);
+			} else {
+				unlink_if_exists($path . '/urls*');
+			}
+			unset($urls);
 
-            # 4. build expression file
-            $expr = $dst[F_EXPRESSIONS];
-            if (!empty($expr)) {
-                $content = trim(str_replace("|", " ", $expr)); # delete first and last unnecessary '|' symbol
-                $content = str_replace(" ", "|", $content);
-                file_put_contents($path . '/expressions', $content);
-                sg_addlog("sg_reconfigure_user_db", "Add {$dst[F_NAME]} expressions '$content';", SQUIDGUARD_INFO);
-            }
-            unset($expr);
-        }
+			# 4. build expression file
+			$expr = $dst[F_EXPRESSIONS];
+			if (!empty($expr)) {
+				$content = trim(str_replace("|", " ", $expr)); # delete first and last unnecessary '|' symbol
+				$content = str_replace(" ", "|", $content);
+				file_put_contents($path . '/expressions', $content);
+				sg_addlog("sg_reconfigure_user_db", "Add {$dst[F_NAME]} expressions '$content';", SQUIDGUARD_INFO);
+			} else {
+				unlink_if_exists($path . '/expressions');
+			}
+			unset($expr);
+		}
 
-        # 5. recursive set files access
-        set_file_access($dbhome, OWNER_NAME, 0755);
+		# 5. recursive set files access
+		set_file_access($dbhome, OWNER_NAME, 0755);
 
-        # 6. rebuild user db (SQUIDGUARD_DBHOME)
-        squidguard_rebuild_db("_usrdb", $dbhome, $dst_list);
-    } else
-        sg_addlog("sg_reconfigure_user_db", "User destinations list empty.", SQUIDGUARD_WARNING);
+		# 6. rebuild user db (SQUIDGUARD_DBHOME)
+		squidguard_rebuild_db("_usrdb", $dbhome, $dst_list);
+	} else {
+		sg_addlog("sg_reconfigure_user_db", "User destinations list empty.", SQUIDGUARD_WARNING);
 
-    # 7. remove unused db entries
-    sg_remove_unused_db_entries();
+		# 7. remove unused db entries
+		sg_remove_unused_db_entries();
+	}
 }
 
 # ------------------------------------------------------------------------------
@@ -1236,36 +1242,57 @@ function sg_create_simple_config($blk_dbhome, $blk_destlist, $redirect_to = "404
 # -------------------------------------------------------------------------------------------------
 function sg_redirector_base_url($rdr_info, $redirect_mode)
 {
-    global $squidguard_config;
-    $rdr_path = '';
+	global $squidguard_config;
+	$rdr_path = '';
 
-    # gui port, ip & proto
-    $guiip = (!empty($squidguard_config[F_CURRENT_LAN_IP])) ? $squidguard_config[F_CURRENT_LAN_IP] : '127.0.0.1';
-    $guiport = (!empty($squidguard_config[F_CURRENT_GUI_PORT])) ? $squidguard_config[F_CURRENT_GUI_PORT] : '80';
-    $rdr_path = "http://$guiip:$guiport" . REDIRECT_BASE_URL;
+	# gui port, ip & proto
+	$guiip = (!empty($squidguard_config[F_CURRENT_LAN_IP])) ? $squidguard_config[F_CURRENT_LAN_IP] : '127.0.0.1';
+	$guiproto = (!empty($squidguard_config[F_CURRENT_GUI_PROTO])) ? $squidguard_config[F_CURRENT_GUI_PROTO] : 'http';
+	if (empty($squidguard_config[F_CURRENT_GUI_PORT])) {
+		$guiport = ($guiproto == 'http') ? '80' : '443';
+	} else {
+		$guiport = $squidguard_config[F_CURRENT_GUI_PORT];
+	}
+	$rdr_path = "$guiproto://$guiip:$guiport" . REDIRECT_BASE_URL;
 
-    # check redirect
-    $errmsg = '';
-    if (!sg_check_redirect($redirect_mode, $rdr_info, $errmsg)) {
-        $redirect_mode = RMOD_INT_ERRORPAGE;
-        $rdr_info = "Bad redirect settings. $errmsg Check you configuration.";
-        sg_addlog("sg_redirector_base_url", "$errmsg", SQUIDGUARD_ERROR);
-    }
+	# check redirect
+	$errmsg = '';
+	if (!sg_check_redirect($redirect_mode, $rdr_info, $errmsg)) {
+		$redirect_mode = RMOD_INT_ERRORPAGE;
+		$rdr_info = "Bad redirect settings. $errmsg Check you configuration.";
+		sg_addlog("sg_redirector_base_url", "$errmsg", SQUIDGUARD_ERROR);
+	}
 
-    switch($redirect_mode) {
-        case RMOD_EXT_ERR:         $rdr_path = "$rdr_info" . REDIRECT_URL_ARGS; break;
-        case RMOD_EXT_RDR:         $rdr_path = "$rdr_info"; break;
-        case RMOD_EXT_MOVED:       $rdr_path = "301:$rdr_info"; break;
-        case RMOD_EXT_FOUND:       $rdr_path = "302:$rdr_info"; break;
-        case RMOD_INT_BLANKPAGE:   $rdr_path .= "?url=blank&msg=" . rawurlencode($rdr_info) . REDIRECT_URL_ARGS; break;
-        case RMOD_INT_BLANKIMG:    $rdr_path .= "?url=blank_img&msg=" . rawurlencode($rdr_info) . REDIRECT_URL_ARGS; break;
-        case RMOD_INT_SIZELIMIT:   $rdr_path .= "?url=maxlen_$rdr_info" . REDIRECT_URL_ARGS; break;
-        case RMOD_INT_ERRORPAGE:
-        default:                   $rdr_path .= "?url=" . rawurlencode("403 $rdr_info") . REDIRECT_URL_ARGS; break;
-    }
+	switch($redirect_mode) {
+		case RMOD_EXT_ERR:
+			$rdr_path = "$rdr_info" . REDIRECT_URL_ARGS;
+			break;
+		case RMOD_EXT_RDR:
+			$rdr_path = "$rdr_info";
+			break;
+		case RMOD_EXT_MOVED:
+			$rdr_path = "301:$rdr_info";
+			break;
+		case RMOD_EXT_FOUND:
+			$rdr_path = "302:$rdr_info";
+			break;
+		case RMOD_INT_BLANKPAGE:
+			$rdr_path .= "?url=blank&msg=" . rawurlencode($rdr_info) . REDIRECT_URL_ARGS;
+			break;
+		case RMOD_INT_BLANKIMG:
+			$rdr_path .= "?url=blank_img&msg=" . rawurlencode($rdr_info) . REDIRECT_URL_ARGS;
+			break;
+		case RMOD_INT_SIZELIMIT:
+			$rdr_path .= "?url=maxlen_$rdr_info" . REDIRECT_URL_ARGS;
+			break;
+		case RMOD_INT_ERRORPAGE:
+		default:                   
+			$rdr_path .= "?url=" . rawurlencode("403 $rdr_info") . REDIRECT_URL_ARGS;
+			break;
+	}
 
-    sg_addlog("sg_redirector_base_url", "Select redirector base url ($rdr_path)", SQUIDGUARD_INFO);
-    return $rdr_path;
+	sg_addlog("sg_redirector_base_url", "Select redirector base url ($rdr_path)", SQUIDGUARD_INFO);
+	return $rdr_path;
 }
 
 # -------------------------------------------------------------------------------------------------

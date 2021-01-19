@@ -3,7 +3,7 @@
 
 PORTNAME=	alliance
 DISTVERSION=	5.1.1
-PORTREVISION=	1
+PORTREVISION=	2
 CATEGORIES=	cad
 MASTER_SITES=	ftp://asim.lip6.fr/pub/alliance/distribution/5.0/ \
 		ftp://ftp.lyx.org/lip6/softs/alliance/distribution/5.0/ \
@@ -17,14 +17,14 @@ LICENSE_NAME=	Alliance VLSI Cad System License
 LICENSE_FILE=	${WRKSRC}/LICENCE
 LICENSE_PERMS=	dist-mirror dist-sell pkg-mirror pkg-sell auto-accept
 
+BROKEN=		fails to build
 BROKEN_aarch64=		fails to link: collect2: error: ld returned 1 exit status
 
 BUILD_DEPENDS=	convert:graphics/ImageMagick7 \
-		fig2dev:print/transfig
+		fig2dev:print/fig2dev
 
-USES=		autoreconf:build compiler:c++0x gmake libtool motif \
-		tar:bz2 xorg
-USE_GCC=	any
+USES=		autoreconf:build gmake libtool motif tar:bz2 xorg
+USE_GCC=	yes
 USE_TEX=	dvipsk:build latex:build
 USE_XORG=	ice sm x11 xext xt
 
@@ -35,6 +35,7 @@ CONFIGURE_ARGS+=--mandir=${MANPREFIX}/man \
 
 MAKE_JOBS_UNSAFE=	yes
 INSTALL_TARGET=	install-strip
+CFLAGS+=	-fcommon
 
 CONFLICTS_INSTALL=	fspclient-*
 

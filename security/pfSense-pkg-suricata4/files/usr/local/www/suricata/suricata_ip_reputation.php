@@ -3,7 +3,7 @@
  * suricata_ip_reputation.php
  *
  * part of pfSense (https://www.pfsense.org)
- * Copyright (c) 2006-2020 Rubicon Communications, LLC (Netgate)
+ * Copyright (c) 2006-2021 Rubicon Communications, LLC (Netgate)
  * Copyright (c) 2003-2004 Manuel Kasper
  * Copyright (c) 2005 Bill Marquette
  * Copyright (c) 2009 Robert Zelaya Sr. Developer
@@ -171,10 +171,6 @@ if ($_POST['save']) {
 $if_friendly = convert_friendly_interface_to_friendly_descr($a_nat[$id]['interface']);
 $pgtitle = array(gettext("Suricata"), $if_friendly, gettext("IP Reputation Preprocessor"));
 include_once("head.inc");
-
-if ($g['platform'] == "nanobsd") {
-	$input_errors[] = gettext("IP Reputation is not supported on NanoBSD installs");
-}
 
 /* Display Alert message */
 if ($input_errors)
@@ -345,8 +341,6 @@ print($form);
 </nav>
 
 
-<?php if ($g['platform'] != "nanobsd") : ?>
-
 <script type="text/javascript">
 //<![CDATA[
 events.push(function() {
@@ -461,7 +455,6 @@ function iplistComplete(req) {
 });
 //]]>
 </script>
-<?php endif; ?>
 
 <?php include("foot.inc");
 ?>

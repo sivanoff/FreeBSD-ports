@@ -2,18 +2,18 @@
 # $FreeBSD$
 
 PORTNAME=	enet
-PORTVERSION=	1.3.15
+PORTVERSION=	1.3.17
 PORTEPOCH=	1
 CATEGORIES=	net
 MASTER_SITES=	http://enet.bespin.org/download/
 
-MAINTAINER=	ports@FreeBSD.org
+MAINTAINER=	neel@neelc.org
 COMMENT=	Simple and robust communication library based on UDP
 
 LICENSE=	MIT
 LICENSE_FILE=	${WRKSRC}/LICENSE
 
-USES=		pathfix libtool
+USES=		libtool pathfix
 USE_LDCONFIG=	yes
 
 GNU_CONFIGURE=	yes

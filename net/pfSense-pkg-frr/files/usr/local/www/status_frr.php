@@ -3,7 +3,7 @@
  * status_frr.php
  *
  * part of pfSense (https://www.pfsense.org)
- * Copyright (c) 2010-2020 Rubicon Communications, LLC (Netgate)
+ * Copyright (c) 2010-2021 Rubicon Communications, LLC (Netgate)
  * Copyright (C) 2010 Nick Buraglio <nick@buraglio.com>
  * All rights reserved.
  *
@@ -190,7 +190,8 @@ if ((empty($_REQUEST['protocol']) || ($_REQUEST['protocol'] == "ospf6")) && $frr
 }
 
 if ((empty($_REQUEST['protocol']) || ($_REQUEST['protocol'] == "bfd")) && $frr_enabled && $bfdd_enabled) {
-	defCmdT("bfd_peers", "BFD Peers", "{$control_script} bfd peers");
+	defCmdT("bfd_peers_brief", "BFD Peers Brief", "{$control_script} bfd peer_br");
+	defCmdT("bfd_peers", "BFD Peers", "{$control_script} bfd peer");
 }
 
 $title_label = "FRR";
@@ -249,15 +250,11 @@ switch ($_REQUEST['protocol']) {
 	case "config":
 		$title_label = "FRR Configuration";
 		$config_files = array(
-			'zebra',
-			'bgpd',
-			'ospfd',
-			'ospf6d',
-			'bfdd',
+			'frr',
 			);
 		foreach ($config_files as $cf) {
 			if (file_exists("{$pkg_homedir}/{$cf}.conf") &&
-			    (filesize("{$pkg_homedir}/{$cf}.conf") > 0)) {
+				(filesize("{$pkg_homedir}/{$cf}.conf") > 0)) {
 				defCmdT("frr_{$cf}_config", "FRR {$cf}.conf", "/bin/cat {$pkg_homedir}/{$cf}.conf");
 			}
 		}

@@ -3,7 +3,7 @@
  * suricata_define_vars.php
  *
  * part of pfSense (https://www.pfsense.org)
- * Copyright (c) 2006-2020 Rubicon Communications, LLC (Netgate)
+ * Copyright (c) 2006-2021 Rubicon Communications, LLC (Netgate)
  * Copyright (c) 2003-2004 Manuel Kasper
  * Copyright (c) 2005 Bill Marquette
  * Copyright (c) 2009 Robert Zelaya Sr. Developer
@@ -115,7 +115,7 @@ if ($_POST) {
 
 		$a_nat[$id] = $natent;
 
-		write_config();
+		write_config("Suricata pkg: saved changes for PORT or IP variables.");
 
 		/* Update the suricata.yaml file for this interface. */
 		$rebuild_rules = false;

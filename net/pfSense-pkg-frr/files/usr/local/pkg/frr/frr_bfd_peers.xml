@@ -8,7 +8,7 @@
  * frr_bfd_peers.xml
  *
  * part of pfSense (https://www.pfsense.org)
- * Copyright (c) 2012-2020 Rubicon Communications, LLC (Netgate)
+ * Copyright (c) 2012-2021 Rubicon Communications, LLC (Netgate)
  * All rights reserved.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -29,7 +29,7 @@
 	<title>Services/FRR/BFD</title>
 	<include_file>/usr/local/pkg/frr.inc</include_file>
 	<aftersaveredirect>pkg.php?xml=frr/frr_bfd_peers.xml</aftersaveredirect>
-	<tabs>	
+	<tabs>
 		<tab>
 			<text>BFD</text>
 			<url>pkg_edit.php?xml=frr/frr_bfd.xml</url>
@@ -38,7 +38,11 @@
 			<text>Peers</text>
 			<url>pkg.php?xml=frr/frr_bfd_peers.xml</url>
 			<active/>
-		</tab>	
+		</tab>
+		<tab>
+			<text>Profiles</text>
+			<url>pkg.php?xml=frr/frr_bfd_profiles.xml</url>
+		</tab>
 		<tab>
 			<text>[Global Settings]</text>
 			<url>pkg_edit.php?xml=frr.xml</url>
@@ -78,7 +82,7 @@
 			<fieldname>shutdown</fieldname>
 		</columnitem>
 	</adddeleteeditpagefields>
-	<fields>		
+	<fields>
 		<field>
 			<name>Peer Configurations</name>
 			<type>listtopic</type>
@@ -111,6 +115,23 @@
 			<type>input</type>
 		</field>
 		<field>
+			<fielddescr>Profile</fielddescr>
+			<fieldname>Profile</fieldname>
+			<description>
+				<![CDATA[
+				Select the profile for peer take configuration from.
+				]]>
+			</description>
+			<type>select_source</type>
+			<source><![CDATA[frr_get_bfd_profiles()]]></source>
+			<source_name>name</source_name>
+			<source_value>value</source_value>
+		</field>
+		<field>
+			<name>Options</name>
+			<type>listtopic</type>
+		</field>
+		<field>
 			<fielddescr>Multihop</fielddescr>
 			<fieldname>multihop</fieldname>
 			<description>
@@ -132,7 +153,6 @@
 			</description>
 			<type>checkbox</type>
 		</field>
-
 		<field>
 			<name>Source Address/Interface</name>
 			<type>listtopic</type>
@@ -140,7 +160,7 @@
 		<field>
 			<fielddescr>Interface</fielddescr>
 			<fieldname>interface</fieldname>
-			<description>Select the interface which BFD will use as a packet source</description>
+			<description>Select the interface which BFD will use as a packet source.</description>
 			<type>select_source</type>
 			<source><![CDATA[frr_get_interfaces()]]></source>
 			<source_name>name</source_name>
@@ -160,7 +180,6 @@
 			<source_name>name</source_name>
 			<source_value>value</source_value>
 		</field>
-
 		<field>
 			<name>Advanced Options</name>
 			<type>listtopic</type>
@@ -209,19 +228,20 @@
 		</field>
 		<field>
 			<fielddescr>Echo Mode</fielddescr>
-			<fieldname>echo_mode</fieldname>
+			<fieldname>echomode</fieldname>
 			<description>
 				<![CDATA[
 				Enables or disables the echo transmission mode. This mode is disabled by default.
-				<br />
 				FRR documentation recommendeds that the transmission interval of control packets to be increased after enabling echo-mode to reduce bandwidth usage. For example: transmission-interval 2000.
-				<br />
 				Echo mode is not supported on multi-hop setups, see RFC 5883 section 3.
 				]]>
 			</description>
 			<type>checkbox</type>
 		</field>
 	</fields>
+	<custom_delete_php_command>
+		frr_generate_config();
+	</custom_delete_php_command>
 	<custom_php_resync_config_command>
 		frr_generate_config();
 	</custom_php_resync_config_command>

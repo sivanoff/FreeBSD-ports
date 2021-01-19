@@ -3,7 +3,7 @@
  * syslog-ng.inc
  *
  * part of pfSense (https://www.pfsense.org)
- * Copyright (c) 2015-2020 Rubicon Communications, LLC (Netgate)
+ * Copyright (c) 2015-2021 Rubicon Communications, LLC (Netgate)
  * Copyright (c) 2012 Lance Leger
  * All rights reserved.
  *
@@ -371,7 +371,7 @@ function syslogng_resync() {
 		}
 	}
 
-	write_config();
+	write_config("syslog-ng: Settings saved");
 	filter_configure();
 }
 
