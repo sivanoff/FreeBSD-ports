@@ -196,7 +196,17 @@ function squid_gen_extra_ca() {
 			$param = array('caref' => $extraca);
 			$cas = ca_chain_array($param);
 			foreach ($cas as $ca) {
-				ca_setup_capath($ca, $capath);
+				if (function_exists('ca_setup_capath')) {
+					ca_setup_capath($ca, $capath);
+				} else {
+					$cert_contents = base64_decode($ca['crt']);
+					$cert_details = openssl_x509_parse($cert_contents);
+					$ca_filename = "{$capath}/{$cert_details['hash']}.0";
+					file_put_contents($ca_filename, $cert_contents);
+					chmod($ca_filename, 0644);
+					chown($ca_filename, 'root');
+					chgrp($ca_filename, 'wheel');
+				}
 			}
 		}
 	}
@@ -1091,6 +1101,15 @@ function squid_validate_nac($post, &$input_errors) {
 		}
 	}
 	unset($extmgr);
+
+	if (!empty($post['google_accounts'])) {
+		foreach (explode(",", $post['google_accounts']) as $dom) {
+			$dom = trim($dom);
+			if (!is_domain($dom)) {
+				$input_errors[] = "The '$dom' is not a valid Google Accounts Domain.";
+			}
+		}
+	}
 }
 
 /* Proxy server: Traffic Management input validation */
@@ -2017,6 +2036,18 @@ function squid_resync_auth() {
 			$conf .= "# Block access with mime type in the reply\n";
 			$conf .= "http_reply_access deny block_reply_mime_type\n";
 		}
+	}
+	if (!empty($settingsnac['google_accounts'])) {
+		$conf .= "# List of domains allowed to logging in to Google services\n";
+		$conf .= "request_header_access X-GoogApps-Allowed-Domains deny all\n";
+		$conf .= "request_header_add X-GoogApps-Allowed-Domains {$settingsnac['google_accounts']}\n";
+	}
+	if (!empty($settingsnac['youtube_restrict'])) {
+		$conf .= "# Set YouTube safesearch restriction\n";
+		$conf .= "acl youtubedst dstdomain -n www.youtube.com m.youtube.com ";
+	        $conf .= "youtubei.googleapis.com youtube.googleapis.com www.youtube-nocookie.com\n";
+		$conf .= "request_header_access YouTube-Restrict deny all\n";
+		$conf .= "request_header_add YouTube-Restrict {$settingsnac['youtube_restrict']} youtubedst\n";
 	}
 
 	// Include squidguard denied acl log in squid
